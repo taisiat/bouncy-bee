@@ -135,3 +135,26 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: 50px;
+  background-color: rgba(255, 255, 255, 0.467);
+}
+header #title {
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
+}
+
+#tagline {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  font-size: 18px;
+  margin-top: 10px;
+}
