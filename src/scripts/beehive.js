@@ -1,3 +1,3 @@
-class Bee extends MovingObject {
+class Beehive {
   constructor(options = {}) {}
 }
