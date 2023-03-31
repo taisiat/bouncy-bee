@@ -1,7 +1,7 @@
 {
   "name": "bouncy-bee",
   "version": "1.0.0",
-  "description": "_Javascript game akin to shuffleboard and cannon shooter_",
+  "description": "_Javascript game akin to shuffleboard, pool, and cannon shooter_",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -13,7 +13,7 @@
     "url": "git+https://github.com/taisiat/bouncy-bee.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Taisia Karaseva",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/taisiat/bouncy-bee/issues"
@@ -36,4 +36,3 @@
     "defaults"
   ]
 }
-

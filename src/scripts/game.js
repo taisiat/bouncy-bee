@@ -5,4 +5,8 @@ class Game {
 
   draw(ctx) {}
 }
+
+// module.exports = Game;
+export default Game;
+
 //Keeps track of dimensions of the space; wraps objects around when they drift off the screen.
