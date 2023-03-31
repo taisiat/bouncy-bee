@@ -14,6 +14,7 @@ class Beehive extends MovingObject {
     this.vel = Beehive.VEL;
     this.pos = Beehive.POS;
     this.game = options.game;
+    this.bounces = false;
   }
 }
 

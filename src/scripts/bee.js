@@ -11,6 +11,7 @@ class Bee extends MovingObject {
     this.color = Bee.COLOR;
     this.radius = Bee.RADIUS;
     this.vel = Util.randomVec(5);
+    this.bounces = true;
   }
 }
 

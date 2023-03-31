@@ -20,6 +20,9 @@ window.Flower = Flower;
 import Beehive from "../src/scripts/beehive.js";
 window.Beehive = Beehive;
 
+import SpeedStrip from "../src/scripts/speed_strip";
+window.SpeedStrip = SpeedStrip;
+
 const canvasEl = document.getElementsByTagName("canvas")[0];
 canvasEl.height = Game.DIM_Y;
 canvasEl.width = Game.DIM_X;

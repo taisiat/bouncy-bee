@@ -4,6 +4,7 @@ import Bee from "./bee.js";
 import Beehive from "./beehive.js";
 // import MovingObject from "./moving_object.js";
 import SpeedStrip from "./speed_strip";
+import * as Util from "./util.js";
 
 class Game {
   static DIM_X = 1200;
@@ -30,15 +31,40 @@ class Game {
     }
   }
 
-  step() {} //Game.prototype.step method calls Game.prototype.move on all the objects, and Game.prototype.checkCollisions checks for colliding objects.
-
   draw(ctx) {
     ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
-    this.wasps.forEach((wasp) => wasp.draw(ctx));
     this.flowers.forEach((flower) => flower.draw(ctx));
-    this.bee.draw(ctx);
     this.beehive.draw(ctx);
     this.speedStrips.forEach((speedStrip) => speedStrip.draw(ctx));
+    this.wasps.forEach((wasp) => wasp.draw(ctx));
+    this.bee.draw(ctx);
+  }
+  moveObjects() {
+    this.wasps.forEach((wasp) => wasp.move());
+    this.bee.move();
+  }
+
+  wrap(pos) {
+    return [Util.wrap(pos[0], Game.DIM_X), Util.wrap(pos[1], Game.DIM_Y)];
+  }
+  step() {
+    this.moveObjects();
+    // this.checkCollisions();
+  } //Game.prototype.step method calls Game.prototype.move on all the objects, and Game.prototype.checkCollisions checks for colliding objects.
+
+  checkCollisions() {
+    const allObjects = this.allObjects();
+    for (let i = 0; i < allObjects.length; i++) {
+      for (let j = 0; j < allObjects.length; j++) {
+        const obj1 = allObjects[i];
+        const obj2 = allObjects[j];
+
+        if (obj1.isCollidedWith(obj2)) {
+          const collision = obj1.collideWith(obj2);
+          if (collision) return;
+        }
+      }
+    }
   }
 
   addWasps() {
@@ -59,15 +85,9 @@ class Game {
     return new SpeedStrip({ pos: this.randomPosition(), game: this });
   }
 
-  moveObjects() {
-    this.wasps.forEach((wasp) => wasp.move());
-    this.bee.move();
-  }
-
   randomPosition() {
-    let x_pox = Math.floor(Math.random() * Game.DIM_X);
     return [
-      x_pox > Game.DIM_X * 0.25 ? x_pox : Game.DIM_X * 0.25,
+      Math.floor(Math.random() * (0.75 * Game.DIM_X) + 0.25 * Game.DIM_X),
       Math.floor(Math.random() * Game.DIM_Y),
     ];
   }

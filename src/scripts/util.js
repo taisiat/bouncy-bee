@@ -7,3 +7,9 @@ export function randomVec(length) {
 export function scale(vec, m) {
   return [vec[0] * m, vec[1] * m];
 }
+
+export function wrap(coord, max) {
+  let x = coord % max;
+  if (x < 0) x += max;
+  return x;
+}

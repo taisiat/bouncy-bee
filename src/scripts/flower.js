@@ -12,6 +12,7 @@ class Flower extends MovingObject {
     this.vel = Flower.VEL;
     this.pos = options.pos;
     this.game = options.game;
+    this.bounces = false;
   }
 }
 

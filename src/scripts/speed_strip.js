@@ -13,6 +13,7 @@ class SpeedStrip extends MovingObject {
     this.vel = SpeedStrip.VEL;
     this.pos = options.pos;
     this.game = options.game;
+    this.bounces = false;
   }
 }
 // module.exports = SpeedStrip;

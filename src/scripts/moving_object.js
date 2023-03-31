@@ -12,7 +12,7 @@ class MovingObject {
     this.color = options.color;
     this.game = options.game;
     // this.isWrappable = true;
-    // this.bounces = options.bounces
+    this.bounces = options.bounces;
   }
 
   move() {
@@ -55,6 +55,10 @@ class MovingObject {
   }
 
   collideWith(otherObject) {}
+
+  remove() {
+    this.game.remove(this);
+  }
 }
 
 // module.exports = MovingObject;
