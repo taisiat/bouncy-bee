@@ -11,13 +11,21 @@ window.Game = Game;
 import Bee from "../src/scripts/bee.js";
 window.Bee = Bee;
 
-const canvasEle = document.getElementById("game-canvas");
-const ctx = canvasEle.getContext("2d");
+import Wasp from "../src/scripts/wasp.js";
+window.Wasp = Wasp;
 
-const mo = new Bee({
-  pos: [30, 30],
-  vel: [10, 10],
-  //   radius: 50,
-  //   color: "red",
-});
-mo.draw(ctx);
+import Flower from "../src/scripts/flower.js";
+window.Flower = Flower;
+
+import Beehive from "../src/scripts/beehive.js";
+window.Beehive = Beehive;
+
+const canvasEl = document.getElementsByTagName("canvas")[0];
+canvasEl.height = Game.DIM_Y;
+canvasEl.width = Game.DIM_X;
+
+const canvas = document.getElementById("game-canvas");
+const ctx = canvas.getContext("2d");
+
+const gv = new GameView(ctx);
+gv.start();

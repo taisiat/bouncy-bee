@@ -1,5 +1,6 @@
 // const MovingObject = require("./moving_object.js");
 import MovingObject from "./moving_object";
+import Game from "./game";
 import * as Util from "./util.js";
 
 class Bee extends MovingObject {

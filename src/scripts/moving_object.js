@@ -1,5 +1,6 @@
 // Base class for anything that moves.
-import Game from "./game.js";
+// import Game from "./game.js";
+import * as Util from "./util.js";
 
 const NORMAL_FRAME_TIME_DELTA = 1000 / 60;
 
@@ -9,11 +10,12 @@ class MovingObject {
     this.vel = options.vel;
     this.radius = options.radius;
     this.color = options.color;
-    // this.game = options.game;
+    this.game = options.game;
     // this.isWrappable = true;
+    // this.bounces = options.bounces
   }
 
-  move(timeDelta) {
+  move() {
     this.pos = [this.pos[0] + this.vel[0], this.pos[1] + this.vel[1]];
     this.pos = this.game.wrap(this.pos);
     return this.pos;
