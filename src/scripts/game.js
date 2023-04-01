@@ -2,7 +2,6 @@ import Wasp from "./wasp.js";
 import Flower from "./flower.js";
 import Bee from "./bee.js";
 import Beehive from "./beehive.js";
-// import MovingObject from "./moving_object.js";
 import SpeedStrip from "./speed_strip";
 import * as Util from "./util.js";
 
@@ -73,8 +72,8 @@ class Game {
 
   step() {
     this.moveObjects();
-    // this.checkCollisions();
-  } //Game.prototype.step method calls Game.prototype.move on all the objects, and Game.prototype.checkCollisions checks for colliding objects.
+    this.checkCollisions();
+  }
 
   allNonBeeObjects() {
     return [].concat(
@@ -86,16 +85,33 @@ class Game {
   }
 
   checkCollisions() {
-    const allNonBeeObjects = this.allNonBeeObjects();
+    let allNonBeeObjects = this.allNonBeeObjects();
     for (let i = 0; i < allNonBeeObjects.length; i++) {
-      const obj = allNonBeeObjects[i];
+      const object = allNonBeeObjects[i];
 
-      if (obj.isCollidedWith(this.bee)) {
-        //edit what happens when bee collides w another object
-        const collision = obj1.collideWith(obj2);
-        if (collision) return;
+      if (object.isCollidedWith(this.bee)) {
+        if (object instanceof Wasp) {
+          this.gameOver();
+        }
+        if (object instanceof Flower) {
+          this.addPoints();
+        }
+        if (object instanceof SpeedStrip) {
+          this.bee.accelerate(1.05);
+        }
+        if (object instanceof Beehive) {
+          console.log("nothing interesting");
+        }
       }
     }
+  }
+
+  gameOver() {
+    console.log("game over");
+  }
+
+  addPoints() {
+    console.log("points!");
   }
 
   addWasps() {
@@ -104,18 +120,21 @@ class Game {
   addFlowers() {
     return new Flower({ pos: this.randomPosition(), game: this });
   }
-  addBee() {
-    return new Bee({ pos: [200, 300], game: this });
-  }
 
   addBeehive() {
-    return new Beehive({ pos: [100, 300], game: this });
+    return new Beehive({
+      pos: [80, Game.DIM_Y * 0.5],
+      game: this,
+    });
   }
 
   addSpeedStrips() {
     return new SpeedStrip({ pos: this.randomPosition(), game: this });
   }
 
+  addBee() {
+    return new Bee({ pos: [80, Game.DIM_Y * 0.5], game: this });
+  }
   randomPosition() {
     return [
       Math.floor(Math.random() * (0.75 * Game.DIM_X) + 0.25 * Game.DIM_X),
@@ -130,7 +149,4 @@ class Game {
   }
 }
 
-// module.exports = Game;
 export default Game;
-
-//Keeps track of dimensions of the space; wraps objects around when they drift off the screen.
