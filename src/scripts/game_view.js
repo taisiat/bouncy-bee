@@ -4,6 +4,7 @@ class GameView {
   constructor(ctx) {
     this.game = new Game();
     this.ctx = ctx;
+    this.bee = this.game.bee;
   }
 
   start() {
@@ -12,12 +13,33 @@ class GameView {
       this.game.draw(this.ctx);
     }, 20);
   }
+
+  bindKeyHandlers() {
+    key("a", () => {
+      // console.log("nudge left");
+      this.bee.nudge("left");
+    });
+    key("d", () => {
+      // console.log("nudge right")
+      this.bee.nudge("right");
+    });
+  }
+
+  start() {
+    this.bindKeyHandlers();
+    this.lastTime = 0;
+    requestAnimationFrame(this.animate.bind(this));
+  }
+
+  animate(time) {
+    const timeDelta = time - this.lastTime;
+
+    this.game.step(timeDelta);
+    this.game.draw(this.ctx);
+    this.lastTime = time;
+
+    requestAnimationFrame(this.animate.bind(this));
+  }
 }
 
-// module.exports = GameView;
 export default GameView;
-
-//Stores a Game instance.
-// Stores a canvas context to draw the game into.
-// Installs key listeners to move the ship and fire bullets.
-// Installs a timer to call Game.prototype.step.

@@ -36,6 +36,11 @@ class MovingObject {
     ctx.beginPath();
     ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI, true);
     ctx.fill();
+    ctx.drawImage(
+      this.background,
+      this.pos[0] - this.radius,
+      this.pos[1] - this.radius
+    );
   }
 
   isCollidedWith(otherObject) {

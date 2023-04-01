@@ -12,7 +12,7 @@ class Game {
 
   static NUM_WASPS = 3;
   static NUM_FLOWERS = 10;
-  static NUM_SPEEDSTRIPS = 2;
+  static NUM_SPEEDSTRIPS = 0;
 
   constructor() {
     this.wasps = [];
@@ -59,16 +59,16 @@ class Game {
     ];
   }
 
-  isAtEdge(pos, radius) {
-    let xPos = pos[0];
-    let yPos = pos[1];
-    return (
-      xPos === radius ||
-      yPos === radius ||
-      xPos === Game.DIM_X - radius ||
-      yPos === Game.DIM_Y - radius
-    );
-  }
+  // isAtEdge(pos, radius) {
+  //   let xPos = pos[0];
+  //   let yPos = pos[1];
+  //   return (
+  //     xPos === radius ||
+  //     yPos === radius ||
+  //     xPos === Game.DIM_X - radius ||
+  //     yPos === Game.DIM_Y - radius
+  //   );
+  // }
 
   step() {
     this.moveObjects();

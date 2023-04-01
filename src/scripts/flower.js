@@ -2,7 +2,7 @@ import Game from "./game";
 import MovingObject from "./moving_object";
 
 class Flower extends MovingObject {
-  static RADIUS = 50;
+  static RADIUS = 40;
   static COLOR = "pink";
   static VEL = [0, 0];
   static BOUNCY = false;

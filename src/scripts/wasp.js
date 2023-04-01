@@ -6,7 +6,7 @@ import MovingObject from "./moving_object.js";
 import * as Util from "./util.js";
 
 class Wasp extends MovingObject {
-  static RADIUS = 40;
+  static RADIUS = 30;
   static BOUNCY = true;
 
   static COLOR = "red";
