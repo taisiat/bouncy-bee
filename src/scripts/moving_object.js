@@ -12,13 +12,13 @@ class MovingObject {
     this.color = options.color;
     this.game = options.game;
     // this.isWrappable = true;
-    this.bounces = options.bounces;
+    this.isBouncy = options.isBouncy;
     this.background = options.background;
   }
 
   move() {
     let newPos = [this.pos[0] + this.vel[0], this.pos[1] + this.vel[1]];
-    if (this.bounces) {
+    if (this.isBouncy) {
       let bouncedPos = this.game.bounce(newPos, this.radius);
       //   if (bouncedPos[0] !== newPos[0] || bouncedPos[1] !== newPos[1]) {
       if (bouncedPos[0] !== newPos[0]) {

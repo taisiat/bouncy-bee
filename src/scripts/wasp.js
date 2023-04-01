@@ -7,13 +7,15 @@ import * as Util from "./util.js";
 
 class Wasp extends MovingObject {
   static RADIUS = 40;
+  static BOUNCY = true;
+
   static COLOR = "red";
   constructor(options = {}) {
     super(options);
     this.color = Wasp.COLOR;
     this.radius = Wasp.RADIUS;
     this.vel = Util.randomVec(0.5);
-    this.bounces = true;
+    this.isBouncy = Wasp.BOUNCY;
     this.background = document.getElementById("wasp");
   }
 }

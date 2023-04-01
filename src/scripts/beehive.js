@@ -7,6 +7,8 @@ class Beehive extends MovingObject {
   static COLOR = "white";
   static VEL = [0, 0];
   static POS = [80, 300];
+  static BOUNCY = false;
+
   constructor(options = {}) {
     super();
     this.color = Beehive.COLOR;
@@ -14,7 +16,7 @@ class Beehive extends MovingObject {
     this.vel = Beehive.VEL;
     this.pos = Beehive.POS;
     this.game = options.game;
-    this.bounces = false;
+    this.isBouncy = Beehive.BOUNCY;
     this.background = document.getElementById("beehive");
   }
 }

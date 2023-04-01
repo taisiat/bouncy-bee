@@ -6,6 +6,8 @@ class SpeedStrip extends MovingObject {
   static RADIUS = 30;
   static COLOR = "black";
   static VEL = [0, 0];
+  static BOUNCY = false;
+
   constructor(options = {}) {
     super();
     this.color = SpeedStrip.COLOR;
@@ -13,7 +15,7 @@ class SpeedStrip extends MovingObject {
     this.vel = SpeedStrip.VEL;
     this.pos = options.pos;
     this.game = options.game;
-    this.bounces = false;
+    this.isBouncy = SpeedStrip.BOUNCY;
     this.background = document.getElementById("speedstrip");
   }
 }

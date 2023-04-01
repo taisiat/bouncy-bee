@@ -5,14 +5,14 @@ import * as Util from "./util.js";
 
 class Bee extends MovingObject {
   static RADIUS = 40;
-
+  static BOUNCY = true;
   static COLOR = "yellow";
   constructor(options = {}) {
     super(options);
     this.color = Bee.COLOR;
     this.radius = Bee.RADIUS;
     this.vel = Util.randomVec(5);
-    this.bounces = true;
+    this.isBouncy = Bee.BOUNCY;
     this.background = document.getElementById("bee");
   }
 }
