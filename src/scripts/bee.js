@@ -5,6 +5,7 @@ import * as Util from "./util.js";
 
 class Bee extends MovingObject {
   static RADIUS = 40;
+
   static COLOR = "yellow";
   constructor(options = {}) {
     super(options);
@@ -12,6 +13,7 @@ class Bee extends MovingObject {
     this.radius = Bee.RADIUS;
     this.vel = Util.randomVec(5);
     this.bounces = true;
+    this.background = document.getElementById("bee");
   }
 }
 

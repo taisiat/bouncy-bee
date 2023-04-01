@@ -15,6 +15,7 @@ class Beehive extends MovingObject {
     this.pos = Beehive.POS;
     this.game = options.game;
     this.bounces = false;
+    this.background = document.getElementById("beehive");
   }
 }
 

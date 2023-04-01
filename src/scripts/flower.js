@@ -13,6 +13,7 @@ class Flower extends MovingObject {
     this.pos = options.pos;
     this.game = options.game;
     this.bounces = false;
+    this.background = document.getElementById("flower");
   }
 }
 

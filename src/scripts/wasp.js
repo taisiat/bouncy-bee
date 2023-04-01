@@ -14,6 +14,7 @@ class Wasp extends MovingObject {
     this.radius = Wasp.RADIUS;
     this.vel = Util.randomVec(0.5);
     this.bounces = true;
+    this.background = document.getElementById("wasp");
   }
 }
 
