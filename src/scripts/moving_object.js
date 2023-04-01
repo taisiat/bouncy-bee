@@ -16,9 +16,30 @@ class MovingObject {
   }
 
   move() {
-    this.pos = [this.pos[0] + this.vel[0], this.pos[1] + this.vel[1]];
-    this.pos = this.game.wrap(this.pos);
-    return this.pos;
+    let newPos = [this.pos[0] + this.vel[0], this.pos[1] + this.vel[1]];
+    if (this.bounces) {
+      let bouncedPos = this.game.bounce(newPos, this.radius);
+      //   if (bouncedPos[0] !== newPos[0] || bouncedPos[1] !== newPos[1]) {
+      if (bouncedPos[0] !== newPos[0]) {
+        this.vel[0] = -this.vel[0];
+      }
+      if (bouncedPos[1] !== newPos[1]) {
+        this.vel[1] = -this.vel[1];
+      }
+      // this.vel = [-this.vel[0], -this.vel[1]];
+      // this.vel = [5, 5];
+      //     this.vel = [
+      //       bouncedPos[0] - newPos[0] || this.vel[0],
+      //       bouncedPos[1] - newPos[1] || this.vel[1],
+      //     ];
+      //   }
+      this.pos = bouncedPos;
+    } else {
+      this.pos = this.game.wrap(newPos);
+    }
+    // this.pos = newPos;
+    // this.pos = this.game.wrap(newPos);
+    // return this.pos;
 
     // const velocityScale = timeDelta / NORMAL_FRAME_TIME_DELTA,
     //   offsetX = this.vel[0] * velocityScale,
@@ -26,13 +47,19 @@ class MovingObject {
 
     // this.pos = [this.pos[0] + offsetX, this.pos[1] + offsetY];
 
-    // if (this.game.isOutOfBounds(this.pos)) {
-    //   if (this.isWrappable) {
-    //     this.pos = this.game.wrap(this.pos);
+    // if (this.game.isAtEdge(newPos, this.radius)) {
+    //   if (this.bounces) {
+    //     // return (this.pos = this.game.wrap(this.pos));
+    //     this.pos = [300, 300];
     //   } else {
     //     this.remove();
     //   }
+    // } else {
+    //   this.pos = this.game.wrap(newPos);
+    //   //   this.pos = newPos;
+    //   //   return this.pos;
     // }
+    return this.pos;
   }
 
   draw(ctx) {

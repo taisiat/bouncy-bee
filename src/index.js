@@ -23,6 +23,10 @@ window.Beehive = Beehive;
 import SpeedStrip from "../src/scripts/speed_strip";
 window.SpeedStrip = SpeedStrip;
 
+let boardbg = document.createElement("img");
+boardbg.src = "assets/grass_smallest.jpeg";
+boardbg.setAttribute("id", "boardbg");
+
 const canvasEl = document.getElementsByTagName("canvas")[0];
 canvasEl.height = Game.DIM_Y;
 canvasEl.width = Game.DIM_X;

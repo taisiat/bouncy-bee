@@ -12,8 +12,8 @@ class Wasp extends MovingObject {
     super(options);
     this.color = Wasp.COLOR;
     this.radius = Wasp.RADIUS;
-    this.vel = Util.randomVec(1);
-    this.bounces = false;
+    this.vel = Util.randomVec(0.5);
+    this.bounces = true;
   }
 }
 

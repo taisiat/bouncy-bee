@@ -13,3 +13,17 @@ export function wrap(coord, max) {
   if (x < 0) x += max;
   return x;
 }
+
+export function bounce(coord, max, radius) {
+  // let xPos = pos[0];
+  // let yPos = pos[1];
+  // let xVel = vel[0];
+  // let yVel = vel[1];
+  if (coord < radius) {
+    return radius;
+  } else if (coord > max - radius) {
+    return max - radius;
+  } else {
+    return coord;
+  }
+}
