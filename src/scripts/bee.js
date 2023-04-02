@@ -68,6 +68,10 @@ class Bee extends MovingObject {
     this.vel = [newX, newY];
     console.log(this.vel, "vel");
   }
+
+  capture() {
+    this.caught = true;
+  }
 }
 
 export default Bee;

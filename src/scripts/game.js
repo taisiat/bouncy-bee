@@ -87,7 +87,7 @@ class Game {
 
       if (object.isCollidedWith(this.bee)) {
         if (object instanceof Wasp) {
-          this.bee.caught = true;
+          this.bee.capture();
         }
         if (object instanceof Flower) {
           this.addPoints();
@@ -109,19 +109,11 @@ class Game {
   }
 
   gameOver() {
+    console.log("gameover");
     return this.bee.landed || this.bee.caught;
   }
 
   setBeeTrajectory() {}
-
-  // gamePlay() {
-  //   this.running = true;
-  //   this.animate();
-  // }
-
-  // gamePause() {
-  //   this.running = false;
-  // }
 
   addWasps() {
     return new Wasp({ pos: this.randomPosition(), game: this });
