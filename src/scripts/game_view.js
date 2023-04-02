@@ -2,47 +2,64 @@ import Game from "./game.js";
 
 class GameView {
   constructor(ctx) {
-    this.game = new Game();
+    // this.game = new Game();
     this.ctx = ctx;
+    // this.dimensions = { width: 1200, height: 600 };
     // this.bee = this.game.bee;
-    this.running = false;
+    // this.running = false;
     this.bindKeyHandlers();
-    this.start();
+    this.restart();
+    // this.drawInstructions();
   }
 
-  // start() {
-  //   setInterval(() => {
-  //     this.game.step();
-  //     this.game.draw(this.ctx);
-  //   }, 20);
-  // }
-
   bindKeyHandlers() {
-    // if (this.game.bee.launched) {
+    key("i", () => {
+      this.pause();
+      this.drawInstructions();
+    });
+    key("o", () => {
+      this.play();
+    });
+    key("space", () => {
+      this.restart();
+    });
     key("a", () => {
       this.game.bee.nudge("left");
     });
     key("d", () => {
       this.game.bee.nudge("right");
     });
+    // if (this.game.bee.launched) {
+    //   key("a", () => {
+    //     this.game.bee.nudge("left");
+    //   });
+    //   key("d", () => {
+    //     this.game.bee.nudge("right");
+    //   });
+    // } else {
+    //   // set trajectory and velocity from starting point
     // }
-    // else {
-    //set trajectory and velocity from starting point
-    // }
-  }
-
-  start() {
-    // this.bindKeyHandlers();
-    this.lastTime = 0;
-    requestAnimationFrame(this.animate.bind(this));
   }
 
   restart() {
-    this.game = new Game();
+    // this.bindKeyHandlers();
     this.running = false;
     this.score = 0;
+    this.lastTime = 0;
+    this.game = new Game();
+    // requestAnimationFrame(this.animate.bind(this));
+    // this.animate(this.lastTime);
+    this.play(this.lastTime);
+  }
+
+  play(time) {
+    this.running = true;
+    this.animate(time);
+  }
+
+  pause() {
+    this.running = false;
     this.animate();
-    this.bindKeyHandlers();
   }
 
   animate(time) {
@@ -53,25 +70,24 @@ class GameView {
     this.drawScore();
     this.lastTime = time;
 
-    if (!this.game.gameOver()) {
+    if (!this.running) {
+      this.drawInstructions();
+    } else if (!this.game.gameOver()) {
       requestAnimationFrame(this.animate.bind(this));
     } else {
       this.game.addPoints();
       if (this.game.bee.caught) {
-        console.log(this.game.bee.caught, "caught");
-        console.log(this.game.bee.landed, "landed");
+        // console.log(this.game.bee.caught, "caught");
+        // console.log(this.game.bee.landed, "landed");
         this.drawLosePage();
       } else {
-        console.log(this.game.bee.caught, "caught");
-        console.log(this.game.bee.landed, "landed");
-
+        // console.log(this.game.bee.caught, "caught");
+        // console.log(this.game.bee.landed, "landed");
         this.drawWinPage();
       }
-      // alert(this.game.score);
-      // show score and option to restart
-      // this.restart();
     }
   }
+
   drawScore() {
     const scorePos = [10, 60];
     this.ctx.font = "40pt Delicious Handrawn";
@@ -88,13 +104,13 @@ class GameView {
     // const pattern = ctx.createPattern(this.background, "repeat");
     this.ctx.fillStyle = "green";
     this.ctx.fillRect(0, 0, 1200, 600);
-    const scorePos = [10, 300];
+    const messagePos = [10, 300];
     this.ctx.font = "40pt Delicious Handrawn";
     this.ctx.fillStyle = "yellow";
     this.ctx.fillText(
       `${message} Score: ${this.game.score}`,
-      scorePos[0],
-      scorePos[1]
+      messagePos[0],
+      messagePos[1]
     );
   }
 
@@ -106,13 +122,13 @@ class GameView {
     // const pattern = ctx.createPattern(this.background, "repeat");
     this.ctx.fillStyle = "red";
     this.ctx.fillRect(0, 0, 1200, 600);
-    const scorePos = [10, 300];
+    const messagePos = [10, 300];
     this.ctx.font = "40pt Delicious Handrawn";
     this.ctx.fillStyle = "yellow";
     this.ctx.fillText(
       `The wasps caught you! ${message}`,
-      scorePos[0],
-      scorePos[1]
+      messagePos[0],
+      messagePos[1]
     );
   }
   message(type) {
@@ -133,15 +149,22 @@ class GameView {
     return messages[idx];
   }
 
-  winMessage() {
-    const messages = [
-      "Bee-autiful work!",
-      "Buzz-tastic!",
-      "Hive five for a job well done!",
-      "Buzz-tacular effort!",
-    ];
-    let idx = Math.floor(Math.random() * messages.length);
-    return messages[idx];
+  drawInstructions() {
+    console.log("instructions");
+
+    // this.ctx.clearRect(0, 0, this.game.DIM_X, this.game.DIM_Y);
+    this.ctx.clearRect(0, 0, 1200, 600);
+    // const pattern = ctx.createPattern(this.background, "repeat");
+    this.ctx.fillStyle = "white";
+    this.ctx.fillRect(0, 0, 1200, 600);
+    const messagePos = [10, 300];
+    this.ctx.font = "40pt Delicious Handrawn";
+    this.ctx.fillStyle = "yellow";
+    this.ctx.fillText(
+      `Help Bouncy Bee collect the most nectar! \n Controls:`,
+      messagePos[0],
+      messagePos[1]
+    );
   }
 }
 

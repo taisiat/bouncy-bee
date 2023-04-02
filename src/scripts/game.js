@@ -109,7 +109,6 @@ class Game {
   }
 
   gameOver() {
-    console.log("gameover");
     return this.bee.landed || this.bee.caught;
   }
 
