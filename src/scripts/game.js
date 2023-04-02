@@ -12,7 +12,7 @@ class Game {
 
   static NUM_WASPS = 3;
   static NUM_FLOWERS = 10;
-  static NUM_SPEEDSTRIPS = 0;
+  static NUM_SPEEDSTRIPS = 1;
 
   constructor() {
     this.wasps = [];
@@ -43,9 +43,9 @@ class Game {
     this.wasps.forEach((wasp) => wasp.draw(ctx));
     this.bee.draw(ctx);
   }
-  moveObjects() {
-    this.wasps.forEach((wasp) => wasp.move());
-    this.bee.move();
+  moveObjects(delta) {
+    this.wasps.forEach((wasp) => wasp.move(delta));
+    this.bee.move(delta);
   }
 
   wrap(pos) {
@@ -97,7 +97,7 @@ class Game {
           this.addPoints();
         }
         if (object instanceof SpeedStrip) {
-          this.bee.accelerate(1.05);
+          this.bee.accelerate();
         }
         if (object instanceof Beehive) {
           console.log("nothing interesting");

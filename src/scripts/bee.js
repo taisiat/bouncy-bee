@@ -2,6 +2,14 @@ import MovingObject from "./moving_object";
 import Game from "./game";
 import * as Util from "./util.js";
 
+const CONSTANTS = {
+  NUDGE: 0.05,
+  DECEL: 0.999,
+  DECELFACTOR: 1,
+  ACCEL: 1.05,
+  LANDVEL: 0.05,
+};
+
 class Bee extends MovingObject {
   static RADIUS = 40;
   static BOUNCY = true;
@@ -17,9 +25,29 @@ class Bee extends MovingObject {
     this.background = document.getElementById("bee");
   }
 
-  accelerate(power) {
-    this.vel[0] = this.vel[0] * power;
-    this.vel[1] = this.vel[1] * power;
+  accelerate() {
+    this.vel[0] = this.vel[0] * CONSTANTS.ACCEL;
+    this.vel[1] = this.vel[1] * CONSTANTS.ACCEL;
+  }
+
+  decelerate() {
+    // this.vel[0] *= CONSTANTS.DECEL;
+    // this.vel[1] *= CONSTANTS.DECEL;
+    if (this.vel[0] < 0) {
+      this.vel[0] += 0.01;
+    } else {
+      this.vel[0] -= 0.01;
+    }
+    if (this.vel[1] < 0) {
+      this.vel[0] += 0.01;
+    } else {
+      this.vel[1] -= 0.01;
+    }
+    if (
+      Math.abs(this.vel[0]) < CONSTANTS.LANDVEL &&
+      Math.abs(this.vel[1]) < CONSTANTS.LANDVEL
+    )
+      alert("end of motion");
   }
 
   launch() {
@@ -28,7 +56,8 @@ class Bee extends MovingObject {
   }
 
   nudge(direction) {
-    const nudgeFactor = direction === "left" ? 0.05 : -0.05;
+    const nudgeFactor =
+      direction === "left" ? CONSTANTS.NUDGE : -CONSTANTS.NUDGE;
     const cosA = Math.cos(nudgeFactor);
     const sinA = Math.sin(nudgeFactor);
     const newX = this.vel[0] * cosA + this.vel[1] * sinA;

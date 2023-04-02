@@ -5,6 +5,7 @@ class GameView {
     this.game = new Game();
     this.ctx = ctx;
     this.bee = this.game.bee;
+    // this.lastTime = 0;
   }
 
   start() {
@@ -16,11 +17,9 @@ class GameView {
 
   bindKeyHandlers() {
     key("a", () => {
-      // console.log("nudge left");
       this.bee.nudge("left");
     });
     key("d", () => {
-      // console.log("nudge right")
       this.bee.nudge("right");
     });
   }

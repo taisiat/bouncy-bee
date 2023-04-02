@@ -13,8 +13,15 @@ class MovingObject {
     this.background = options.background;
   }
 
-  move() {
-    let newPos = [this.pos[0] + this.vel[0], this.pos[1] + this.vel[1]];
+  move(timeDelta) {
+    const velocityScale =
+        timeDelta || NORMAL_FRAME_TIME_DELTA / NORMAL_FRAME_TIME_DELTA,
+      offsetX = this.vel[0] * velocityScale,
+      offsetY = this.vel[1] * velocityScale;
+
+    this.pos = [this.pos[0] + offsetX, this.pos[1] + offsetY];
+    let newPos = this.pos;
+    // let newPos = [this.pos[0] + this.vel[0], this.pos[1] + this.vel[1]];
     if (this.isBouncy) {
       let bouncedPos = this.game.bounce(newPos, this.radius);
       if (bouncedPos[0] !== newPos[0]) {
@@ -26,6 +33,9 @@ class MovingObject {
       this.pos = bouncedPos;
     } else {
       this.pos = this.game.wrap(newPos);
+    }
+    if (this instanceof Bee) {
+      this.decelerate();
     }
     return this.pos;
   }
