@@ -8,6 +8,8 @@ import * as Util from "./util.js";
 const CONSTANTS = {
   BEEHIVEBONUS: 100,
   FLOWERPOINT: 1,
+  EMPTYREGION: 0.25,
+  MINEDGEDISTANCE: 40,
 };
 
 class Game {
@@ -143,10 +145,27 @@ class Game {
     return new Bee({ pos: [80, Game.DIM_Y * 0.5], game: this });
   }
   randomPosition() {
-    return [
-      Math.floor(Math.random() * (0.75 * Game.DIM_X) + 0.25 * Game.DIM_X),
+    let randomPos = [
+      Math.floor(
+        Math.random() * ((1 - CONSTANTS.EMPTYREGION) * Game.DIM_X) +
+          CONSTANTS.EMPTYREGION * Game.DIM_X
+      ),
       Math.floor(Math.random() * Game.DIM_Y),
     ];
+    randomPos.forEach((coord, i) => {
+      if (coord < CONSTANTS.MINEDGEDISTANCE) {
+        randomPos[i] += CONSTANTS.MINEDGEDISTANCE;
+      }
+      if (
+        (i === 0 && coord > Game.DIM_X - CONSTANTS.MINEDGEDISTANCE) ||
+        (i === 1 && coord > Game.DIM_Y - CONSTANTS.MINEDGEDISTANCE)
+      ) {
+        {
+          randomPos[i] -= CONSTANTS.MINEDGEDISTANCE;
+        }
+      }
+    });
+    return randomPos;
   }
 
   remove(object) {
