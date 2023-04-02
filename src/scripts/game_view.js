@@ -7,6 +7,7 @@ class GameView {
     // this.dimensions = { width: 1200, height: 600 };
     // this.bee = this.game.bee;
     // this.running = false;
+    this.highScore = 0;
     this.bindKeyHandlers();
     this.restart();
     // this.drawInstructions();
@@ -75,17 +76,29 @@ class GameView {
     } else if (!this.game.gameOver()) {
       requestAnimationFrame(this.animate.bind(this));
     } else {
-      this.game.addPoints();
       if (this.game.bee.caught) {
         // console.log(this.game.bee.caught, "caught");
         // console.log(this.game.bee.landed, "landed");
+        this.tallyPoints();
         this.drawLosePage();
       } else {
         // console.log(this.game.bee.caught, "caught");
         // console.log(this.game.bee.landed, "landed");
+        this.tallyPoints();
+
         this.drawWinPage();
       }
     }
+  }
+
+  tallyPoints() {
+    this.game.addPoints();
+    this.highScore = Math.max(this.highScore, this.game.score);
+    console.log(this.highScore);
+    document.getElementById(
+      "score-banner"
+    ).innerHTML = `Your top score: ${this.highScore}`;
+    // scoreMessage.innerHTML = `Your top score: ${this.highScore}`;
   }
 
   drawScore() {
