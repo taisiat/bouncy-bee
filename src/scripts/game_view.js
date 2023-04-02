@@ -6,7 +6,8 @@ class GameView {
     this.ctx = ctx;
     this.bee = this.game.bee;
     this.running = false;
-    this.restart();
+
+    this.start();
   }
 
   // start() {
@@ -17,12 +18,17 @@ class GameView {
   // }
 
   bindKeyHandlers() {
+    // if (this.game.bee.launched) {
     key("a", () => {
-      this.bee.nudge("left");
+      this.game.bee.nudge("left");
     });
     key("d", () => {
-      this.bee.nudge("right");
+      this.game.bee.nudge("right");
     });
+    // }
+    // else {
+    //set trajectory and velocity from starting point
+    // }
   }
 
   start() {
@@ -32,11 +38,11 @@ class GameView {
   }
 
   restart() {
+    this.game = new Game();
     this.running = false;
     this.score = 0;
-    this.game = new Game();
-
     this.animate();
+    this.bindKeyHandlers();
   }
 
   animate(time) {
@@ -47,7 +53,13 @@ class GameView {
     this.drawScore();
     this.lastTime = time;
 
-    requestAnimationFrame(this.animate.bind(this));
+    if (!this.game.gameOver()) {
+      requestAnimationFrame(this.animate.bind(this));
+    } else {
+      this.game.addPoints();
+      alert(this.game.score); // show score and option to restart
+      this.restart();
+    }
   }
   drawScore() {
     const scorePos = [10, 60];

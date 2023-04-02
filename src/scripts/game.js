@@ -5,6 +5,11 @@ import Beehive from "./beehive.js";
 import SpeedStrip from "./speed_strip";
 import * as Util from "./util.js";
 
+const CONSTANTS = {
+  BEEHIVEBONUS: 100,
+  FLOWERPOINT: 1,
+};
+
 class Game {
   static DIM_X = 1200;
   static DIM_Y = 600;
@@ -43,9 +48,9 @@ class Game {
     this.wasps.forEach((wasp) => wasp.draw(ctx));
     this.bee.draw(ctx);
   }
-  moveObjects(delta) {
-    this.wasps.forEach((wasp) => wasp.move(delta));
-    this.bee.move(delta);
+  moveObjects() {
+    this.wasps.forEach((wasp) => wasp.move());
+    this.bee.move();
   }
 
   wrap(pos) {
@@ -81,7 +86,6 @@ class Game {
       if (object.isCollidedWith(this.bee)) {
         if (object instanceof Wasp) {
           this.bee.caught = true;
-          // this.gameOver();
         }
         if (object instanceof Flower) {
           this.addPoints();
@@ -90,30 +94,32 @@ class Game {
           this.bee.accelerate();
         }
         if (object instanceof Beehive) {
-          console.log("nothing interesting");
         }
       }
     }
   }
 
   addPoints() {
-    if (!this.gameOver()) this.score += 1;
+    if (this.bee.caught) this.score = 0;
+    if (this.bee.landed && this.beehive.isCollidedWith(this.bee))
+      this.score += CONSTANTS.BEEHIVEBONUS;
+    if (!this.gameOver()) this.score += CONSTANTS.FLOWERPOINT;
   }
 
   gameOver() {
-    if (this.bee.landed || this.bee.caught) console.log("game over");
+    return this.bee.landed || this.bee.caught;
   }
 
   setBeeTrajectory() {}
 
-  gamePlay() {
-    this.running = true;
-    this.animate();
-  }
+  // gamePlay() {
+  //   this.running = true;
+  //   this.animate();
+  // }
 
-  gamePause() {
-    this.running = false;
-  }
+  // gamePause() {
+  //   this.running = false;
+  // }
 
   addWasps() {
     return new Wasp({ pos: this.randomPosition(), game: this });
