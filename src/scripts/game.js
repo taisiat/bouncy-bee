@@ -8,13 +8,13 @@ import * as Util from "./util.js";
 class Game {
   static DIM_X = 1200;
   static DIM_Y = 600;
-  //   static FPS = 32;
 
   static NUM_WASPS = 3;
   static NUM_FLOWERS = 10;
   static NUM_SPEEDSTRIPS = 1;
 
   constructor() {
+    this.score = 0;
     this.wasps = [];
     this.flowers = [];
     this.speedStrips = [];
@@ -59,17 +59,6 @@ class Game {
     ];
   }
 
-  // isAtEdge(pos, radius) {
-  //   let xPos = pos[0];
-  //   let yPos = pos[1];
-  //   return (
-  //     xPos === radius ||
-  //     yPos === radius ||
-  //     xPos === Game.DIM_X - radius ||
-  //     yPos === Game.DIM_Y - radius
-  //   );
-  // }
-
   step() {
     this.moveObjects();
     this.checkCollisions();
@@ -91,7 +80,8 @@ class Game {
 
       if (object.isCollidedWith(this.bee)) {
         if (object instanceof Wasp) {
-          this.gameOver();
+          this.bee.caught = true;
+          // this.gameOver();
         }
         if (object instanceof Flower) {
           this.addPoints();
@@ -106,12 +96,23 @@ class Game {
     }
   }
 
-  gameOver() {
-    console.log("game over");
+  addPoints() {
+    if (!this.gameOver()) this.score += 1;
   }
 
-  addPoints() {
-    console.log("points!");
+  gameOver() {
+    if (this.bee.landed || this.bee.caught) console.log("game over");
+  }
+
+  setBeeTrajectory() {}
+
+  gamePlay() {
+    this.running = true;
+    this.animate();
+  }
+
+  gamePause() {
+    this.running = false;
   }
 
   addWasps() {

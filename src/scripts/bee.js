@@ -5,7 +5,7 @@ import * as Util from "./util.js";
 const CONSTANTS = {
   NUDGE: 0.05,
   DECEL: 0.999,
-  DECELFACTOR: 1,
+  DECELFACTOR: 0.01,
   ACCEL: 1.05,
   LANDVEL: 0.05,
 };
@@ -23,6 +23,8 @@ class Bee extends MovingObject {
     // this.vel = Bee.VEL;
     this.isBouncy = Bee.BOUNCY;
     this.background = document.getElementById("bee");
+    this.landed = false;
+    this.caught = false;
   }
 
   accelerate() {
@@ -31,23 +33,22 @@ class Bee extends MovingObject {
   }
 
   decelerate() {
-    // this.vel[0] *= CONSTANTS.DECEL;
-    // this.vel[1] *= CONSTANTS.DECEL;
-    if (this.vel[0] < 0) {
-      this.vel[0] += 0.01;
-    } else {
-      this.vel[0] -= 0.01;
-    }
-    if (this.vel[1] < 0) {
-      this.vel[0] += 0.01;
-    } else {
-      this.vel[1] -= 0.01;
-    }
+    this.vel.forEach((velocity, i) => {
+      if (velocity === 0) {
+        this.vel[i] = 0;
+      } else if (velocity < 0) {
+        this.vel[i] += CONSTANTS.DECELFACTOR;
+      } else {
+        this.vel[i] -= CONSTANTS.DECELFACTOR;
+      }
+    });
     if (
-      Math.abs(this.vel[0]) < CONSTANTS.LANDVEL &&
-      Math.abs(this.vel[1]) < CONSTANTS.LANDVEL
-    )
-      alert("end of motion");
+      Math.abs(this.vel[0]) + Math.abs(this.vel[1]) <=
+      CONSTANTS.DECELFACTOR
+    ) {
+      this.vel = [0, 0];
+      console.log("landed");
+    }
   }
 
   launch() {
