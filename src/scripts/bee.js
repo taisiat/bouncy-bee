@@ -19,6 +19,7 @@ class Bee extends MovingObject {
   constructor(options = {}) {
     super(options);
     this.slide_factor = 0;
+    this.slider_increase = true;
     this.speed = 0;
     this.color = Bee.COLOR;
     this.radius = Bee.RADIUS;
@@ -100,11 +101,23 @@ class Bee extends MovingObject {
   }
 
   slideScale() {
+    // if (this.slide_factor > 1) {
+    //   this.slide_factor = 0;
+    // }
+    // this.slide_factor += 0.01;
+    // console.log(this.speed, "speed raw");
+    // this.speed = CONSTANTS.START_SCALE * this.slide_factor;
     if (this.slide_factor > 1) {
-      this.slide_factor = 0;
+      this.slider_increase = false;
     }
-    this.slide_factor += 0.01;
-    console.log(this.speed, "speed raw");
+    if (this.slide_factor < 0) {
+      this.slider_increase = true;
+    }
+    if (this.slider_increase) {
+      this.slide_factor += 0.01;
+    } else {
+      this.slide_factor -= 0.01;
+    }
     this.speed = CONSTANTS.START_SCALE * this.slide_factor;
   }
 
