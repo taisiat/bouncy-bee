@@ -52,6 +52,7 @@ class Game {
     this.bee.draw(ctx);
     if (!this.bee.launched) {
       this.bee.drawTrajectory(ctx);
+      this.bee.drawScale(ctx);
     }
   }
   moveObjects() {

@@ -4,18 +4,17 @@ import * as Util from "./util.js";
 
 const CONSTANTS = {
   NUDGE: 0.05,
-  DECEL: 0.999,
-  DECELFACTOR: 0.001,
+  // DECEL: 0.999,
+  DECELFACTOR: 0.005,
   ACCEL: 1.05,
   START_SCALE: 1,
-  // LANDVEL: 0.05,
 };
 
 class Bee extends MovingObject {
   static RADIUS = 40;
   static BOUNCY = true;
   static COLOR = "yellow";
-  static START_VEL = [1, 1];
+  static START_VEL = [5, 5];
   static VEL = [0, 0];
   constructor(options = {}) {
     super(options);
@@ -30,7 +29,6 @@ class Bee extends MovingObject {
     this.landed = false;
     this.launched = false;
     this.caught = false;
-    // this.slideScale();
   }
 
   accelerate() {
@@ -65,45 +63,62 @@ class Bee extends MovingObject {
     const newY = -Bee.START_VEL[0] * sinA + Bee.START_VEL[1] * cosA;
     Bee.START_VEL = [newX, newY];
     // console.log(Bee.START_VEL, "start vel");
-    // this.drawTrajectory();
   }
 
   drawTrajectory(ctx) {
-    // const pattern = ctx.createPattern(this.background, "repeat");
     ctx.fillStyle = "red";
     ctx.beginPath();
     ctx.arc(
-      this.pos[0] + Bee.START_VEL[0] * 50,
-      this.pos[1] + Bee.START_VEL[1] * 50,
+      this.pos[0] + Bee.START_VEL[0] * 10,
+      this.pos[1] + Bee.START_VEL[1] * 10,
       10,
       0,
       2 * Math.PI,
       true
     );
     ctx.fill();
-    //triangle
-    // ctx.beginPath();
-    // ctx.moveTo(
+    // triangle
+    // let pointerDirection = [
     //   this.pos[0] + Bee.START_VEL[0] * 50,
-    //   this.pos[1] + Bee.START_VEL[1] * 50
-    // );
-    // ctx.lineTo(
-    //   this.pos[0] + Bee.START_VEL[0] * 50 + 5,
-    //   this.pos[1] + Bee.START_VEL[1] * 50 + 5
-    // );
-    // ctx.lineTo(
-    //   this.pos[0] + Bee.START_VEL[0] * 50 - 15,
-    //   this.pos[1] + Bee.START_VEL[1] * 50 - 15
-    // );
+    //   this.pos[1] + Bee.START_VEL[1] * 50,
+    // ];
+    // let arrowPoints = Util.calculateTriangleCoord(this.pos, pointerDirection);
+    // ctx.beginPath();
+    // console.log(pointerDirection[0], pointerDirection[1], "point1");
+    // ctx.moveTo(pointerDirection[0], pointerDirection[1]);
+    // console.log(arrowPoints[0], arrowPoints[1], "point2");
+
+    // ctx.moveTo(arrowPoints[0], arrowPoints[1]);
+    // // ctx.lineTo(100, 100);
+    // // ctx.lineTo(arrowPoints[1][0], arrowPoints[1][1]);
+    // arrowPoints[0], arrowPoints[1];
+    // ctx.lineTo(100, 100);
+    // ctx.closePath();
+    // ctx.fillStyle = "red";
+
     // ctx.fill();
   }
 
   slideScale() {
-    if (this.slide_factor === 1) {
+    if (this.slide_factor > 1) {
       this.slide_factor = 0;
     }
     this.slide_factor += 0.01;
+    console.log(this.speed, "speed raw");
     this.speed = CONSTANTS.START_SCALE * this.slide_factor;
+  }
+
+  drawScale(ctx) {
+    // ctx.clearRect(30, 380, 100, 10);
+    // ctx.fillStyle = "yellow";
+    // ctx.rect(30, 380, 100, 10);
+    // ctx.fill();
+    let slider = 100 * this.slide_factor;
+    ctx.fillStyle = "green";
+    ctx.rect(20, 380, Math.floor(slider) * 1.2, 10);
+    // ctx.rect(30, 380, 50, 10);
+    console.log(slider, "slider");
+    ctx.fill();
   }
 
   launch() {

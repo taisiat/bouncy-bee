@@ -136,6 +136,13 @@ class GameView {
       messagePos[0],
       messagePos[1]
     );
+    if (this.game.score > this.highScore) {
+      this.ctx.fillText(
+        "That's a new high score!",
+        messagePos[0],
+        messagePos[1] + CONSTANTS.LINE_SPACING
+      );
+    }
   }
 
   drawLosePage() {
