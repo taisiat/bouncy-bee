@@ -8,8 +8,9 @@ import * as Util from "./util.js";
 const CONSTANTS = {
   BEEHIVEBONUS: 100,
   FLOWERPOINT: 1,
-  EMPTYREGION: 0.25,
-  MINEDGEDISTANCE: 40,
+  EMPTY_REGION: 0.25,
+  MIN_EDGE_DISTANCE: 40,
+  WASP_LOCATION_ADJ: 0.15,
 };
 
 class Game {
@@ -119,7 +120,7 @@ class Game {
   setBeeTrajectory() {}
 
   addWasps() {
-    return new Wasp({ pos: this.randomPosition(), game: this });
+    return new Wasp({ pos: this.randomPosition("wasp"), game: this });
   }
   addFlowers() {
     return new Flower({ pos: this.randomPosition(), game: this });
@@ -139,24 +140,28 @@ class Game {
   addBee() {
     return new Bee({ pos: [80, Game.DIM_Y * 0.5], game: this });
   }
-  randomPosition() {
+  randomPosition(waspFlag) {
+    let waspAdj = 0;
+    if (waspFlag) {
+      waspAdj = CONSTANTS.WASP_LOCATION_ADJ;
+    }
     let randomPos = [
       Math.floor(
-        Math.random() * ((1 - CONSTANTS.EMPTYREGION) * Game.DIM_X) +
-          CONSTANTS.EMPTYREGION * Game.DIM_X
+        Math.random() * ((1 - CONSTANTS.EMPTY_REGION - waspAdj) * Game.DIM_X) +
+          (CONSTANTS.EMPTY_REGION + waspAdj) * Game.DIM_X
       ),
       Math.floor(Math.random() * Game.DIM_Y),
     ];
     randomPos.forEach((coord, i) => {
-      if (coord < CONSTANTS.MINEDGEDISTANCE) {
-        randomPos[i] += CONSTANTS.MINEDGEDISTANCE;
+      if (coord < CONSTANTS.MIN_EDGE_DISTANCE) {
+        randomPos[i] += CONSTANTS.MIN_EDGE_DISTANCE;
       }
       if (
-        (i === 0 && coord > Game.DIM_X - CONSTANTS.MINEDGEDISTANCE) ||
-        (i === 1 && coord > Game.DIM_Y - CONSTANTS.MINEDGEDISTANCE)
+        (i === 0 && coord > Game.DIM_X - CONSTANTS.MIN_EDGE_DISTANCE) ||
+        (i === 1 && coord > Game.DIM_Y - CONSTANTS.MIN_EDGE_DISTANCE)
       ) {
         {
-          randomPos[i] -= CONSTANTS.MINEDGEDISTANCE;
+          randomPos[i] -= CONSTANTS.MIN_EDGE_DISTANCE;
         }
       }
     });
