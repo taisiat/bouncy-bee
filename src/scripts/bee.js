@@ -70,7 +70,7 @@ class Bee extends MovingObject {
 
   drawTrajectory(ctx) {
     // const pattern = ctx.createPattern(this.background, "repeat");
-    ctx.fillStyle = "yellow";
+    ctx.fillStyle = "red";
     ctx.beginPath();
     ctx.arc(
       this.pos[0] + Bee.START_VEL[0] * 50,
@@ -81,6 +81,21 @@ class Bee extends MovingObject {
       true
     );
     ctx.fill();
+    //triangle
+    // ctx.beginPath();
+    // ctx.moveTo(
+    //   this.pos[0] + Bee.START_VEL[0] * 50,
+    //   this.pos[1] + Bee.START_VEL[1] * 50
+    // );
+    // ctx.lineTo(
+    //   this.pos[0] + Bee.START_VEL[0] * 50 + 5,
+    //   this.pos[1] + Bee.START_VEL[1] * 50 + 5
+    // );
+    // ctx.lineTo(
+    //   this.pos[0] + Bee.START_VEL[0] * 50 - 15,
+    //   this.pos[1] + Bee.START_VEL[1] * 50 - 15
+    // );
+    // ctx.fill();
   }
 
   slideScale() {
