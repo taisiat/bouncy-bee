@@ -21,6 +21,15 @@ class GameView {
     key("o", () => {
       this.play();
     });
+    key("w", () => {
+      this.game.bee.setTrajectory("up");
+    });
+    key("s", () => {
+      this.game.bee.setTrajectory("down");
+    });
+    key("x", () => {
+      this.game.bee.launch();
+    });
     key("space", () => {
       this.restart();
     });
@@ -98,7 +107,6 @@ class GameView {
     document.getElementById(
       "score-banner"
     ).innerHTML = `Your top score: ${this.highScore}`;
-    // scoreMessage.innerHTML = `Your top score: ${this.highScore}`;
   }
 
   drawScore() {
@@ -150,9 +158,14 @@ class GameView {
       "Looks like you got stung with a loss!",
       "Bee-ginning of success is not here, try again!",
       "Not the bee's knees this time, try harder next time!",
+      "Sorry, you didn't make the buzz this time.",
+      "You got swatted like a fly and lost!",
     ];
     const winMessages = [
       "Bee-autiful work!",
+      "Buzzing with excitement, you're the winner!",
+      "You really earned your stripes like a bee and won!",
+      "You're as busy as a bee and just as successful!",
       "Buzz-tastic!",
       "Hive five for a job well done!",
       "Buzz-tacular effort!",

@@ -7,25 +7,28 @@ const CONSTANTS = {
   DECEL: 0.999,
   DECELFACTOR: 0.001,
   ACCEL: 1.05,
-  LANDVEL: 0.05,
+  // LANDVEL: 0.05,
 };
 
 class Bee extends MovingObject {
   static RADIUS = 40;
   static BOUNCY = true;
   static COLOR = "yellow";
+  static START_VEL = [1, 1];
+  static START_SCALE = 1;
   static VEL = [0, 0];
   constructor(options = {}) {
     super(options);
     this.color = Bee.COLOR;
     this.radius = Bee.RADIUS;
-    this.vel = Util.randomVec(3);
-    // this.vel = Bee.VEL;
+    // this.vel = Util.randomVec(3);
+    this.vel = Bee.VEL;
     this.isBouncy = Bee.BOUNCY;
     this.background = document.getElementById("bee");
     this.landed = false;
     this.launched = false;
     this.caught = false;
+    // this.slideScale();
   }
 
   accelerate() {
@@ -44,17 +47,55 @@ class Bee extends MovingObject {
       }
     });
     if (
-      Math.abs(this.vel[0]) + Math.abs(this.vel[1]) <=
-      CONSTANTS.DECELFACTOR
+      Math.abs(this.vel[0]) + Math.abs(this.vel[1]) <= CONSTANTS.DECELFACTOR &&
+      this.launched
     ) {
       this.vel = [0, 0];
       this.landed = true;
     }
   }
 
+  setTrajectory(direction) {
+    const nudgeFactor = direction === "up" ? CONSTANTS.NUDGE : -CONSTANTS.NUDGE;
+    const cosA = Math.cos(nudgeFactor);
+    const sinA = Math.sin(nudgeFactor);
+    const newX = Bee.START_VEL[0] * cosA + Bee.START_VEL[1] * sinA;
+    const newY = -Bee.START_VEL[0] * sinA + Bee.START_VEL[1] * cosA;
+    Bee.START_VEL = [newX, newY];
+    // console.log(Bee.START_VEL, "start vel");
+    // this.drawTrajectory();
+  }
+
+  drawTrajectory(ctx) {
+    // const pattern = ctx.createPattern(this.background, "repeat");
+    ctx.fillStyle = "yellow";
+    ctx.beginPath();
+    ctx.arc(
+      this.pos[0] + Bee.START_VEL[0] * 50,
+      this.pos[1] + Bee.START_VEL[1] * 50,
+      10,
+      0,
+      2 * Math.PI,
+      true
+    );
+    ctx.fill();
+  }
+
+  slideScale() {
+    let factor = 0;
+    while (!this.launched) {
+      if (factor === 1) {
+        factor = 0;
+      }
+      factor += 0.01;
+      Bee.START_SCALE *= factor;
+      console.log(Bee.START_SCALE, "bee start scale");
+    }
+  }
+
   launch() {
-    if (key.shift) {
-    } // alternate on velocities
+    this.launched = true;
+    this.vel = Util.scale(Bee.START_VEL, Bee.START_SCALE);
   }
 
   nudge(direction) {
