@@ -1,9 +1,13 @@
 import Game from "./game.js";
+const CONSTANTS = {
+  LINE_SPACING: 100,
+};
 
 class GameView {
   constructor(ctx) {
     // this.game = new Game();
     this.ctx = ctx;
+    this.background = document.getElementById("popup");
     // this.dimensions = { width: 1200, height: 600 };
     // this.bee = this.game.bee;
     // this.running = false;
@@ -174,13 +178,13 @@ class GameView {
     return messages[idx];
   }
 
-  drawInstructions() {
-    console.log("instructions");
-
+  drawInstructions(ctx) {
     // this.ctx.clearRect(0, 0, this.game.DIM_X, this.game.DIM_Y);
     this.ctx.clearRect(0, 0, 1200, 600);
-    // const pattern = ctx.createPattern(this.background, "repeat");
-    this.ctx.fillStyle = "yellow";
+    const pattern = this.ctx.createPattern(this.background, "repeat");
+    this.ctx.fillStyle = pattern || "yellow";
+
+    // this.ctx.fillStyle = "yellow";
     this.ctx.fillRect(0, 0, 1200, 600);
     const messagePos = [10, 100];
     this.ctx.font = "40pt Delicious Handrawn";
@@ -193,18 +197,18 @@ class GameView {
     this.ctx.fillText(`Objectives:`, messagePos[0] + 100, messagePos[1] + 100);
     this.ctx.fillText(
       `Visit the most flowers!`,
-      messagePos[0] + 100,
-      messagePos[1] + 200
+      messagePos[0] + CONSTANTS.LINE_SPACING,
+      messagePos[1] + CONSTANTS.LINE_SPACING * 2
     );
     this.ctx.fillText(
       `Avoid the wasps!`,
-      messagePos[0] + 100,
-      messagePos[1] + 300
+      messagePos[0] + CONSTANTS.LINE_SPACING,
+      messagePos[1] + CONSTANTS.LINE_SPACING * 3
     );
     this.ctx.fillText(
       `Mega extra points if you land back on the beehive!`,
-      messagePos[0] + 100,
-      messagePos[1] + 400
+      messagePos[0] + CONSTANTS.LINE_SPACING,
+      messagePos[1] + CONSTANTS.LINE_SPACING * 4
     );
   }
 }

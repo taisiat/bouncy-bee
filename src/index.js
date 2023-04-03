@@ -59,6 +59,12 @@ beehiveImg.setAttribute("id", "beehive");
 beehiveImg.classList.add("hidden");
 document.querySelector("body").appendChild(beehiveImg);
 
+let popupImg = document.createElement("img");
+popupImg.src = "assets/popup_bg.jpg";
+popupImg.setAttribute("id", "popup");
+popupImg.classList.add("hidden");
+document.querySelector("body").appendChild(popupImg);
+
 const canvasEl = document.getElementsByTagName("canvas")[0];
 canvasEl.height = Game.DIM_Y;
 canvasEl.width = Game.DIM_X;
