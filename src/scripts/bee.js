@@ -7,6 +7,7 @@ const CONSTANTS = {
   DECEL: 0.999,
   DECELFACTOR: 0.001,
   ACCEL: 1.05,
+  START_SCALE: 1,
   // LANDVEL: 0.05,
 };
 
@@ -15,10 +16,11 @@ class Bee extends MovingObject {
   static BOUNCY = true;
   static COLOR = "yellow";
   static START_VEL = [1, 1];
-  static START_SCALE = 1;
   static VEL = [0, 0];
   constructor(options = {}) {
     super(options);
+    this.slide_factor = 0;
+    this.speed = 0;
     this.color = Bee.COLOR;
     this.radius = Bee.RADIUS;
     // this.vel = Util.randomVec(3);
@@ -82,20 +84,24 @@ class Bee extends MovingObject {
   }
 
   slideScale() {
-    let factor = 0;
-    while (!this.launched) {
-      if (factor === 1) {
-        factor = 0;
-      }
-      factor += 0.01;
-      Bee.START_SCALE *= factor;
-      console.log(Bee.START_SCALE, "bee start scale");
+    if (this.slide_factor === 1) {
+      this.slide_factor = 0;
     }
+    this.slide_factor += 0.01;
+    this.speed = CONSTANTS.START_SCALE * this.slide_factor;
   }
 
   launch() {
+    this.vel = Util.scale(Bee.START_VEL, this.speed);
+    console.log(
+      Bee.START_VEL,
+      "vel",
+      this.speed,
+      "speed",
+      this.vel,
+      "vel final"
+    );
     this.launched = true;
-    this.vel = Util.scale(Bee.START_VEL, Bee.START_SCALE);
   }
 
   nudge(direction) {

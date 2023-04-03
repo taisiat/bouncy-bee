@@ -72,6 +72,7 @@ class Game {
   step() {
     this.moveObjects();
     this.checkCollisions();
+    if (!this.bee.launched) this.bee.slideScale();
   }
 
   allNonBeeObjects() {
