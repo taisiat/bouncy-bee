@@ -9,7 +9,7 @@ class GameView {
     // this.running = false;
     this.highScore = 0;
     this.bindKeyHandlers();
-    this.restart();
+    // this.restart();
     // this.drawInstructions();
   }
 
@@ -103,7 +103,6 @@ class GameView {
   tallyPoints() {
     this.game.addPoints();
     this.highScore = Math.max(this.highScore, this.game.score);
-    console.log(this.highScore);
     document.getElementById(
       "score-banner"
     ).innerHTML = `Your top score: ${this.highScore}`;
@@ -181,15 +180,31 @@ class GameView {
     // this.ctx.clearRect(0, 0, this.game.DIM_X, this.game.DIM_Y);
     this.ctx.clearRect(0, 0, 1200, 600);
     // const pattern = ctx.createPattern(this.background, "repeat");
-    this.ctx.fillStyle = "white";
-    this.ctx.fillRect(0, 0, 1200, 600);
-    const messagePos = [10, 300];
-    this.ctx.font = "40pt Delicious Handrawn";
     this.ctx.fillStyle = "yellow";
+    this.ctx.fillRect(0, 0, 1200, 600);
+    const messagePos = [10, 100];
+    this.ctx.font = "40pt Delicious Handrawn";
+    this.ctx.fillStyle = "black";
     this.ctx.fillText(
-      `Help Bouncy Bee collect the most nectar! \n Controls:`,
+      `Help Bouncy Bee collect the most nectar!`,
       messagePos[0],
       messagePos[1]
+    );
+    this.ctx.fillText(`Objectives:`, messagePos[0] + 100, messagePos[1] + 100);
+    this.ctx.fillText(
+      `Visit the most flowers!`,
+      messagePos[0] + 100,
+      messagePos[1] + 200
+    );
+    this.ctx.fillText(
+      `Avoid the wasps!`,
+      messagePos[0] + 100,
+      messagePos[1] + 300
+    );
+    this.ctx.fillText(
+      `Mega extra points if you land back on the beehive!`,
+      messagePos[0] + 100,
+      messagePos[1] + 400
     );
   }
 }

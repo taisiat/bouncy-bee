@@ -8,9 +8,9 @@ import * as Util from "./util.js";
 const CONSTANTS = {
   BEEHIVEBONUS: 100,
   FLOWERPOINT: 1,
-  EMPTY_REGION: 0.25,
+  EMPTY_REGION: 0.15,
   MIN_EDGE_DISTANCE: 40,
-  WASP_LOCATION_ADJ: 0.15,
+  WASP_LOCATION_ADJ: 0.25,
 };
 
 class Game {
