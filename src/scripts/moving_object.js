@@ -42,7 +42,8 @@ class MovingObject {
 
   draw(ctx) {
     const pattern = ctx.createPattern(this.background, "repeat");
-    ctx.fillStyle = pattern || this.color;
+    // ctx.fillStyle = pattern || this.color;
+    ctx.fillStyle = this.color;
     ctx.beginPath();
     ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI, true);
     ctx.fill();

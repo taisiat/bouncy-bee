@@ -41,6 +41,12 @@ waspImg.setAttribute("id", "wasp");
 waspImg.classList.add("hidden");
 document.querySelector("body").appendChild(waspImg);
 
+let waspMedImg = document.createElement("img");
+waspMedImg.src = "assets/wasp_med.png";
+waspMedImg.setAttribute("id", "wasp-med");
+waspMedImg.classList.add("hidden");
+document.querySelector("body").appendChild(waspMedImg);
+
 let flowerImg = document.createElement("img");
 flowerImg.src = "assets/flower_small.png";
 flowerImg.setAttribute("id", "flower");
@@ -48,13 +54,13 @@ flowerImg.classList.add("hidden");
 document.querySelector("body").appendChild(flowerImg);
 
 let speedstripImg = document.createElement("img");
-speedstripImg.src = "assets/speed_small.jpg";
+speedstripImg.src = "assets/speed_small.png";
 speedstripImg.setAttribute("id", "speedstrip");
 speedstripImg.classList.add("hidden");
 document.querySelector("body").appendChild(speedstripImg);
 
 let beehiveImg = document.createElement("img");
-beehiveImg.src = "assets/beehive_med.png";
+beehiveImg.src = "assets/beehive_med_transparent.png";
 beehiveImg.setAttribute("id", "beehive");
 beehiveImg.classList.add("hidden");
 document.querySelector("body").appendChild(beehiveImg);

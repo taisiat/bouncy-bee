@@ -8,6 +8,7 @@ const CONSTANTS = {
   DECELFACTOR: 0.005,
   ACCEL: 1.05,
   START_SCALE: 1,
+  MIN_BEE_LAUNCH_SPEED: 0.25,
 };
 
 class Bee extends MovingObject {
@@ -118,7 +119,9 @@ class Bee extends MovingObject {
     } else {
       this.slide_factor -= 0.01;
     }
-    this.speed = CONSTANTS.START_SCALE * this.slide_factor;
+    this.speed =
+      CONSTANTS.START_SCALE * this.slide_factor +
+      CONSTANTS.MIN_BEE_LAUNCH_SPEED;
   }
 
   drawScale(ctx) {

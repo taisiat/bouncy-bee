@@ -8,6 +8,8 @@ class GameView {
     // this.game = new Game();
     this.ctx = ctx;
     this.background = document.getElementById("popup");
+    this.wasp = document.getElementById("wasp-med");
+
     // this.dimensions = { width: 1200, height: 600 };
     // this.bee = this.game.bee;
     // this.running = false;
@@ -156,11 +158,13 @@ class GameView {
     const messagePos = [10, 300];
     this.ctx.font = "40pt Delicious Handrawn";
     this.ctx.fillStyle = "yellow";
+    this.ctx.fillText("The wasps caught you!", messagePos[0], messagePos[1]);
     this.ctx.fillText(
-      `The wasps caught you! ${message}`,
+      `${message}`,
       messagePos[0],
-      messagePos[1]
+      messagePos[1] + CONSTANTS.LINE_SPACING
     );
+    this.ctx.drawImage(this.wasp, 700, 100);
   }
   message(type) {
     const loseMessages = [
