@@ -21,29 +21,37 @@ class GameView {
 
   bindKeyHandlers() {
     key("i", () => {
-      this.pause();
-      this.drawInstructions();
+      this.iKeyHandler();
     });
-    key("o", () => {
-      this.play();
-    });
+    // key("i", () => {
+    //   this.pause();
+    //   this.drawInstructions();
+    // });
+    // key("o", () => {
+    //   this.play();
+    // });
     key("w", () => {
-      this.game.bee.setTrajectory("up");
+      // this.game.bee.setTrajectory("up");
+      this.aKeyHandler();
     });
     key("s", () => {
-      this.game.bee.setTrajectory("down");
+      // this.game.bee.setTrajectory("down");
+      this.dKeyHandler();
     });
-    key("x", () => {
-      this.game.bee.launch();
-    });
+    // key("x", () => {
+    //   this.game.bee.launch();
+    // });
     key("space", () => {
-      this.restart();
+      // this.restart();
+      this.spaceKeyHandler();
     });
     key("a", () => {
-      this.game.bee.nudge("left");
+      // this.game.bee.nudge("left");
+      this.aKeyHandler();
     });
     key("d", () => {
-      this.game.bee.nudge("right");
+      // this.game.bee.nudge("right");
+      this.dKeyHandler();
     });
     // if (this.game.bee.launched) {
     //   key("a", () => {
@@ -55,6 +63,39 @@ class GameView {
     // } else {
     //   // set trajectory and velocity from starting point
     // }
+  }
+
+  iKeyHandler() {
+    if (this.running) {
+      this.pause();
+      this.drawInstructions();
+    } else {
+      this.play();
+    }
+  }
+
+  spaceKeyHandler() {
+    if (this.game && !this.game.bee.launched) {
+      this.game.bee.launch();
+    } else {
+      this.restart();
+    }
+  }
+
+  aKeyHandler() {
+    if (this.game.bee.launched) {
+      this.game.bee.nudge("left");
+    } else if (!this.game.bee.launched) {
+      this.game.bee.setTrajectory("up");
+    }
+  }
+
+  dKeyHandler() {
+    if (this.game.bee.launched) {
+      this.game.bee.nudge("right");
+    } else if (!this.game.bee.launched) {
+      this.game.bee.setTrajectory("down");
+    }
   }
 
   restart() {
@@ -201,7 +242,7 @@ class GameView {
     // this.ctx.fillStyle = "yellow";
     this.ctx.fillRect(0, 0, 1200, 600);
     const messagePos = [10, 100];
-    this.ctx.font = "40pt Delicious Handrawn";
+    this.ctx.font = "30pt Delicious Handrawn";
     this.ctx.fillStyle = "black";
     this.ctx.fillText(
       `Help Bouncy Bee collect the most nectar!`,
