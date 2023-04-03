@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spriter_data scml_version="1.0" generator="BrashMonkey Spriter" generator_version="r11">
+    <folder id="0" name="side_view_bee">
+        <file id="0" name="side_view_bee/body.png" width="1030" height="759" pivot_x="0" pivot_y="1"/>
+        <file id="1" name="side_view_bee/antennas.png" width="304" height="415" pivot_x="0" pivot_y="1"/>
+        <file id="2" name="side_view_bee/back_wing.png" width="298" height="484" pivot_x="0.513423" pivot_y="0.030992"/>
+        <file id="3" name="side_view_bee/front_wing.png" width="393" height="479" pivot_x="0.066158" pivot_y="0.0563674"/>
+        <file id="4" name="side_view_bee/open_eye.png" width="142" height="143" pivot_x="0" pivot_y="1"/>
+        <file id="5" name="side_view_bee/mouth.png" width="108" height="64" pivot_x="0" pivot_y="1"/>
+        <file id="6" name="side_view_bee/sting.png" width="176" height="87" pivot_x="0" pivot_y="1"/>
+        <file id="7" name="side_view_bee/closed_eye.png" width="142" height="143" pivot_x="0" pivot_y="1"/>
+    </folder>
+    <folder id="1" name="top_view_bee">
+        <file id="0" name="top_view_bee/antennas.png" width="288" height="388" pivot_x="0.513889" pivot_y="0.056701"/>
+        <file id="1" name="top_view_bee/body.png" width="760" height="978" pivot_x="0" pivot_y="1"/>
+        <file id="2" name="top_view_bee/open_eye.png" width="127" height="128" pivot_x="0" pivot_y="1"/>
+        <file id="3" name="top_view_bee/sting.png" width="73" height="185" pivot_x="0" pivot_y="1"/>
+        <file id="4" name="top_view_bee/wing.png" width="510" height="349" pivot_x="0.954902" pivot_y="0.17765"/>
+        <file id="5" name="top_view_bee/top_view_bee.png" width="1009" height="1344" pivot_x="0" pivot_y="1"/>
+    </folder>
+    <entity id="0" name="side_view_bee">
+        <obj_info name="bone_000" type="bone" w="381.821" h="10"/>
+        <obj_info name="bone_001" type="bone" w="375.661" h="-5.5149"/>
+        <obj_info name="bone_002" type="bone" w="664.816" h="-5.5149"/>
+        <obj_info name="bone_003" type="bone" w="139.562" h="10"/>
+        <animation id="0" name="fly" length="400" interval="100">
+            <mainline>
+                <key id="0">
+                    <bone_ref id="0" timeline="7" key="0"/>
+                    <bone_ref id="1" parent="0" timeline="9" key="0"/>
+                    <bone_ref id="2" timeline="8" key="0"/>
+                    <bone_ref id="3" timeline="11" key="0"/>
+                    <object_ref id="0" timeline="6" key="0" z_index="0"/>
+                    <object_ref id="1" parent="3" timeline="1" key="0" z_index="1"/>
+                    <object_ref id="2" parent="2" timeline="2" key="0" z_index="2"/>
+                    <object_ref id="3" parent="1" timeline="0" key="0" z_index="3"/>
+                    <object_ref id="4" parent="0" timeline="3" key="0" z_index="4"/>
+                    <object_ref id="5" timeline="4" key="0" z_index="5"/>
+                    <object_ref id="6" timeline="5" key="0" z_index="6"/>
+                    <object_ref id="7" timeline="10" key="0" z_index="7"/>
+                </key>
+                <key id="1" time="200">
+                    <bone_ref id="0" timeline="7" key="0"/>
+                    <bone_ref id="1" parent="0" timeline="9" key="0"/>
+                    <bone_ref id="2" timeline="8" key="0"/>
+                    <bone_ref id="3" timeline="11" key="0"/>
+                    <object_ref id="0" timeline="6" key="0" z_index="0"/>
+                    <object_ref id="1" parent="3" timeline="1" key="0" z_index="1"/>
+                    <object_ref id="2" parent="2" timeline="2" key="1" z_index="2"/>
+                    <object_ref id="3" parent="1" timeline="0" key="0" z_index="3"/>
+                    <object_ref id="4" parent="0" timeline="3" key="1" z_index="4"/>
+                    <object_ref id="5" timeline="4" key="0" z_index="5"/>
+                    <object_ref id="6" timeline="5" key="0" z_index="6"/>
+                    <object_ref id="7" timeline="10" key="0" z_index="7"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="body">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="914.885654" y="36.196794" angle="178.084467" scale_x="1" scale_y="-0.123535"/>
+                </key>
+            </timeline>
+            <timeline id="1" name="antennas">
+                <key id="0" spin="0">
+                    <object folder="0" file="1" x="314.210841" y="47.756921" angle="255.4478" scale_x="1" scale_y="0.263832"/>
+                </key>
+            </timeline>
+            <timeline id="2" name="back_wing">
+                <key id="0" spin="0">
+                    <object folder="0" file="2" x="-26.695151" y="1.678886" angle="268.64414" scale_x="1" scale_y="0.425482"/>
+                </key>
+                <key id="1" time="200" spin="0">
+                    <object folder="0" file="2" x="-26.766854" y="0.389907" angle="268.64414" scale_x="1" scale_y="-0.425482"/>
+                </key>
+            </timeline>
+            <timeline id="3" name="front_wing">
+                <key id="0" spin="0">
+                    <object folder="0" file="3" x="-3.215486" y="-12.966868" angle="53.997143" scale_x="1.096247" scale_y="-0.551624"/>
+                </key>
+                <key id="1" time="200" spin="0">
+                    <object folder="0" file="3" x="-3.215486" y="-12.966868" angle="53.997143" scale_x="1.096247" scale_y="0.801535"/>
+                </key>
+            </timeline>
+            <timeline id="4" name="open_eye">
+                <key id="0" spin="0">
+                    <object folder="0" file="4" x="-338.909244" y="729.08327" scale_x="1.134102" scale_y="1.151125"/>
+                </key>
+            </timeline>
+            <timeline id="5" name="mouth">
+                <key id="0" spin="0">
+                    <object folder="0" file="5" x="-380.87137" y="542.054249" angle="342.61514" scale_x="1" scale_y="1"/>
+                </key>
+            </timeline>
+            <timeline id="6" name="sting">
+                <key id="0" spin="0">
+                    <object folder="0" file="6" x="436.835334" y="439.794168" angle="347.836458"/>
+                </key>
+            </timeline>
+            <timeline id="7" obj="0" name="bone_000" object_type="bone">
+                <key id="0" spin="0">
+                    <bone x="33.333333" y="851.111111" angle="53.997143" scale_x="1" scale_y="-1.813271"/>
+                </key>
+            </timeline>
+            <timeline id="8" obj="1" name="bone_001" object_type="bone">
+                <key id="0" spin="0">
+                    <bone x="22.222222" y="893.333333" angle="91.35586" scale_x="1" scale_y="2.350275"/>
+                </key>
+            </timeline>
+            <timeline id="9" obj="2" name="bone_002" object_type="bone">
+                <key id="0" spin="0">
+                    <bone x="-20.150325" y="280.756063" angle="235.912676" scale_y="4.464245"/>
+                </key>
+            </timeline>
+            <timeline id="10" name="open_eye_000">
+                <key id="0" spin="0">
+                    <object folder="0" file="4" x="-481.238883" y="713.073418" scale_x="0.905708" scale_y="0.963964"/>
+                </key>
+            </timeline>
+            <timeline id="11" obj="3" name="bone_003" object_type="bone">
+                <key id="0" spin="0">
+                    <bone x="-288.412698" y="840.793651" angle="112.890552" scale_x="1" scale_y="3.790284"/>
+                </key>
+            </timeline>
+        </animation>
+    </entity>
+    <entity id="1" name="top_view_bee">
+        <animation id="0" name="fly" length="400" interval="100">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="3" key="0" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="0" z_index="2"/>
+                    <object_ref id="3" timeline="5" key="0" z_index="3"/>
+                    <object_ref id="4" timeline="1" key="0" z_index="4"/>
+                    <object_ref id="5" timeline="4" key="0" z_index="5"/>
+                    <object_ref id="6" timeline="6" key="0" z_index="6"/>
+                </key>
+                <key id="1" time="200">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="3" key="0" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="0" z_index="2"/>
+                    <object_ref id="3" timeline="5" key="0" z_index="3"/>
+                    <object_ref id="4" timeline="1" key="0" z_index="4"/>
+                    <object_ref id="5" timeline="4" key="1" z_index="5"/>
+                    <object_ref id="6" timeline="6" key="1" z_index="6"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="antennas">
+                <key id="0" spin="0">
+                    <object folder="1" file="0" x="4.547041" y="955.641014" angle="2.446842" scale_y="1"/>
+                </key>
+            </timeline>
+            <timeline id="1" name="body">
+                <key id="0" spin="0">
+                    <object folder="1" file="1" x="-371.794872" y="1107.692308"/>
+                </key>
+            </timeline>
+            <timeline id="2" name="open_eye">
+                <key id="0" spin="0">
+                    <object folder="1" file="2" x="-114.358974" y="1149.128205"/>
+                </key>
+            </timeline>
+            <timeline id="3" name="sting">
+                <key id="0" spin="0">
+                    <object folder="1" file="3" x="-35.897436" y="187.179487"/>
+                </key>
+            </timeline>
+            <timeline id="4" name="wing">
+                <key id="0" spin="0">
+                    <object folder="1" file="4" x="-13.512801" y="653.569651" scale_x="1.198298" scale_y="1.451404"/>
+                </key>
+                <key id="1" time="200" spin="0">
+                    <object folder="1" file="4" x="-13.512801" y="653.569651" scale_x="0.070987"/>
+                </key>
+            </timeline>
+            <timeline id="5" name="open_eye_000">
+                <key id="0" spin="0">
+                    <object folder="1" file="2" x="13.846154" y="1151.692308"/>
+                </key>
+            </timeline>
+            <timeline id="6" name="wing_000">
+                <key id="0" spin="0">
+                    <object folder="1" file="4" x="33.66519" y="651.717799" angle="0" scale_x="-1.306168" scale_y="1.50119"/>
+                </key>
+                <key id="1" time="200" spin="0">
+                    <object folder="1" file="4" x="33.66519" y="651.717799" angle="0" scale_x="0.020613"/>
+                </key>
+            </timeline>
+        </animation>
+    </entity>
+</spriter_data>
