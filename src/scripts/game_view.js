@@ -131,20 +131,23 @@ class GameView {
     this.ctx.fillStyle = "green";
     this.ctx.fillRect(0, 0, 1200, 600);
     const messagePos = [10, 300];
-    this.ctx.font = "40pt Delicious Handrawn";
+    this.ctx.font = "30pt Delicious Handrawn";
     this.ctx.fillStyle = "yellow";
+    let winMessage =
+      this.game.score > 0
+        ? `${message} Score: ${this.game.score}`
+        : "You didn't get caught by wasps, but you also didn't score any points!";
+    this.ctx.fillText(winMessage, messagePos[0], messagePos[1]);
+    let scoreMessage =
+      this.game.score === this.highScore && this.game.score !== 0
+        ? "That's a new high score!"
+        : "";
+
     this.ctx.fillText(
-      `${message} Score: ${this.game.score}`,
+      scoreMessage,
       messagePos[0],
-      messagePos[1]
+      messagePos[1] + CONSTANTS.LINE_SPACING
     );
-    if (this.game.score > this.highScore) {
-      this.ctx.fillText(
-        "That's a new high score!",
-        messagePos[0],
-        messagePos[1] + CONSTANTS.LINE_SPACING
-      );
-    }
   }
 
   drawLosePage() {
