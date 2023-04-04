@@ -93,7 +93,7 @@ class Pollen {
     let pollenPos = [];
     [0, 1].forEach((coord) => {
       coord = Math.floor(
-        Math.random() * CONSTANTS.POLLEN_DIST + this.game.bee.pos[coord] - 30
+        Math.random() * CONSTANTS.POLLEN_DIST + this.game.bee.pos[coord] - 40
       );
       pollenPos.push(coord);
     });

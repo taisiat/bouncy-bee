@@ -210,11 +210,8 @@ class GameView {
 
   drawInstructions() {
     this.ctx.clearRect(0, 0, 1200, 600);
-    console.log(this.announcementW, "announcementW");
     const pattern = this.ctx.createPattern(this.announcementW, "repeat");
-    // console.log(pattern, "pattern");
     this.ctx.fillStyle = pattern || "yellow";
-    // this.ctx.drawImage(this.announcementW, 0, 0);
     this.ctx.fillRect(0, 0, 1200, 600);
     const messagePos = [10, 100];
     this.ctx.font = "30pt Delicious Handrawn";
@@ -245,12 +242,27 @@ class GameView {
       messagePos[1] + CONSTANTS.LINE_SPACING * 4
     );
 
-    // this.ctx.drawImage(this.wasp, 1050, 240, 100, 100);
+    this.ctx.drawImage(this.wasp, 1050, 240, 100, 100);
     this.ctx.drawImage(this.beehive, 550, 260, 150, 150);
 
     this.ctx.drawImage(this.flower, 700, 290, 300, 300);
 
-    // this.ctx.drawImage(this.game.bee.beeFrameL0, 900, 350, 200, 200);
+    this.ctx.drawImage(this.game.bee.beeFrameL0, 900, 350, 200, 200);
+  }
+
+  drawWaitPage() {
+    this.ctx.clearRect(0, 0, 1200, 600);
+    this.ctx.fillStyle = "yellow";
+    this.ctx.fillRect(0, 0, 1200, 600);
+  }
+
+  startGame() {
+    console.log("start!");
+    let welcomeScreen = document.getElementById("welcome-screen");
+    welcomeScreen.classList.add("hidden");
+    let gameScreen = document.getElementById("game-canvas");
+    gameScreen.classList.remove("hidden");
+    this.restart();
   }
 }
 

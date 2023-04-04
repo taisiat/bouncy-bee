@@ -30,7 +30,7 @@
         background-size: 100%;
       }
     </style>
-    <link rel="preload" as="image" href="assets/announcement_w.jpg">
+    <!-- <link rel="preload" as="image" href="assets/announcement_w.jpg"> -->
 
 
   </head>
@@ -50,7 +50,19 @@
       </div>
     </header>
     <div id="main-menu"></div>
-    <canvas id="game-canvas" style="border: 5px solid #000000"></canvas>
+    <div id="welcome-screen">
+      <img src="assets/announcement_w.jpg" id="announcement-white">
+      <div id="welcome-text">
+      <h1>Help Bouncy Bee collect the most nectar!</h2>
+      <h2>Direct Bouncy Bee like a cannon, and then course correct as it flies. Try to:</h2>
+      <h2>Visit the most flowers</h2>
+      <h2>Avoid the wasps!!!</h2>
+      <h2>Land back on the beehive</h2>
+      <button id="play-button" onclick="startGame()">Bee-gin!</button>
+      </div>
+      
+    </div>
+    <canvas id="game-canvas" class="hidden" style="border: 5px solid #000000"></canvas>
     <footer>
       <div id="score">
         <h2 id="score-banner">Your top score: no games yet!</h2>

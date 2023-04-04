@@ -83,11 +83,11 @@ announcementRImg.setAttribute("id", "announcement-red");
 announcementRImg.classList.add("hidden");
 document.querySelector("body").appendChild(announcementRImg);
 
-let announcementWImg = document.createElement("img");
-announcementWImg.src = "assets/announcement_w.jpg";
-announcementWImg.setAttribute("id", "announcement-white");
-announcementWImg.classList.add("hidden");
-document.querySelector("body").appendChild(announcementWImg);
+// let announcementWImg = document.createElement("img");
+// announcementWImg.src = "assets/announcement_w.jpg";
+// announcementWImg.setAttribute("id", "announcement-white");
+// announcementWImg.classList.add("hidden");
+// document.querySelector("body").appendChild(announcementWImg);
 
 let announcementGImg = document.createElement("img");
 announcementGImg.src = "assets/announcement_g.jpeg";
@@ -200,7 +200,8 @@ const ctx = canvas.getContext("2d");
 
 document.addEventListener("DOMContentLoaded", (event) => {
   const gv = new GameView(ctx);
-  gv.drawInstructions();
+  gv.drawWaitPage();
+  document.addEventListener("click", (event) => {
+    gv.startGame();
+  });
 });
-// const gv = new GameView(ctx);
-// gv.drawInstructions();
