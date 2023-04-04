@@ -6,7 +6,7 @@ const CONSTANTS = {
   NUDGE: 0.1,
   // DECEL: 0.999,
   DECELFACTOR: 0.005,
-  ACCEL: 1.05,
+  ACCEL: 1.03,
   START_SCALE: 1,
   MIN_BEE_LAUNCH_SPEED: 0.25,
 };
@@ -87,37 +87,43 @@ class Bee extends MovingObject {
   }
 
   drawTrajectory(ctx) {
-    ctx.fillStyle = "red";
-    ctx.beginPath();
-    ctx.arc(
-      this.pos[0] + Bee.START_VEL[0] * 10,
-      this.pos[1] + Bee.START_VEL[1] * 10,
-      10,
-      0,
-      2 * Math.PI,
-      true
-    );
-    ctx.fill();
-    // triangle
-    // let pointerDirection = [
-    //   this.pos[0] + Bee.START_VEL[0] * 50,
-    //   this.pos[1] + Bee.START_VEL[1] * 50,
-    // ];
-    // let arrowPoints = Util.calculateTriangleCoord(this.pos, pointerDirection);
+    // ctx.fillStyle = "red";
     // ctx.beginPath();
-    // console.log(pointerDirection[0], pointerDirection[1], "point1");
-    // ctx.moveTo(pointerDirection[0], pointerDirection[1]);
-    // console.log(arrowPoints[0], arrowPoints[1], "point2");
+    // ctx.arc(
+    //   this.pos[0] + Bee.START_VEL[0] * 10,
+    //   this.pos[1] + Bee.START_VEL[1] * 10,
+    //   10,
+    //   0,
+    //   2 * Math.PI,
+    //   true
+    // );
+    // ctx.fill();
+    // triangle
+    let pointerDirection = [
+      this.pos[0] + Bee.START_VEL[0] * 15,
+      this.pos[1] + Bee.START_VEL[1] * 15,
+    ];
+    let arrowPoints = Util.calculateTriangleCoord(this.pos, pointerDirection);
+    let arrowOtherPoints = Util.calculateOtherTriangleCoord(
+      this.pos,
+      pointerDirection
+    );
 
-    // ctx.moveTo(arrowPoints[0], arrowPoints[1]);
-    // // ctx.lineTo(100, 100);
-    // // ctx.lineTo(arrowPoints[1][0], arrowPoints[1][1]);
+    ctx.beginPath();
+    ctx.moveTo(pointerDirection[0], pointerDirection[1]);
+    console.log(pointerDirection[0], pointerDirection[1], "point1");
+
+    ctx.lineTo(arrowPoints[0], arrowPoints[1]);
+    console.log(arrowPoints[0], arrowPoints[1], "point2");
+    // ctx.lineTo(this.pos[0], this.pos[1]);
+    // console.log([this.pos[0], this.pos[1]], "bee");
+    ctx.lineTo(arrowOtherPoints[0], arrowOtherPoints[1]);
     // arrowPoints[0], arrowPoints[1];
     // ctx.lineTo(100, 100);
-    // ctx.closePath();
-    // ctx.fillStyle = "red";
+    ctx.closePath();
+    ctx.fillStyle = "red";
 
-    // ctx.fill();
+    ctx.fill();
   }
 
   slideScale() {
@@ -264,7 +270,7 @@ class Bee extends MovingObject {
     ctx.drawImage(
       beeFrame,
       this.pos[0] - this.radius,
-      this.pos[1] - this.radius,
+      this.pos[1] - this.radius - 5,
       this.radius * 2,
       this.radius * 2
     );
