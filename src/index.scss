@@ -7,6 +7,9 @@ body {
   flex-direction: column;
   align-items: center;
   //   justify-content: space-around;
+
+  background-image: url("./assets/page_background.jpg");
+  background-size: 100%;
 }
 
 header {
@@ -14,7 +17,7 @@ header {
   flex-direction: column;
   align-items: center;
   padding: 10px;
-  font-size: 50px;
+  font-size: 40px;
   background-color: rgba(255, 255, 255, 0.467);
   border-radius: 80px;
 
@@ -47,13 +50,13 @@ a {
 
 #game-controls {
   display: flex;
-  width: 700px;
+  width: 430px;
   justify-content: space-between;
   padding-left: 20px;
   flex-direction: column;
   text-align: left;
   margin-right: 50px;
-  line-height: 35px;
+  line-height: 28px;
   border-left: 1px black solid;
 }
 #score {
@@ -62,7 +65,7 @@ a {
   width: 380px;
   text-align: right;
   padding-right: 20px;
-  font-size: 35px;
+  font-size: 30px;
 }
 
 footer {
@@ -70,7 +73,7 @@ footer {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  font-size: 25px;
+  font-size: 20px;
   background-color: rgba(255, 255, 255, 0.467);
   padding-bottom: 10px;
   padding-top: 10px;

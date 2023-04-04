@@ -186,5 +186,9 @@ canvasEl.width = Game.DIM_X;
 const canvas = document.getElementById("game-canvas");
 const ctx = canvas.getContext("2d");
 
-const gv = new GameView(ctx);
-gv.drawInstructions();
+document.addEventListener("DOMContentLoaded", (event) => {
+  const gv = new GameView(ctx);
+  gv.drawInstructions();
+});
+// const gv = new GameView(ctx);
+// gv.drawInstructions();

@@ -104,35 +104,16 @@ class Bee extends MovingObject {
       this.pos[1] + Bee.START_VEL[1] * 15,
     ];
     let arrowPoints = Util.calculateTriangleCoord(this.pos, pointerDirection);
-    let arrowOtherPoints = Util.calculateOtherTriangleCoord(
-      this.pos,
-      pointerDirection
-    );
-
     ctx.beginPath();
     ctx.moveTo(pointerDirection[0], pointerDirection[1]);
-    console.log(pointerDirection[0], pointerDirection[1], "point1");
-
-    ctx.lineTo(arrowPoints[0], arrowPoints[1]);
-    console.log(arrowPoints[0], arrowPoints[1], "point2");
-    // ctx.lineTo(this.pos[0], this.pos[1]);
-    // console.log([this.pos[0], this.pos[1]], "bee");
-    ctx.lineTo(arrowOtherPoints[0], arrowOtherPoints[1]);
-    // arrowPoints[0], arrowPoints[1];
-    // ctx.lineTo(100, 100);
+    ctx.lineTo(arrowPoints[0][0], arrowPoints[0][1]);
+    ctx.lineTo(arrowPoints[1][0], arrowPoints[1][1]);
     ctx.closePath();
-    ctx.fillStyle = "red";
-
+    ctx.fillStyle = "green";
     ctx.fill();
   }
 
   slideScale() {
-    // if (this.slide_factor > 1) {
-    //   this.slide_factor = 0;
-    // }
-    // this.slide_factor += 0.01;
-    // console.log(this.speed, "speed raw");
-    // this.speed = CONSTANTS.START_SCALE * this.slide_factor;
     if (this.slide_factor > 1) {
       this.slider_increase = false;
     }
