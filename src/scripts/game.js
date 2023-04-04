@@ -61,9 +61,9 @@ class Game {
     this.bee.drawAnimatedBee(ctx);
     this.pollens.forEach((pollen) => pollen.drawPollen(ctx));
   }
-  moveObjects() {
-    this.wasps.forEach((wasp) => wasp.move());
-    this.bee.move();
+  moveObjects(timeDelta) {
+    this.wasps.forEach((wasp) => wasp.move(timeDelta));
+    this.bee.move(timeDelta);
   }
 
   wrap(pos) {
@@ -77,8 +77,8 @@ class Game {
     ];
   }
 
-  step() {
-    this.moveObjects();
+  step(timeDelta) {
+    this.moveObjects(timeDelta);
     this.checkCollisions();
     if (!this.bee.launched) this.bee.slideScale();
   }

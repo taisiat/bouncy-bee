@@ -102,6 +102,7 @@ class GameView {
 
   animate(time) {
     const timeDelta = time - this.lastTime;
+    console.log(time, "time", this.lastTime, "lasttime");
 
     this.game.step(timeDelta);
     this.game.draw(this.ctx);
