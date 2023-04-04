@@ -93,3 +93,5 @@ This game's fun can be increased with these anticipated enhancements:
 - Character graphics by <a href="https://openai.com/product/dall-e-2">DALL-E</a>
 
 - Witty content by <a href="https://chat.openai.com/chat">ChatGPT</a>
+
+- Color array by <a href="https://gist.github.com/mucar/3898821">mucar</a>

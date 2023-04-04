@@ -192,7 +192,7 @@ class Bee extends MovingObject {
     ctx.lineTo(arrowPoints[0][0], arrowPoints[0][1]);
     ctx.lineTo(arrowPoints[1][0], arrowPoints[1][1]);
     ctx.closePath();
-    ctx.fillStyle = "green";
+    ctx.fillStyle = "gold";
     ctx.fill();
   }
 
@@ -215,7 +215,7 @@ class Bee extends MovingObject {
 
   drawScale(ctx) {
     let slider = 100 * this.slide_factor;
-    ctx.fillStyle = "green";
+    ctx.fillStyle = "gold";
     ctx.rect(20, 380, Math.floor(slider) * 1.2, 10);
     ctx.fill();
   }

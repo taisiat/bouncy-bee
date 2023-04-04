@@ -192,8 +192,8 @@ class GameView {
     this.ctx.fillStyle = pattern;
     // this.ctx.fillStyle = "green";
     this.ctx.fillRect(0, 0, 1200, 600);
-    const messagePos = [10, 200];
-    this.ctx.font = "25pt Delicious Handrawn";
+    const messagePos = [50, 250];
+    this.ctx.font = "35pt Delicious Handrawn";
     this.ctx.fillStyle = "black";
     let winMessage =
       this.game.score > 0

@@ -3,6 +3,8 @@ import Flower from "./flower.js";
 import Bee from "./bee.js";
 import Beehive from "./beehive.js";
 import SpeedStrip from "./speed_strip";
+import Pollen from "./pollen.js";
+
 import * as Util from "./util.js";
 
 const CONSTANTS = {
@@ -26,6 +28,7 @@ class Game {
     this.wasps = [];
     this.flowers = [];
     this.speedStrips = [];
+    this.pollens = [];
     this.bee = this.addBee();
     this.beehive = this.addBeehive();
     this.background = document.getElementById("grass");
@@ -55,6 +58,7 @@ class Game {
       this.bee.drawScale(ctx);
     }
     this.bee.drawAnimatedBee(ctx);
+    this.pollens.forEach((pollen) => pollen.drawPollen(ctx));
     if (this.bee.pollinating) {
       this.bee.drawPollen(ctx);
     }
@@ -103,6 +107,7 @@ class Game {
         if (object instanceof Flower) {
           this.addPoints();
           this.bee.pollinate();
+          this.pollens.push(this.addPollens());
         }
         if (object instanceof SpeedStrip) {
           this.bee.accelerate();
@@ -131,6 +136,10 @@ class Game {
   }
   addFlowers() {
     return new Flower({ pos: this.randomPosition(), game: this });
+  }
+
+  addPollens() {
+    return new Pollen({ game: this });
   }
 
   addBeehive() {
@@ -178,6 +187,9 @@ class Game {
   remove(object) {
     if (object instanceof Wasp) {
       this.wasps.splice(this.wasps.indexOf(object), 1);
+    }
+    if (object instanceof Pollen) {
+      this.pollens.splice(this.pollens.indexOf(object), 1);
     }
   }
 }
