@@ -39,6 +39,14 @@ class Bee extends MovingObject {
     this.beeFrameR1 = document.getElementById("bee-right-1");
     this.beeFrameR2 = document.getElementById("bee-right-2");
     this.beeFrameR3 = document.getElementById("bee-right-3");
+    this.beeFrameU0 = document.getElementById("bee-up-0");
+    this.beeFrameU1 = document.getElementById("bee-up-1");
+    this.beeFrameU2 = document.getElementById("bee-up-2");
+    this.beeFrameU3 = document.getElementById("bee-up-3");
+    this.beeFrameD0 = document.getElementById("bee-down-0");
+    this.beeFrameD1 = document.getElementById("bee-down-1");
+    this.beeFrameD2 = document.getElementById("bee-down-2");
+    this.beeFrameD3 = document.getElementById("bee-down-3");
 
     this.animatedBeeTimer = 0;
   }
@@ -180,37 +188,73 @@ class Bee extends MovingObject {
   drawAnimatedBee(ctx) {
     let framesPerAnimation = 3;
     let beeFrame;
-    if (this.vel[0] >= 0) {
-      if (this.animatedBeeTimer <= framesPerAnimation) {
-        beeFrame = this.beeFrameR0;
-      } else if (
-        this.animatedBeeTimer > framesPerAnimation &&
-        this.animatedBeeTimer <= 2 * framesPerAnimation
-      ) {
-        beeFrame = this.beeFrameR1;
-      } else if (
-        this.animatedBeeTimer > 2 * framesPerAnimation &&
-        this.animatedBeeTimer <= 3 * framesPerAnimation
-      ) {
-        beeFrame = this.beeFrameR2;
-      } else if (this.animatedBeeTimer > 3 * framesPerAnimation) {
-        beeFrame = this.beeFrameR3;
+    if (Math.abs(this.vel[0]) >= Math.abs(this.vel[1])) {
+      if (this.vel[0] >= 0) {
+        if (this.animatedBeeTimer <= framesPerAnimation) {
+          beeFrame = this.beeFrameR0;
+        } else if (
+          this.animatedBeeTimer > framesPerAnimation &&
+          this.animatedBeeTimer <= 2 * framesPerAnimation
+        ) {
+          beeFrame = this.beeFrameR1;
+        } else if (
+          this.animatedBeeTimer > 2 * framesPerAnimation &&
+          this.animatedBeeTimer <= 3 * framesPerAnimation
+        ) {
+          beeFrame = this.beeFrameR2;
+        } else if (this.animatedBeeTimer > 3 * framesPerAnimation) {
+          beeFrame = this.beeFrameR3;
+        }
+      } else {
+        if (this.animatedBeeTimer <= framesPerAnimation) {
+          beeFrame = this.beeFrameL0;
+        } else if (
+          this.animatedBeeTimer > framesPerAnimation &&
+          this.animatedBeeTimer <= 2 * framesPerAnimation
+        ) {
+          beeFrame = this.beeFrameL1;
+        } else if (
+          this.animatedBeeTimer > 2 * framesPerAnimation &&
+          this.animatedBeeTimer <= 3 * framesPerAnimation
+        ) {
+          beeFrame = this.beeFrameL2;
+        } else if (this.animatedBeeTimer > 3 * framesPerAnimation) {
+          beeFrame = this.beeFrameL3;
+        }
       }
     } else {
-      if (this.animatedBeeTimer <= framesPerAnimation) {
-        beeFrame = this.beeFrameL0;
-      } else if (
-        this.animatedBeeTimer > framesPerAnimation &&
-        this.animatedBeeTimer <= 2 * framesPerAnimation
-      ) {
-        beeFrame = this.beeFrameL1;
-      } else if (
-        this.animatedBeeTimer > 2 * framesPerAnimation &&
-        this.animatedBeeTimer <= 3 * framesPerAnimation
-      ) {
-        beeFrame = this.beeFrameL2;
-      } else if (this.animatedBeeTimer > 3 * framesPerAnimation) {
-        beeFrame = this.beeFrameL3;
+      if (this.vel[1] <= 0) {
+        if (this.animatedBeeTimer <= framesPerAnimation) {
+          beeFrame = this.beeFrameU0;
+        } else if (
+          this.animatedBeeTimer > framesPerAnimation &&
+          this.animatedBeeTimer <= 2 * framesPerAnimation
+        ) {
+          beeFrame = this.beeFrameU1;
+        } else if (
+          this.animatedBeeTimer > 2 * framesPerAnimation &&
+          this.animatedBeeTimer <= 3 * framesPerAnimation
+        ) {
+          beeFrame = this.beeFrameU2;
+        } else if (this.animatedBeeTimer > 3 * framesPerAnimation) {
+          beeFrame = this.beeFrameU3;
+        }
+      } else {
+        if (this.animatedBeeTimer <= framesPerAnimation) {
+          beeFrame = this.beeFrameD0;
+        } else if (
+          this.animatedBeeTimer > framesPerAnimation &&
+          this.animatedBeeTimer <= 2 * framesPerAnimation
+        ) {
+          beeFrame = this.beeFrameD1;
+        } else if (
+          this.animatedBeeTimer > 2 * framesPerAnimation &&
+          this.animatedBeeTimer <= 3 * framesPerAnimation
+        ) {
+          beeFrame = this.beeFrameD2;
+        } else if (this.animatedBeeTimer > 3 * framesPerAnimation) {
+          beeFrame = this.beeFrameD3;
+        }
       }
     }
 
@@ -218,7 +262,6 @@ class Bee extends MovingObject {
     // let beeFrame = `this.beeFrame${frameNum}`;
 
     ctx.drawImage(
-      // Bee[beeFrame],
       beeFrame,
       this.pos[0] - this.radius,
       this.pos[1] - this.radius,

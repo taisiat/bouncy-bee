@@ -130,6 +130,54 @@ beeRight3.src = "assets/bee/keyframes/__side_view_bee_fly_r_001.png";
 beeRight3.setAttribute("id", "bee-right-3");
 beeRight3.classList.add("hidden");
 document.querySelector("body").appendChild(beeRight3);
+//bee up
+let beeUp0 = document.createElement("img");
+beeUp0.src = "assets/bee/keyframes/__top_view_bee_fly_000.png";
+beeUp0.setAttribute("id", "bee-up-0");
+beeUp0.classList.add("hidden");
+document.querySelector("body").appendChild(beeUp0);
+
+let beeUp1 = document.createElement("img");
+beeUp1.src = "assets/bee/keyframes/__top_view_bee_fly_001.png";
+beeUp1.setAttribute("id", "bee-up-1");
+beeUp1.classList.add("hidden");
+document.querySelector("body").appendChild(beeUp1);
+
+let beeUp2 = document.createElement("img");
+beeUp2.src = "assets/bee/keyframes/__top_view_bee_fly_002.png";
+beeUp2.setAttribute("id", "bee-up-2");
+beeUp2.classList.add("hidden");
+document.querySelector("body").appendChild(beeUp2);
+
+let beeUp3 = document.createElement("img");
+beeUp3.src = "assets/bee/keyframes/__top_view_bee_fly_003.png";
+beeUp3.setAttribute("id", "bee-up-3");
+beeUp3.classList.add("hidden");
+document.querySelector("body").appendChild(beeUp3);
+//bee down
+let beeDown0 = document.createElement("img");
+beeDown0.src = "assets/bee/keyframes/__top_view_bee_fly_d_000.png";
+beeDown0.setAttribute("id", "bee-down-0");
+beeDown0.classList.add("hidden");
+document.querySelector("body").appendChild(beeDown0);
+
+let beeDown1 = document.createElement("img");
+beeDown1.src = "assets/bee/keyframes/__top_view_bee_fly_d_001.png";
+beeDown1.setAttribute("id", "bee-down-1");
+beeDown1.classList.add("hidden");
+document.querySelector("body").appendChild(beeDown1);
+
+let beeDown2 = document.createElement("img");
+beeDown2.src = "assets/bee/keyframes/__top_view_bee_fly_d_002.png";
+beeDown2.setAttribute("id", "bee-down-2");
+beeDown2.classList.add("hidden");
+document.querySelector("body").appendChild(beeDown2);
+
+let beeDown3 = document.createElement("img");
+beeDown3.src = "assets/bee/keyframes/__top_view_bee_fly_d_003.png";
+beeDown3.setAttribute("id", "bee-down-3");
+beeDown3.classList.add("hidden");
+document.querySelector("body").appendChild(beeDown3);
 
 const canvasEl = document.getElementsByTagName("canvas")[0];
 canvasEl.height = Game.DIM_Y;

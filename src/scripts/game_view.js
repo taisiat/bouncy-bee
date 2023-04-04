@@ -222,7 +222,7 @@ class GameView {
     this.ctx.fillStyle = pattern;
     this.ctx.fillRect(0, 0, 1200, 600);
     const messagePos = [10, 300];
-    this.ctx.font = "40pt Delicious Handrawn";
+    this.ctx.font = "30pt Delicious Handrawn";
     this.ctx.fillStyle = "yellow";
     this.ctx.fillText("The wasps caught you!", messagePos[0], messagePos[1]);
     this.ctx.fillText(
