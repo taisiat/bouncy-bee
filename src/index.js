@@ -82,18 +82,54 @@ announcementGImg.src = "assets/announcement_g.jpeg";
 announcementGImg.setAttribute("id", "announcement-green");
 announcementGImg.classList.add("hidden");
 document.querySelector("body").appendChild(announcementGImg);
-
+//bees left
 let beeLeft0 = document.createElement("img");
 beeLeft0.src = "assets/bee/keyframes/__side_view_bee_fly_000.png";
-beeLeft0.setAttribute("id", "bee_left_0");
+beeLeft0.setAttribute("id", "bee-left-0");
 beeLeft0.classList.add("hidden");
 document.querySelector("body").appendChild(beeLeft0);
 
 let beeLeft1 = document.createElement("img");
 beeLeft1.src = "assets/bee/keyframes/__side_view_bee_fly_001.png";
-beeLeft1.setAttribute("id", "bee_left_1");
+beeLeft1.setAttribute("id", "bee-left-1");
 beeLeft1.classList.add("hidden");
 document.querySelector("body").appendChild(beeLeft1);
+
+let beeLeft2 = document.createElement("img");
+beeLeft2.src = "assets/bee/keyframes/__side_view_bee_fly_002.png";
+beeLeft2.setAttribute("id", "bee-left-2");
+beeLeft2.classList.add("hidden");
+document.querySelector("body").appendChild(beeLeft2);
+
+let beeLeft3 = document.createElement("img");
+beeLeft3.src = "assets/bee/keyframes/__side_view_bee_fly_001.png";
+beeLeft3.setAttribute("id", "bee-left-3");
+beeLeft3.classList.add("hidden");
+document.querySelector("body").appendChild(beeLeft3);
+// bees right
+let beeRight0 = document.createElement("img");
+beeRight0.src = "assets/bee/keyframes/__side_view_bee_fly_r_000.png";
+beeRight0.setAttribute("id", "bee-right-0");
+beeRight0.classList.add("hidden");
+document.querySelector("body").appendChild(beeRight0);
+
+let beeRight1 = document.createElement("img");
+beeRight1.src = "assets/bee/keyframes/__side_view_bee_fly_r_001.png";
+beeRight1.setAttribute("id", "bee-right-1");
+beeRight1.classList.add("hidden");
+document.querySelector("body").appendChild(beeRight1);
+
+let beeRight2 = document.createElement("img");
+beeRight2.src = "assets/bee/keyframes/__side_view_bee_fly_r_002.png";
+beeRight2.setAttribute("id", "bee-right-2");
+beeRight2.classList.add("hidden");
+document.querySelector("body").appendChild(beeRight2);
+
+let beeRight3 = document.createElement("img");
+beeRight3.src = "assets/bee/keyframes/__side_view_bee_fly_r_001.png";
+beeRight3.setAttribute("id", "bee-right-3");
+beeRight3.classList.add("hidden");
+document.querySelector("body").appendChild(beeRight3);
 
 const canvasEl = document.getElementsByTagName("canvas")[0];
 canvasEl.height = Game.DIM_Y;

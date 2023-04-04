@@ -49,7 +49,7 @@ class Game {
     this.beehive.draw(ctx);
     this.speedStrips.forEach((speedStrip) => speedStrip.draw(ctx));
     this.wasps.forEach((wasp) => wasp.draw(ctx));
-    this.bee.draw(ctx);
+    // this.bee.draw(ctx);
     if (!this.bee.launched) {
       this.bee.drawTrajectory(ctx);
       this.bee.drawScale(ctx);

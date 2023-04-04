@@ -63,6 +63,14 @@ class GameView {
       // this.game.bee.nudge("right");
       this.dKeyHandler();
     });
+    key("right", () => {
+      // this.game.bee.nudge("right");
+      this.dKeyHandler();
+    });
+    key("left", () => {
+      // this.game.bee.nudge("right");
+      this.aKeyHandler();
+    });
     // if (this.game.bee.launched) {
     //   key("a", () => {
     //     this.game.bee.nudge("left");
@@ -200,6 +208,7 @@ class GameView {
       messagePos[0],
       messagePos[1] + CONSTANTS.LINE_SPACING
     );
+    this.ctx.drawImage(this.game.bee.beeFrameL0, 700, 100);
   }
 
   drawLosePage() {
@@ -262,19 +271,23 @@ class GameView {
       messagePos[0],
       messagePos[1]
     );
-    this.ctx.fillText(`Objectives:`, messagePos[0] + 100, messagePos[1] + 100);
     this.ctx.fillText(
-      `Visit the most flowers!`,
+      `Direct Bouncy Bee like a cannon, and then course correct. Try to:`,
+      messagePos[0] + 100,
+      messagePos[1] + 100
+    );
+    this.ctx.fillText(
+      `Visit the most flowers`,
       messagePos[0] + CONSTANTS.LINE_SPACING,
       messagePos[1] + CONSTANTS.LINE_SPACING * 2
     );
     this.ctx.fillText(
-      `Avoid the wasps!`,
+      `Avoid the wasps!!!`,
       messagePos[0] + CONSTANTS.LINE_SPACING,
       messagePos[1] + CONSTANTS.LINE_SPACING * 3
     );
     this.ctx.fillText(
-      `Mega extra points if you land back on the beehive!`,
+      `Mega extra points if you land back on the beehive`,
       messagePos[0] + CONSTANTS.LINE_SPACING,
       messagePos[1] + CONSTANTS.LINE_SPACING * 4
     );
