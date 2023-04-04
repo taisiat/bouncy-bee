@@ -50,7 +50,9 @@ class MovingObject {
     ctx.drawImage(
       this.background,
       this.pos[0] - this.radius,
-      this.pos[1] - this.radius
+      this.pos[1] - this.radius,
+      this.radius * 2,
+      this.radius * 2
     );
   }
 

@@ -190,13 +190,13 @@ class GameView {
     this.ctx.fillStyle = pattern;
     // this.ctx.fillStyle = "green";
     this.ctx.fillRect(0, 0, 1200, 600);
-    const messagePos = [10, 300];
-    this.ctx.font = "30pt Delicious Handrawn";
+    const messagePos = [10, 200];
+    this.ctx.font = "25pt Delicious Handrawn";
     this.ctx.fillStyle = "black";
     let winMessage =
       this.game.score > 0
         ? `${message} Score: ${this.game.score}`
-        : "You didn't get caught by wasps, but you also didn't score any points!";
+        : "You avoided wasps, but you also didn't get any points!";
     this.ctx.fillText(winMessage, messagePos[0], messagePos[1]);
     let scoreMessage =
       this.game.score === this.highScore && this.game.score !== 0
@@ -208,7 +208,7 @@ class GameView {
       messagePos[0],
       messagePos[1] + CONSTANTS.LINE_SPACING
     );
-    this.ctx.drawImage(this.game.bee.beeFrameL0, 700, 100);
+    this.ctx.drawImage(this.game.bee.beeFrameL0, 700, 150);
   }
 
   drawLosePage() {
@@ -236,15 +236,15 @@ class GameView {
     const loseMessages = [
       "Bee-tter luck next time!",
       "Looks like you got stung with a loss!",
-      "Bee-ginning of success is not here, try again!",
-      "Not the bee's knees this time, try harder next time!",
+      "Bee-ginning of success is not here!",
+      "Not the bee's knees this time!",
       "Sorry, you didn't make the buzz this time.",
       "You got swatted like a fly and lost!",
     ];
     const winMessages = [
       "Bee-autiful work!",
       "Buzzing with excitement, you're the winner!",
-      "You really earned your stripes like a bee and won!",
+      "You earned your stripes like a bee and won!",
       "You're as busy as a bee and just as successful!",
       "Buzz-tastic!",
       "Hive five for a job well done!",

@@ -50,7 +50,7 @@ class Bee extends MovingObject {
 
   decelerate() {
     this.vel.forEach((velocity, i) => {
-      if (velocity === 0) {
+      if (velocity === 0 || Math.abs(velocity) < CONSTANTS.DECELFACTOR) {
         this.vel[i] = 0;
       } else if (velocity < 0) {
         this.vel[i] += CONSTANTS.DECELFACTOR;
@@ -65,6 +65,7 @@ class Bee extends MovingObject {
       this.vel = [0, 0];
       this.landed = true;
     }
+    console.log(this.vel, "vel");
   }
 
   setTrajectory(direction) {
@@ -143,7 +144,7 @@ class Bee extends MovingObject {
     ctx.fillStyle = "green";
     ctx.rect(20, 380, Math.floor(slider) * 1.2, 10);
     // ctx.rect(30, 380, 50, 10);
-    console.log(slider, "slider");
+    // console.log(slider, "slider");
     ctx.fill();
   }
 
@@ -163,13 +164,13 @@ class Bee extends MovingObject {
   nudge(direction) {
     const nudgeFactor =
       direction === "left" ? CONSTANTS.NUDGE : -CONSTANTS.NUDGE;
-    console.log("nudge here");
+    // console.log("nudge here");
     const cosA = Math.cos(nudgeFactor);
     const sinA = Math.sin(nudgeFactor);
     const newX = this.vel[0] * cosA + this.vel[1] * sinA;
     const newY = -this.vel[0] * sinA + this.vel[1] * cosA;
     this.vel = [newX, newY];
-    console.log(this.vel, "vel");
+    // console.log(this.vel, "vel");
   }
 
   capture() {
