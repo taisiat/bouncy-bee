@@ -83,6 +83,18 @@ announcementGImg.setAttribute("id", "announcement-green");
 announcementGImg.classList.add("hidden");
 document.querySelector("body").appendChild(announcementGImg);
 
+let beeLeft0 = document.createElement("img");
+beeLeft0.src = "assets/bee/keyframes/__side_view_bee_fly_000.png";
+beeLeft0.setAttribute("id", "bee_left_0");
+beeLeft0.classList.add("hidden");
+document.querySelector("body").appendChild(beeLeft0);
+
+let beeLeft1 = document.createElement("img");
+beeLeft1.src = "assets/bee/keyframes/__side_view_bee_fly_001.png";
+beeLeft1.setAttribute("id", "bee_left_1");
+beeLeft1.classList.add("hidden");
+document.querySelector("body").appendChild(beeLeft1);
+
 const canvasEl = document.getElementsByTagName("canvas")[0];
 canvasEl.height = Game.DIM_Y;
 canvasEl.width = Game.DIM_X;

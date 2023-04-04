@@ -3,7 +3,7 @@ import Game from "./game";
 import * as Util from "./util.js";
 
 const CONSTANTS = {
-  NUDGE: 0.05,
+  NUDGE: 0.1,
   // DECEL: 0.999,
   DECELFACTOR: 0.005,
   ACCEL: 1.05,
@@ -31,6 +31,10 @@ class Bee extends MovingObject {
     this.landed = false;
     this.launched = false;
     this.caught = false;
+    this.beeFrame0 = document.getElementById("bee_left_0");
+    this.beeFrame1 = document.getElementById("bee_left_1");
+
+    this.animatedBeeTimer = 0;
   }
 
   accelerate() {
@@ -164,6 +168,31 @@ class Bee extends MovingObject {
 
   capture() {
     this.caught = true;
+  }
+
+  drawAnimatedBee(ctx) {
+    let framesPerAnimation = 10;
+    let beeFrame;
+    if (this.animatedBeeTimer <= framesPerAnimation) {
+      beeFrame = this.beeFrame0;
+    } else if (
+      this.animatedBeeTimer > framesPerAnimation &&
+      this.animatedBeeTimer <= 2 * framesPerAnimation
+    ) {
+      beeFrame = this.beeFrame1;
+    }
+    // let beeFrame = `beeFrame${frameNum}`;
+    // let beeFrame = `this.beeFrame${frameNum}`;
+
+    ctx.drawImage(
+      // Bee[beeFrame],
+      beeFrame,
+      this.pos[0] - this.radius,
+      this.pos[1] - this.radius,
+      this.radius * 2,
+      this.radius * 2
+    );
+    this.animatedBeeTimer = (this.animatedBeeTimer + 1) % 20;
   }
 }
 

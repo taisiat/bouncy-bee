@@ -41,7 +41,7 @@ class MovingObject {
   }
 
   draw(ctx) {
-    const pattern = ctx.createPattern(this.background, "repeat");
+    // const pattern = ctx.createPattern(this.background, "repeat");
     // ctx.fillStyle = pattern || this.color;
     ctx.fillStyle = this.color;
     ctx.beginPath();

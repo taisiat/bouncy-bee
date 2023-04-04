@@ -55,6 +55,14 @@ class GameView {
       // this.game.bee.nudge("right");
       this.dKeyHandler();
     });
+    key("up", () => {
+      // this.game.bee.nudge("right");
+      this.aKeyHandler();
+    });
+    key("down", () => {
+      // this.game.bee.nudge("right");
+      this.dKeyHandler();
+    });
     // if (this.game.bee.launched) {
     //   key("a", () => {
     //     this.game.bee.nudge("left");

@@ -54,6 +54,7 @@ class Game {
       this.bee.drawTrajectory(ctx);
       this.bee.drawScale(ctx);
     }
+    this.bee.drawAnimatedBee(ctx);
   }
   moveObjects() {
     this.wasps.forEach((wasp) => wasp.move());
