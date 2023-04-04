@@ -65,11 +65,23 @@ beehiveImg.setAttribute("id", "beehive");
 beehiveImg.classList.add("hidden");
 document.querySelector("body").appendChild(beehiveImg);
 
-let popupImg = document.createElement("img");
-popupImg.src = "assets/popup_bg.jpg";
-popupImg.setAttribute("id", "popup");
-popupImg.classList.add("hidden");
-document.querySelector("body").appendChild(popupImg);
+let announcementRImg = document.createElement("img");
+announcementRImg.src = "assets/announcement_r.jpg";
+announcementRImg.setAttribute("id", "announcement-red");
+announcementRImg.classList.add("hidden");
+document.querySelector("body").appendChild(announcementRImg);
+
+let announcementWImg = document.createElement("img");
+announcementWImg.src = "assets/announcement_w.jpg";
+announcementWImg.setAttribute("id", "announcement-white");
+announcementWImg.classList.add("hidden");
+document.querySelector("body").appendChild(announcementWImg);
+
+let announcementGImg = document.createElement("img");
+announcementGImg.src = "assets/announcement_g.jpeg";
+announcementGImg.setAttribute("id", "announcement-green");
+announcementGImg.classList.add("hidden");
+document.querySelector("body").appendChild(announcementGImg);
 
 const canvasEl = document.getElementsByTagName("canvas")[0];
 canvasEl.height = Game.DIM_Y;

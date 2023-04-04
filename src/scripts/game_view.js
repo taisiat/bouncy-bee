@@ -7,7 +7,9 @@ class GameView {
   constructor(ctx) {
     // this.game = new Game();
     this.ctx = ctx;
-    this.background = document.getElementById("popup");
+    this.announcementR = document.getElementById("announcement-red");
+    this.announcementW = document.getElementById("announcement-white");
+    this.announcementG = document.getElementById("announcement-green");
     this.wasp = document.getElementById("wasp-med");
 
     // this.dimensions = { width: 1200, height: 600 };
@@ -168,12 +170,13 @@ class GameView {
 
     // this.ctx.clearRect(0, 0, this.game.DIM_X, this.game.DIM_Y);
     this.ctx.clearRect(0, 0, 1200, 600);
-    // const pattern = ctx.createPattern(this.background, "repeat");
-    this.ctx.fillStyle = "green";
+    const pattern = this.ctx.createPattern(this.announcementG, "repeat");
+    this.ctx.fillStyle = pattern;
+    // this.ctx.fillStyle = "green";
     this.ctx.fillRect(0, 0, 1200, 600);
     const messagePos = [10, 300];
     this.ctx.font = "30pt Delicious Handrawn";
-    this.ctx.fillStyle = "yellow";
+    this.ctx.fillStyle = "black";
     let winMessage =
       this.game.score > 0
         ? `${message} Score: ${this.game.score}`
@@ -197,7 +200,9 @@ class GameView {
     // this.ctx.clearRect(0, 0, this.game.DIM_X, this.game.DIM_Y);
     this.ctx.clearRect(0, 0, 1200, 600);
     // const pattern = ctx.createPattern(this.background, "repeat");
-    this.ctx.fillStyle = "red";
+    // this.ctx.fillStyle = "red";
+    const pattern = this.ctx.createPattern(this.announcementR, "repeat");
+    this.ctx.fillStyle = pattern;
     this.ctx.fillRect(0, 0, 1200, 600);
     const messagePos = [10, 300];
     this.ctx.font = "40pt Delicious Handrawn";
@@ -236,7 +241,7 @@ class GameView {
   drawInstructions(ctx) {
     // this.ctx.clearRect(0, 0, this.game.DIM_X, this.game.DIM_Y);
     this.ctx.clearRect(0, 0, 1200, 600);
-    const pattern = this.ctx.createPattern(this.background, "repeat");
+    const pattern = this.ctx.createPattern(this.announcementW, "repeat");
     this.ctx.fillStyle = pattern || "yellow";
 
     // this.ctx.fillStyle = "yellow";
