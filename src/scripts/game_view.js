@@ -12,6 +12,7 @@ class GameView {
     this.wasp = document.getElementById("wasp-med");
     this.flower = document.getElementById("flower-med");
     this.beehive = document.getElementById("beehive");
+
     this.highScore = 0;
     this.bindKeyHandlers();
   }
@@ -102,13 +103,11 @@ class GameView {
 
   animate(time) {
     const timeDelta = time - this.lastTime;
-    console.log(time, "time", this.lastTime, "lasttime");
-
+    console.log(time, "time", this.lastTime, "lastime");
     this.game.step(timeDelta);
     this.game.draw(this.ctx);
     this.drawScore();
     this.lastTime = time;
-
     if (!this.running) {
       this.drawInstructions();
     } else if (!this.game.gameOver()) {
@@ -209,10 +208,13 @@ class GameView {
     return messages[idx];
   }
 
-  drawInstructions(ctx) {
+  drawInstructions() {
     this.ctx.clearRect(0, 0, 1200, 600);
+    console.log(this.announcementW, "announcementW");
     const pattern = this.ctx.createPattern(this.announcementW, "repeat");
+    // console.log(pattern, "pattern");
     this.ctx.fillStyle = pattern || "yellow";
+    // this.ctx.drawImage(this.announcementW, 0, 0);
     this.ctx.fillRect(0, 0, 1200, 600);
     const messagePos = [10, 100];
     this.ctx.font = "30pt Delicious Handrawn";
@@ -243,12 +245,12 @@ class GameView {
       messagePos[1] + CONSTANTS.LINE_SPACING * 4
     );
 
-    this.ctx.drawImage(this.wasp, 1050, 240, 100, 100);
+    // this.ctx.drawImage(this.wasp, 1050, 240, 100, 100);
     this.ctx.drawImage(this.beehive, 550, 260, 150, 150);
 
     this.ctx.drawImage(this.flower, 700, 290, 300, 300);
 
-    this.ctx.drawImage(this.game.bee.beeFrameL0, 900, 350, 200, 200);
+    // this.ctx.drawImage(this.game.bee.beeFrameL0, 900, 350, 200, 200);
   }
 }
 
