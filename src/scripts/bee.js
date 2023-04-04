@@ -10,6 +10,58 @@ const CONSTANTS = {
   START_SCALE: 1,
   MIN_BEE_LAUNCH_SPEED: 0.25,
   POLLEN_DIST: 50,
+  RAND_COLORS: [
+    "#FF6633",
+    "#FFB399",
+    "#FF33FF",
+    "#FFFF99",
+    "#00B3E6",
+    "#E6B333",
+    "#3366E6",
+    "#999966",
+    "#99FF99",
+    "#B34D4D",
+    "#80B300",
+    "#809900",
+    "#E6B3B3",
+    "#6680B3",
+    "#66991A",
+    "#FF99E6",
+    "#CCFF1A",
+    "#FF1A66",
+    "#E6331A",
+    "#33FFCC",
+    "#66994D",
+    "#B366CC",
+    "#4D8000",
+    "#B33300",
+    "#CC80CC",
+    "#66664D",
+    "#991AFF",
+    "#E666FF",
+    "#4DB3FF",
+    "#1AB399",
+    "#E666B3",
+    "#33991A",
+    "#CC9999",
+    "#B3B31A",
+    "#00E680",
+    "#4D8066",
+    "#809980",
+    "#E6FF80",
+    "#1AFF33",
+    "#999933",
+    "#FF3380",
+    "#CCCC00",
+    "#66E64D",
+    "#4D80CC",
+    "#9900B3",
+    "#E64D66",
+    "#4DB380",
+    "#FF4D4D",
+    "#99E6E6",
+    "#6666FF",
+  ],
 };
 
 class Bee extends MovingObject {
@@ -51,6 +103,8 @@ class Bee extends MovingObject {
     this.beeFrameD3 = document.getElementById("bee-down-3");
 
     this.animatedBeeTimer = 0;
+    this.pollenTimer = 0;
+    this.pollenPosition = [0, 0];
   }
 
   notPollinate() {
@@ -61,19 +115,25 @@ class Bee extends MovingObject {
   }
 
   drawPollen(ctx) {
-    console.log("pollinating!");
-    let pollenPosition = this.pollenPos();
-    ctx.fillStyle = "yellow";
-    ctx.beginPath();
-    ctx.arc(
-      pollenPosition[0],
-      pollenPosition[1],
-      this.radius,
-      0,
-      2 * Math.PI,
-      true
+    if (this.pollenTimer % 10 === 0) {
+      this.pollenPosition = this.pollenPos();
+    }
+    console.log(this.pollenTimer, "timer");
+    let randomColorIdx = Math.floor(
+      Math.random() * CONSTANTS.RAND_COLORS.length
     );
+    // pollenPosition = this.pollenPos();
+    ctx.fillStyle = CONSTANTS.RAND_COLORS[randomColorIdx];
+    ctx.beginPath();
+    for (let i = 0; i < 6; i++) {
+      ctx.lineTo(
+        this.pollenPosition[0] + 10 * Math.cos(((2 * Math.PI) / 6) * i),
+        this.pollenPosition[1] + 10 * Math.sin(((2 * Math.PI) / 6) * i)
+      );
+    }
+    ctx.closePath();
     ctx.fill();
+    this.pollenTimer += 1;
   }
 
   pollenPos() {
@@ -119,22 +179,9 @@ class Bee extends MovingObject {
     const newX = Bee.START_VEL[0] * cosA + Bee.START_VEL[1] * sinA;
     const newY = -Bee.START_VEL[0] * sinA + Bee.START_VEL[1] * cosA;
     Bee.START_VEL = [newX, newY];
-    // console.log(Bee.START_VEL, "start vel");
   }
 
   drawTrajectory(ctx) {
-    // ctx.fillStyle = "red";
-    // ctx.beginPath();
-    // ctx.arc(
-    //   this.pos[0] + Bee.START_VEL[0] * 10,
-    //   this.pos[1] + Bee.START_VEL[1] * 10,
-    //   10,
-    //   0,
-    //   2 * Math.PI,
-    //   true
-    // );
-    // ctx.fill();
-    // triangle
     let pointerDirection = [
       this.pos[0] + Bee.START_VEL[0] * 15,
       this.pos[1] + Bee.START_VEL[1] * 15,
@@ -175,14 +222,6 @@ class Bee extends MovingObject {
 
   launch() {
     this.vel = Util.scale(Bee.START_VEL, this.speed);
-    // console.log(
-    //   Bee.START_VEL,
-    //   "vel",
-    //   this.speed,
-    //   "speed",
-    //   this.vel,
-    //   "vel final"
-    // );
     this.launched = true;
   }
 
@@ -272,9 +311,6 @@ class Bee extends MovingObject {
         }
       }
     }
-
-    // let beeFrame = `beeFrame${frameNum}`;
-    // let beeFrame = `this.beeFrame${frameNum}`;
 
     ctx.drawImage(
       beeFrame,
