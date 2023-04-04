@@ -55,6 +55,9 @@ class Game {
       this.bee.drawScale(ctx);
     }
     this.bee.drawAnimatedBee(ctx);
+    if (this.bee.pollinating) {
+      this.bee.drawPollen(ctx);
+    }
   }
   moveObjects() {
     this.wasps.forEach((wasp) => wasp.move());
@@ -89,6 +92,7 @@ class Game {
 
   checkCollisions() {
     let allNonBeeObjects = this.allNonBeeObjects();
+    this.bee.notPollinate();
     for (let i = 0; i < allNonBeeObjects.length; i++) {
       const object = allNonBeeObjects[i];
 
@@ -98,6 +102,7 @@ class Game {
         }
         if (object instanceof Flower) {
           this.addPoints();
+          this.bee.pollinate();
         }
         if (object instanceof SpeedStrip) {
           this.bee.accelerate();

@@ -53,6 +53,12 @@ flowerImg.setAttribute("id", "flower");
 flowerImg.classList.add("hidden");
 document.querySelector("body").appendChild(flowerImg);
 
+let flowerMImg = document.createElement("img");
+flowerMImg.src = "assets/flower_med.png";
+flowerMImg.setAttribute("id", "flower-med");
+flowerMImg.classList.add("hidden");
+document.querySelector("body").appendChild(flowerMImg);
+
 let speedstripImg = document.createElement("img");
 speedstripImg.src = "assets/speed_small.png";
 speedstripImg.setAttribute("id", "speedstrip");

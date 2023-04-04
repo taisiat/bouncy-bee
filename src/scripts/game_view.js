@@ -11,6 +11,8 @@ class GameView {
     this.announcementW = document.getElementById("announcement-white");
     this.announcementG = document.getElementById("announcement-green");
     this.wasp = document.getElementById("wasp-med");
+    this.flower = document.getElementById("flower-med");
+    this.beehive = document.getElementById("beehive");
 
     // this.dimensions = { width: 1200, height: 600 };
     // this.bee = this.game.bee;
@@ -232,6 +234,7 @@ class GameView {
     );
     this.ctx.drawImage(this.wasp, 700, 100);
   }
+
   message(type) {
     const loseMessages = [
       "Bee-tter luck next time!",
@@ -260,8 +263,6 @@ class GameView {
     this.ctx.clearRect(0, 0, 1200, 600);
     const pattern = this.ctx.createPattern(this.announcementW, "repeat");
     this.ctx.fillStyle = pattern || "yellow";
-
-    // this.ctx.fillStyle = "yellow";
     this.ctx.fillRect(0, 0, 1200, 600);
     const messagePos = [10, 100];
     this.ctx.font = "30pt Delicious Handrawn";
@@ -272,7 +273,7 @@ class GameView {
       messagePos[1]
     );
     this.ctx.fillText(
-      `Direct Bouncy Bee like a cannon, and then course correct. Try to:`,
+      `Direct Bouncy Bee like a cannon, and then course correct as it flies. Try to:`,
       messagePos[0] + 100,
       messagePos[1] + 100
     );
@@ -287,10 +288,17 @@ class GameView {
       messagePos[1] + CONSTANTS.LINE_SPACING * 3
     );
     this.ctx.fillText(
-      `Mega extra points if you land back on the beehive`,
+      `Land back on the beehive`,
       messagePos[0] + CONSTANTS.LINE_SPACING,
       messagePos[1] + CONSTANTS.LINE_SPACING * 4
     );
+
+    this.ctx.drawImage(this.wasp, 1050, 240, 100, 100);
+    this.ctx.drawImage(this.beehive, 550, 260, 150, 150);
+
+    this.ctx.drawImage(this.flower, 700, 290, 300, 300);
+
+    this.ctx.drawImage(this.game.bee.beeFrameL0, 900, 350, 200, 200);
   }
 }
 

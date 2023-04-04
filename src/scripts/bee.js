@@ -9,6 +9,7 @@ const CONSTANTS = {
   ACCEL: 1.03,
   START_SCALE: 1,
   MIN_BEE_LAUNCH_SPEED: 0.25,
+  POLLEN_DIST: 50,
 };
 
 class Bee extends MovingObject {
@@ -31,6 +32,7 @@ class Bee extends MovingObject {
     this.landed = false;
     this.launched = false;
     this.caught = false;
+    this.pollinating = false;
     this.beeFrameL0 = document.getElementById("bee-left-0");
     this.beeFrameL1 = document.getElementById("bee-left-1");
     this.beeFrameL2 = document.getElementById("bee-left-2");
@@ -49,6 +51,40 @@ class Bee extends MovingObject {
     this.beeFrameD3 = document.getElementById("bee-down-3");
 
     this.animatedBeeTimer = 0;
+  }
+
+  notPollinate() {
+    this.pollinating = false;
+  }
+  pollinate() {
+    this.pollinating = true;
+  }
+
+  drawPollen(ctx) {
+    console.log("pollinating!");
+    let pollenPosition = this.pollenPos();
+    ctx.fillStyle = "yellow";
+    ctx.beginPath();
+    ctx.arc(
+      pollenPosition[0],
+      pollenPosition[1],
+      this.radius,
+      0,
+      2 * Math.PI,
+      true
+    );
+    ctx.fill();
+  }
+
+  pollenPos() {
+    let pollenPos = [];
+    [0, 1].forEach((coord) => {
+      coord = Math.floor(
+        Math.random() * CONSTANTS.POLLEN_DIST + this.pos[coord] - 15
+      );
+      pollenPos.push(coord);
+    });
+    return pollenPos;
   }
 
   accelerate() {
@@ -73,7 +109,7 @@ class Bee extends MovingObject {
       this.vel = [0, 0];
       this.landed = true;
     }
-    console.log(this.vel, "vel");
+    // console.log(this.vel, "vel");
   }
 
   setTrajectory(direction) {
@@ -131,41 +167,33 @@ class Bee extends MovingObject {
   }
 
   drawScale(ctx) {
-    // ctx.clearRect(30, 380, 100, 10);
-    // ctx.fillStyle = "yellow";
-    // ctx.rect(30, 380, 100, 10);
-    // ctx.fill();
     let slider = 100 * this.slide_factor;
     ctx.fillStyle = "green";
     ctx.rect(20, 380, Math.floor(slider) * 1.2, 10);
-    // ctx.rect(30, 380, 50, 10);
-    // console.log(slider, "slider");
     ctx.fill();
   }
 
   launch() {
     this.vel = Util.scale(Bee.START_VEL, this.speed);
-    console.log(
-      Bee.START_VEL,
-      "vel",
-      this.speed,
-      "speed",
-      this.vel,
-      "vel final"
-    );
+    // console.log(
+    //   Bee.START_VEL,
+    //   "vel",
+    //   this.speed,
+    //   "speed",
+    //   this.vel,
+    //   "vel final"
+    // );
     this.launched = true;
   }
 
   nudge(direction) {
     const nudgeFactor =
       direction === "left" ? CONSTANTS.NUDGE : -CONSTANTS.NUDGE;
-    // console.log("nudge here");
     const cosA = Math.cos(nudgeFactor);
     const sinA = Math.sin(nudgeFactor);
     const newX = this.vel[0] * cosA + this.vel[1] * sinA;
     const newY = -this.vel[0] * sinA + this.vel[1] * cosA;
     this.vel = [newX, newY];
-    // console.log(this.vel, "vel");
   }
 
   capture() {

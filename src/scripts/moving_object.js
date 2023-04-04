@@ -54,6 +54,11 @@ class MovingObject {
       this.radius * 2,
       this.radius * 2
     );
+    // if (this instanceof Flower && this.dance) {
+    //   ctx.lineWidth = 5;
+    //   ctx.strokeStyle = "black";
+    //   ctx.stroke();
+    // }
   }
 
   isCollidedWith(otherObject) {

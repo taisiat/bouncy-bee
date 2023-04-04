@@ -7,9 +7,9 @@ export function scale(vec, m) {
   return [vec[0] * m, vec[1] * m];
 }
 
-export function calculateTriangleCoord(pos1, pos2) {
-  const xDistance = Math.abs(pos1[0] - pos2[0]);
-  const yDistance = Math.abs(pos1[1] - pos2[1]);
+export function calculateTriangleCoord(originPos, pointerTipPos) {
+  const xDistance = Math.abs(originPos[0] - pointerTipPos[0]);
+  const yDistance = Math.abs(originPos[1] - pointerTipPos[1]);
   const pointDistance = Math.sqrt(xDistance ** 2 + yDistance ** 2);
   let knownPointsAngleDeg = (Math.atan(yDistance / xDistance) * 180) / Math.PI;
   let inverseAngleDeg = 90 - knownPointsAngleDeg;
@@ -27,9 +27,9 @@ export function calculateTriangleCoord(pos1, pos2) {
       Math.sin(
         ((inverseAngleDeg + factor * desiredSharpnessDeg) * Math.PI) / 180
       );
-    let xAdj = pos1[0] <= pos2[0] ? x : -x;
-    let yAdj = pos1[1] <= pos2[1] ? -y : y;
-    newPoints.push([pos2[0] - xAdj, pos2[1] + yAdj]);
+    let xAdj = originPos[0] <= pointerTipPos[0] ? x : -x;
+    let yAdj = originPos[1] <= pointerTipPos[1] ? -y : y;
+    newPoints.push([pointerTipPos[0] - xAdj, pointerTipPos[1] + yAdj]);
   });
   return newPoints;
 }
