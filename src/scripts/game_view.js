@@ -5,7 +5,6 @@ const CONSTANTS = {
 
 class GameView {
   constructor(ctx) {
-    // this.game = new Game();
     this.ctx = ctx;
     this.announcementR = document.getElementById("announcement-red");
     this.announcementW = document.getElementById("announcement-white");
@@ -13,76 +12,41 @@ class GameView {
     this.wasp = document.getElementById("wasp-med");
     this.flower = document.getElementById("flower-med");
     this.beehive = document.getElementById("beehive");
-
-    // this.dimensions = { width: 1200, height: 600 };
-    // this.bee = this.game.bee;
-    // this.running = false;
     this.highScore = 0;
     this.bindKeyHandlers();
-    // this.restart();
-    // this.drawInstructions();
   }
 
   bindKeyHandlers() {
     key("i", () => {
       this.iKeyHandler();
     });
-    // key("i", () => {
-    //   this.pause();
-    //   this.drawInstructions();
-    // });
-    // key("o", () => {
-    //   this.play();
-    // });
     key("w", () => {
-      // this.game.bee.setTrajectory("up");
-      this.aKeyHandler();
+      this.leftKeyHandler();
     });
     key("s", () => {
-      // this.game.bee.setTrajectory("down");
-      this.dKeyHandler();
+      this.rightKeyHandler();
     });
-    // key("x", () => {
-    //   this.game.bee.launch();
-    // });
     key("space", () => {
-      // this.restart();
       this.spaceKeyHandler();
     });
     key("a", () => {
-      // this.game.bee.nudge("left");
-      this.aKeyHandler();
+      this.leftKeyHandler();
     });
     key("d", () => {
-      // this.game.bee.nudge("right");
-      this.dKeyHandler();
+      this.rightKeyHandler();
     });
     key("up", () => {
-      // this.game.bee.nudge("right");
-      this.aKeyHandler();
+      this.leftKeyHandler();
     });
     key("down", () => {
-      // this.game.bee.nudge("right");
-      this.dKeyHandler();
+      this.rightKeyHandler();
     });
     key("right", () => {
-      // this.game.bee.nudge("right");
-      this.dKeyHandler();
+      this.rightKeyHandler();
     });
     key("left", () => {
-      // this.game.bee.nudge("right");
-      this.aKeyHandler();
+      this.leftKeyHandler();
     });
-    // if (this.game.bee.launched) {
-    //   key("a", () => {
-    //     this.game.bee.nudge("left");
-    //   });
-    //   key("d", () => {
-    //     this.game.bee.nudge("right");
-    //   });
-    // } else {
-    //   // set trajectory and velocity from starting point
-    // }
   }
 
   iKeyHandler() {
@@ -102,7 +66,7 @@ class GameView {
     }
   }
 
-  aKeyHandler() {
+  leftKeyHandler() {
     if (this.game.bee.launched) {
       this.game.bee.nudge("left");
     } else if (!this.game.bee.launched) {
@@ -110,7 +74,7 @@ class GameView {
     }
   }
 
-  dKeyHandler() {
+  rightKeyHandler() {
     if (this.game.bee.launched) {
       this.game.bee.nudge("right");
     } else if (!this.game.bee.launched) {
@@ -119,13 +83,10 @@ class GameView {
   }
 
   restart() {
-    // this.bindKeyHandlers();
     this.running = false;
     this.score = 0;
     this.lastTime = 0;
     this.game = new Game();
-    // requestAnimationFrame(this.animate.bind(this));
-    // this.animate(this.lastTime);
     this.play(this.lastTime);
   }
 
@@ -153,15 +114,10 @@ class GameView {
       requestAnimationFrame(this.animate.bind(this));
     } else {
       if (this.game.bee.caught) {
-        // console.log(this.game.bee.caught, "caught");
-        // console.log(this.game.bee.landed, "landed");
         this.tallyPoints();
         this.drawLosePage();
       } else {
-        // console.log(this.game.bee.caught, "caught");
-        // console.log(this.game.bee.landed, "landed");
         this.tallyPoints();
-
         this.drawWinPage();
       }
     }
@@ -185,12 +141,9 @@ class GameView {
   drawWinPage() {
     console.log("win");
     let message = this.message("win");
-
-    // this.ctx.clearRect(0, 0, this.game.DIM_X, this.game.DIM_Y);
     this.ctx.clearRect(0, 0, 1200, 600);
     const pattern = this.ctx.createPattern(this.announcementG, "repeat");
     this.ctx.fillStyle = pattern;
-    // this.ctx.fillStyle = "green";
     this.ctx.fillRect(0, 0, 1200, 600);
     const messagePos = [50, 250];
     this.ctx.font = "35pt Delicious Handrawn";
@@ -216,10 +169,7 @@ class GameView {
   drawLosePage() {
     console.log("lose");
     let message = this.message("lose");
-    // this.ctx.clearRect(0, 0, this.game.DIM_X, this.game.DIM_Y);
     this.ctx.clearRect(0, 0, 1200, 600);
-    // const pattern = ctx.createPattern(this.background, "repeat");
-    // this.ctx.fillStyle = "red";
     const pattern = this.ctx.createPattern(this.announcementR, "repeat");
     this.ctx.fillStyle = pattern;
     this.ctx.fillRect(0, 0, 1200, 600);
@@ -259,7 +209,6 @@ class GameView {
   }
 
   drawInstructions(ctx) {
-    // this.ctx.clearRect(0, 0, this.game.DIM_X, this.game.DIM_Y);
     this.ctx.clearRect(0, 0, 1200, 600);
     const pattern = this.ctx.createPattern(this.announcementW, "repeat");
     this.ctx.fillStyle = pattern || "yellow";

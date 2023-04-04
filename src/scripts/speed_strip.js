@@ -1,5 +1,3 @@
-import Game from "./game";
-
 import MovingObject from "./moving_object";
 
 class SpeedStrip extends MovingObject {
@@ -18,6 +16,13 @@ class SpeedStrip extends MovingObject {
     this.isBouncy = SpeedStrip.BOUNCY;
     this.background = document.getElementById("speedstrip");
   }
+
+  press() {
+    this.background = document.getElementById("speedstrip-pressed");
+  }
+
+  unpress() {
+    this.background = document.getElementById("speedstrip");
+  }
 }
-// module.exports = SpeedStrip;
 export default SpeedStrip;

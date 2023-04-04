@@ -65,6 +65,12 @@ speedstripImg.setAttribute("id", "speedstrip");
 speedstripImg.classList.add("hidden");
 document.querySelector("body").appendChild(speedstripImg);
 
+let speedstripPressedImg = document.createElement("img");
+speedstripPressedImg.src = "assets/speed_small_pressed.png";
+speedstripPressedImg.setAttribute("id", "speedstrip-pressed");
+speedstripPressedImg.classList.add("hidden");
+document.querySelector("body").appendChild(speedstripPressedImg);
+
 let beehiveImg = document.createElement("img");
 beehiveImg.src = "assets/beehive_med_transparent.png";
 beehiveImg.setAttribute("id", "beehive");

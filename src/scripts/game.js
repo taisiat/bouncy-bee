@@ -50,18 +50,16 @@ class Game {
     ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
     this.flowers.forEach((flower) => flower.draw(ctx));
     this.beehive.draw(ctx);
-    this.speedStrips.forEach((speedStrip) => speedStrip.draw(ctx));
+    this.speedStrips.forEach((speedStrip) => {
+      speedStrip.draw(ctx);
+    });
     this.wasps.forEach((wasp) => wasp.draw(ctx));
-    // this.bee.draw(ctx);
     if (!this.bee.launched) {
       this.bee.drawTrajectory(ctx);
       this.bee.drawScale(ctx);
     }
     this.bee.drawAnimatedBee(ctx);
     this.pollens.forEach((pollen) => pollen.drawPollen(ctx));
-    if (this.bee.pollinating) {
-      this.bee.drawPollen(ctx);
-    }
   }
   moveObjects() {
     this.wasps.forEach((wasp) => wasp.move());
@@ -97,6 +95,9 @@ class Game {
   checkCollisions() {
     let allNonBeeObjects = this.allNonBeeObjects();
     this.bee.notPollinate();
+    this.speedStrips.forEach((speedStrip) => {
+      speedStrip.unpress();
+    });
     for (let i = 0; i < allNonBeeObjects.length; i++) {
       const object = allNonBeeObjects[i];
 
@@ -111,6 +112,7 @@ class Game {
         }
         if (object instanceof SpeedStrip) {
           this.bee.accelerate();
+          object.press();
         }
         if (object instanceof Beehive) {
         }
