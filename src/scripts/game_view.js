@@ -1,6 +1,28 @@
 import Game from "./game.js";
+
 const CONSTANTS = {
   LINE_SPACING: 100,
+  LOSE_MSG: [
+    "Bee-tter luck next time!",
+    "Looks like you got stung with a loss!",
+    "Bee-ginning of success is not here!",
+    "Not the bee's knees this time!",
+    "Sorry, you didn't make the buzz this time.",
+    "You got swatted like a fly and lost!",
+    "Bee-ware, losing is a sticky situation!",
+    "Wasp that a loss? Yes it wasp!",
+  ],
+  WIN_MSG: [
+    "Bee-autiful work!",
+    "Buzzing with excitement, you're the winner!",
+    "You earned your stripes like a bee and won!",
+    "You're as busy as a bee and just as successful!",
+    "Buzz-tastic!",
+    "Hive five for a job well done!",
+    "Buzz-tacular effort!",
+    "You've stung the competition and emerged a winner!",
+    "Wasp that a WIN? Yes it wasp!",
+  ],
 };
 
 class GameView {
@@ -89,7 +111,6 @@ class GameView {
     this.lastTime = 0;
     this.game = new Game();
     this.play(this.lastTime);
-    console.log(this.game.bee.beehiveLand, "beehiveland");
   }
 
   play(time) {
@@ -153,8 +174,6 @@ class GameView {
     const messagePos = [40, 220];
     this.ctx.font = "35pt Delicious Handrawn";
     this.ctx.fillStyle = "black";
-    console.log(this.game.bee.beehiveLand, "beehiveland at draw");
-    console.log(this.game.bee.caught, "caught");
     let beeLandMsg = this.game.bee.beehiveLand
       ? "You landed on the beehive - score!"
       : "";
@@ -200,24 +219,7 @@ class GameView {
   }
 
   message(type) {
-    const loseMessages = [
-      "Bee-tter luck next time!",
-      "Looks like you got stung with a loss!",
-      "Bee-ginning of success is not here!",
-      "Not the bee's knees this time!",
-      "Sorry, you didn't make the buzz this time.",
-      "You got swatted like a fly and lost!",
-    ];
-    const winMessages = [
-      "Bee-autiful work!",
-      "Buzzing with excitement, you're the winner!",
-      "You earned your stripes like a bee and won!",
-      "You're as busy as a bee and just as successful!",
-      "Buzz-tastic!",
-      "Hive five for a job well done!",
-      "Buzz-tacular effort!",
-    ];
-    let messages = type === "win" ? winMessages : loseMessages;
+    let messages = type === "win" ? CONSTANTS.WIN_MSG : CONSTANTS.LOSE_MSG;
     let idx = Math.floor(Math.random() * messages.length);
     return messages[idx];
   }
@@ -231,29 +233,48 @@ class GameView {
     this.ctx.font = "30pt Delicious Handrawn";
     this.ctx.fillStyle = "black";
     this.ctx.fillText(
-      `Help Bouncy Bee collect the most nectar!`,
+      "Help Bouncy Bee collect the most nectar!",
       messagePos[0],
       messagePos[1]
     );
     this.ctx.fillText(
-      `Direct Bouncy Bee like a cannon, and then course correct as it flies. Try to:`,
+      "Direct Bouncy Bee like a cannon, and then course correct as it flies. Try to:",
       messagePos[0] + 60,
       messagePos[1] + 100
     );
     this.ctx.fillText(
-      `Visit the most flowers`,
+      "Visit the most flowers",
       messagePos[0] + CONSTANTS.LINE_SPACING,
       messagePos[1] + CONSTANTS.LINE_SPACING * 2
     );
     this.ctx.fillText(
-      `Avoid the wasps!!!`,
+      "Avoid the wasps!!!",
       messagePos[0] + CONSTANTS.LINE_SPACING,
       messagePos[1] + CONSTANTS.LINE_SPACING * 3
     );
     this.ctx.fillText(
-      `Land (come to a stop) on the beehive for extra points`,
+      "Land (come to a stop) on the beehive for extra points",
       messagePos[0] + CONSTANTS.LINE_SPACING,
       messagePos[1] + CONSTANTS.LINE_SPACING * 4
+    );
+
+    let directionWarningPos = [30, 590];
+    let directionWarningText =
+      "Remember, you are nudging Bouncy Bee's trajectory left and right from ITS perspective - careful when it's flying left or down ;)";
+
+    this.ctx.font = "20pt Delicious Handrawn";
+    this.ctx.fillStyle = "yellow";
+    this.ctx.fillText(
+      directionWarningText,
+      directionWarningPos[0],
+      directionWarningPos[1]
+    );
+    this.ctx.strokeStyle = "black";
+    this.ctx.lineWidth = 1;
+    this.ctx.strokeText(
+      directionWarningText,
+      directionWarningPos[0],
+      directionWarningPos[1]
     );
 
     this.ctx.drawImage(this.wasp, 1050, 240, 100, 100);
