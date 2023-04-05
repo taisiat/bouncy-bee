@@ -127,26 +127,6 @@ class GameView {
     }
     this.lastTime = time;
   }
-  // const timeDelta = time - this.lastTime;
-  // console.log(time, "time", this.lastTime, "lastime");
-  // this.game.step(timeDelta);
-  // this.game.draw(this.ctx);
-  // this.drawScore();
-  // this.lastTime = time;
-  // if (!this.running) {
-  //   this.drawInstructions();
-  // } else if (!this.game.gameOver()) {
-  //   requestAnimationFrame(this.animate.bind(this));
-  // } else {
-  //   if (this.game.bee.caught) {
-  //     this.tallyPoints();
-  //     this.drawLosePage();
-  //   } else {
-  //     this.tallyPoints();
-  //     this.drawWinPage();
-  //   }
-  // }
-  // }
 
   tallyPoints() {
     this.game.addPoints();
@@ -262,7 +242,7 @@ class GameView {
       messagePos[1] + CONSTANTS.LINE_SPACING * 3
     );
     this.ctx.fillText(
-      `Land back on the beehive`,
+      `Land (come to a stop) on the beehive for extra points`,
       messagePos[0] + CONSTANTS.LINE_SPACING,
       messagePos[1] + CONSTANTS.LINE_SPACING * 4
     );
@@ -270,7 +250,7 @@ class GameView {
     this.ctx.drawImage(this.wasp, 1050, 240, 100, 100);
     this.ctx.drawImage(this.beehive, 550, 260, 150, 150);
 
-    this.ctx.drawImage(this.flower, 700, 290, 300, 300);
+    this.ctx.drawImage(this.flower, 700, 250, 200, 200);
 
     this.ctx.drawImage(this.game.bee.beeFrameL0, 900, 350, 200, 200);
   }

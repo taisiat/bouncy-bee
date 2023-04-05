@@ -125,11 +125,11 @@ beeRight0.setAttribute("id", "bee-right-0");
 beeRight0.classList.add("hidden");
 document.querySelector("body").appendChild(beeRight0);
 
-let beeRight1 = document.createElement("img");
-beeRight1.src = "assets/bee/keyframes/__side_view_bee_fly_r_001.png";
-beeRight1.setAttribute("id", "bee-right-1");
-beeRight1.classList.add("hidden");
-document.querySelector("body").appendChild(beeRight1);
+// let beeRight1 = document.createElement("img");
+// beeRight1.src = "assets/bee/keyframes/__side_view_bee_fly_r_001.png";
+// beeRight1.setAttribute("id", "bee-right-1");
+// beeRight1.classList.add("hidden");
+// document.querySelector("body").appendChild(beeRight1);
 
 let beeRight2 = document.createElement("img");
 beeRight2.src = "assets/bee/keyframes/__side_view_bee_fly_r_002.png";
