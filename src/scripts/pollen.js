@@ -51,7 +51,7 @@ const CONSTANTS = {
     "#99E6E6",
     "#6666FF",
   ],
-  POLLEN_DIST: 90,
+  POLLEN_DIST: 50,
 };
 
 class Pollen {
@@ -89,12 +89,13 @@ class Pollen {
 
   pollenPos() {
     let pollenPos = [];
-    [0, 1].forEach((coord) => {
-      coord = Math.floor(
-        Math.random() * CONSTANTS.POLLEN_DIST + this.game.bee.pos[coord] - 43
-      );
-      pollenPos.push(coord);
-    });
+
+    let posRadius = CONSTANTS.POLLEN_DIST * Math.sqrt(Math.random());
+    let theta = Math.random() * 2 * Math.PI;
+    pollenPos.push(
+      this.game.bee.pos[0] + posRadius * Math.cos(theta),
+      this.game.bee.pos[1] + posRadius * Math.sin(theta)
+    );
     return pollenPos;
   }
 }
