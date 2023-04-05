@@ -150,23 +150,28 @@ class GameView {
     const pattern = this.ctx.createPattern(this.announcementG, "repeat");
     this.ctx.fillStyle = pattern;
     this.ctx.fillRect(0, 0, 1200, 600);
-    const messagePos = [50, 250];
+    const messagePos = [40, 220];
     this.ctx.font = "35pt Delicious Handrawn";
     this.ctx.fillStyle = "black";
+
     let winMessage =
-      this.game.score > 0
-        ? `${message} Score: ${this.game.score}`
-        : "You avoided wasps, but you also didn't get any points!";
+      this.game.score > 0 ? message : "You avoided wasps, but got 0 points :(";
     this.ctx.fillText(winMessage, messagePos[0], messagePos[1]);
+
+    this.ctx.fillText(
+      `Score: ${this.game.score}`,
+      messagePos[0],
+      messagePos[1] + CONSTANTS.LINE_SPACING
+    );
+
     let scoreMessage =
       this.game.score === this.highScore && this.game.score !== 0
         ? "That's a new high score!"
         : "";
-
     this.ctx.fillText(
       scoreMessage,
       messagePos[0],
-      messagePos[1] + CONSTANTS.LINE_SPACING
+      messagePos[1] + 2 * CONSTANTS.LINE_SPACING
     );
     this.ctx.drawImage(this.game.bee.beeFrameL0, 700, 150);
   }
@@ -178,7 +183,7 @@ class GameView {
     const pattern = this.ctx.createPattern(this.announcementR, "repeat");
     this.ctx.fillStyle = pattern;
     this.ctx.fillRect(0, 0, 1200, 600);
-    const messagePos = [10, 300];
+    const messagePos = [40, 250];
     this.ctx.font = "30pt Delicious Handrawn";
     this.ctx.fillStyle = "yellow";
     this.ctx.fillText("The wasps caught you!", messagePos[0], messagePos[1]);
@@ -218,7 +223,7 @@ class GameView {
     const pattern = this.ctx.createPattern(this.announcementW, "repeat");
     this.ctx.fillStyle = pattern || "yellow";
     this.ctx.fillRect(0, 0, 1200, 600);
-    const messagePos = [10, 100];
+    const messagePos = [40, 100];
     this.ctx.font = "30pt Delicious Handrawn";
     this.ctx.fillStyle = "black";
     this.ctx.fillText(
@@ -228,7 +233,7 @@ class GameView {
     );
     this.ctx.fillText(
       `Direct Bouncy Bee like a cannon, and then course correct as it flies. Try to:`,
-      messagePos[0] + 100,
+      messagePos[0] + 60,
       messagePos[1] + 100
     );
     this.ctx.fillText(

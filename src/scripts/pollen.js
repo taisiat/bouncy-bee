@@ -64,7 +64,6 @@ class Pollen {
     );
     this.color = CONSTANTS.RAND_COLORS[randomColorIdx];
     this.radius = Pollen.RADIUS;
-    // this.pos = options.pos;
     this.game = options.game;
     this.pollenTimer = 0;
     this.pollenPosition = this.pollenPos();
@@ -74,8 +73,6 @@ class Pollen {
     if (this.pollenTimer > Pollen.PERSISTENCE) {
       this.game.remove(this);
     }
-    // console.log(this.pollenTimer, "timer");
-    // pollenPosition = this.pollenPos();
     ctx.fillStyle = this.color;
     ctx.beginPath();
     for (let i = 0; i < 6; i++) {
@@ -93,7 +90,7 @@ class Pollen {
     let pollenPos = [];
     [0, 1].forEach((coord) => {
       coord = Math.floor(
-        Math.random() * CONSTANTS.POLLEN_DIST + this.game.bee.pos[coord] - 40
+        Math.random() * CONSTANTS.POLLEN_DIST + this.game.bee.pos[coord] - 43
       );
       pollenPos.push(coord);
     });
