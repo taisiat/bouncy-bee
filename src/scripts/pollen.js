@@ -55,7 +55,7 @@ const CONSTANTS = {
 };
 
 class Pollen {
-  static RADIUS = 20;
+  static RADIUS = 10;
   static PERSISTENCE = 10;
 
   constructor(options = {}) {
@@ -77,8 +77,9 @@ class Pollen {
     ctx.beginPath();
     for (let i = 0; i < 6; i++) {
       ctx.lineTo(
-        this.pollenPosition[0] + 10 * Math.cos(((2 * Math.PI) / 6) * i),
-        this.pollenPosition[1] + 10 * Math.sin(((2 * Math.PI) / 6) * i)
+        this.pollenPosition[0] +
+          this.radius * Math.cos(((2 * Math.PI) / 6) * i),
+        this.pollenPosition[1] + this.radius * Math.sin(((2 * Math.PI) / 6) * i)
       );
     }
     ctx.closePath();

@@ -7,7 +7,7 @@ const CONSTANTS = {
   ACCEL: 1.03,
   START_SCALE: 1,
   MIN_BEE_LAUNCH_SPEED: 0.25,
-  RETURN_TO_HIVE_VEL: 0.5,
+  RETURN_TO_HIVE_VEL: 2,
 };
 
 class Bee extends MovingObject {
@@ -84,10 +84,12 @@ class Bee extends MovingObject {
       this.landed = true;
     }
     if (
-      this.vel[0] + this.vel[1] <= CONSTANTS.RETURN_TO_HIVE_VEL &&
+      Math.abs(this.vel[0]) + Math.abs(this.vel[1]) <=
+        CONSTANTS.RETURN_TO_HIVE_VEL &&
       this.launched
     ) {
-      this.game.beehive.sparkle();
+      // this.game.beehive.sparkle();
+      this.game.beehiveSparkles.push(this.game.addBeehiveSparkles());
     }
   }
 

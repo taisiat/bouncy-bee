@@ -153,19 +153,18 @@ header {
   border-radius: 80px;
 }
 header #title {
-  border-bottom: 1px solid black;
-  padding-bottom: 10px;
-  width: 500px;
   text-align: center;
 }
 
 #tagline {
   display: flex;
-  justify-content: space-between;
-  width: 200px;
+  justify-content: center;
+  width: 300px;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
-  font-size: 18px;
+  font-size: 15px;
   margin-top: 10px;
+  padding-top: 5px;
+  border-top: 1px solid black;
 }
 
 a {
@@ -202,7 +201,7 @@ footer {
   padding-bottom: 10px;
   padding-top: 10px;
   position: absolute;
-  top: 713px;
+  top: 710px;
   width: 780px;
   border-radius: 50px;
   text-align: right;
@@ -226,11 +225,19 @@ kbd {
   top: 105px;
 }
 
+canvas {
+  position: fixed;
+  top: 105px;
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 10px;
+}
+
 #announcement-white {
   display: block;
   width: 1200px;
   height: 600px;
   object-fit: cover;
+  border-radius: 10px;
 }
 
 #welcome-text {
@@ -253,4 +260,14 @@ kbd {
   position: relative;
   top: -250px;
   left: 600px;
+}
+
+#title-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#title-bee {
+  height: 50px;
 }

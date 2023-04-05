@@ -4,6 +4,7 @@ import Bee from "./bee.js";
 import Beehive from "./beehive.js";
 import SpeedStrip from "./speed_strip";
 import Pollen from "./pollen.js";
+import BeehiveSparkle from "./beehive_sparkle.js";
 
 import * as Util from "./util.js";
 
@@ -29,6 +30,7 @@ class Game {
     this.flowers = [];
     this.speedStrips = [];
     this.pollens = [];
+    this.beehiveSparkles = [];
     this.bee = this.addBee();
     this.beehive = this.addBeehive();
     this.background = document.getElementById("grass");
@@ -50,6 +52,7 @@ class Game {
     ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
     this.flowers.forEach((flower) => flower.draw(ctx));
     this.beehive.draw(ctx);
+    this.beehiveSparkles.forEach((sparkle) => sparkle.drawSparkle(ctx));
     this.speedStrips.forEach((speedStrip) => {
       speedStrip.draw(ctx);
     });
@@ -144,6 +147,10 @@ class Game {
     return new Pollen({ game: this });
   }
 
+  addBeehiveSparkles() {
+    return new BeehiveSparkle({ game: this });
+  }
+
   addBeehive() {
     return new Beehive({
       pos: [80, Game.DIM_Y * 0.5],
@@ -192,6 +199,9 @@ class Game {
     }
     if (object instanceof Pollen) {
       this.pollens.splice(this.pollens.indexOf(object), 1);
+    }
+    if (object instanceof BeehiveSparkle) {
+      this.beehiveSparkles.splice(this.beehiveSparkles.indexOf(object), 1);
     }
   }
 }
