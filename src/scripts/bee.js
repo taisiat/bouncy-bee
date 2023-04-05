@@ -7,6 +7,7 @@ const CONSTANTS = {
   ACCEL: 1.03,
   START_SCALE: 1,
   MIN_BEE_LAUNCH_SPEED: 0.25,
+  RETURN_TO_HIVE_VEL: 0.5,
 };
 
 class Bee extends MovingObject {
@@ -15,6 +16,7 @@ class Bee extends MovingObject {
   static COLOR = "yellow";
   static START_VEL = [5, 5];
   static VEL = [0, 0];
+
   constructor(options = {}) {
     super(options);
     this.slide_factor = 0;
@@ -80,6 +82,12 @@ class Bee extends MovingObject {
     ) {
       this.vel = [0, 0];
       this.landed = true;
+    }
+    if (
+      this.vel[0] + this.vel[1] <= CONSTANTS.RETURN_TO_HIVE_VEL &&
+      this.launched
+    ) {
+      this.game.beehive.sparkle();
     }
   }
 

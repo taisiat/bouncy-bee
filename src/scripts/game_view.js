@@ -267,7 +267,6 @@ class GameView {
   }
 
   startGame() {
-    console.log("start!");
     let welcomeScreen = document.getElementById("welcome-screen");
     welcomeScreen.classList.add("hidden");
     let gameScreen = document.getElementById("game-canvas");
