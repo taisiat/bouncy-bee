@@ -31,7 +31,8 @@ class GameView {
     this.announcementR = document.getElementById("announcement-red");
     this.announcementW = document.getElementById("announcement-white");
     this.announcementG = document.getElementById("announcement-green");
-    this.wasp = document.getElementById("wasp-med");
+    this.wasp1 = document.getElementById("wasp-left-flying");
+    this.wasp2 = document.getElementById("wasp-left-sting");
     this.flower = document.getElementById("flower-med");
     this.beehive = document.getElementById("beehive");
 
@@ -215,7 +216,18 @@ class GameView {
       messagePos[0],
       messagePos[1] + CONSTANTS.LINE_SPACING
     );
-    this.ctx.drawImage(this.wasp, 700, 100);
+    let waspSize = 500;
+    this.ctx.drawImage(
+      this.wasp1,
+      0,
+      0,
+      776,
+      867,
+      700,
+      100,
+      (waspSize / 867) * 776,
+      waspSize
+    );
   }
 
   message(type) {
@@ -277,12 +289,36 @@ class GameView {
       directionWarningPos[1]
     );
 
-    this.ctx.drawImage(this.wasp, 1050, 240, 100, 100);
-    this.ctx.drawImage(this.beehive, 550, 260, 150, 150);
+    // this.ctx.drawImage(this.wasp, 1050, 240, 100, 100);
+    let waspSize1 = 100;
+    this.ctx.drawImage(
+      this.wasp1,
+      0,
+      0,
+      776,
+      867,
+      1100,
+      10,
+      (waspSize1 / 867) * 776,
+      waspSize1
+    );
+    let waspSize2 = 120;
+    this.ctx.drawImage(
+      this.wasp2,
+      776 * 3,
+      867 * 2,
+      776,
+      867,
+      1040,
+      50,
+      (waspSize2 / 867) * 776,
+      waspSize2
+    );
+    this.ctx.drawImage(this.beehive, 550, 260, 120, 120);
 
     this.ctx.drawImage(this.flower, 700, 250, 200, 200);
 
-    this.ctx.drawImage(this.game.bee.beeFrameL0, 900, 350, 200, 200);
+    this.ctx.drawImage(this.game.bee.beeFrameL0, 900, 300, 150, 150);
   }
 
   drawWaitPage() {
