@@ -52,15 +52,15 @@ class Wasp extends MovingObject {
   }
 
   pickSprite() {
-    if (this.vel[0] >= 0) {
-      if (this.distanceToBee() <= Wasp.BeeStingDistance) {
+    if (this.distanceToBee() <= Wasp.BeeStingDistance) {
+      if (this.beeToRight()) {
         return this.waspStingRight;
       } else {
-        return this.waspFlyRight;
+        return this.waspStingLeft;
       }
     } else {
-      if (this.distanceToBee() <= Wasp.BeeStingDistance) {
-        return this.waspStingLeft;
+      if (this.vel[0] >= 0) {
+        return this.waspFlyRight;
       } else {
         return this.waspFlyLeft;
       }
@@ -71,6 +71,11 @@ class Wasp extends MovingObject {
     let beeX = this.game.bee.pos[0];
     let beeY = this.game.bee.pos[1];
     return Math.sqrt((this.pos[0] - beeX) ** 2 + (this.pos[1] - beeY) ** 2);
+  }
+
+  beeToRight() {
+    let beeX = this.game.bee.pos[0];
+    return beeX >= this.pos[0];
   }
 
   pickFrame() {
