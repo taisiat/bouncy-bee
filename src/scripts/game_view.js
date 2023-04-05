@@ -103,33 +103,27 @@ class GameView {
 
   animate(time) {
     if (this.running) {
-      //if running
       if (!this.lastTime) {
         this.lastTime = time;
       }
       const timeDelta = time - this.lastTime;
-      console.log(time, "time", this.lastTime, "lastime");
-      console.log(this.game.bee.pos, "bee pos");
       this.game.step(timeDelta);
       this.game.draw(this.ctx);
       this.drawScore();
-      if (!this.game.gameOver()) {
-        //if game continues
-        requestAnimationFrame(this.animate.bind(this));
-      } else {
-        // if lose game
-        if (this.game.bee.caught) {
-          this.tallyPoints();
-          this.drawLosePage();
-        } else {
-          //if won game
-          this.tallyPoints();
-          this.drawWinPage();
-        }
-      }
     } else {
-      //if paused
       this.drawInstructions();
+    }
+
+    if (!this.game.gameOver()) {
+      requestAnimationFrame(this.animate.bind(this));
+    } else {
+      if (this.game.bee.caught) {
+        this.tallyPoints();
+        this.drawLosePage();
+      } else {
+        this.tallyPoints();
+        this.drawWinPage();
+      }
     }
     this.lastTime = time;
   }
