@@ -6,6 +6,8 @@ class Wasp extends MovingObject {
   static BOUNCY = true;
   static SPEED = 0.4;
   static BeeStingDistance = 150;
+  static FRAME_HEIGHT = 867;
+  static FRAME_WIDTH = 776;
 
   static COLOR = "red";
   constructor(options = {}) {
@@ -20,21 +22,12 @@ class Wasp extends MovingObject {
     this.waspStingLeft = document.getElementById("wasp-left-sting");
     this.waspStingRight = document.getElementById("wasp-right-sting");
     this.spriteFrameCounter = 0;
-    this.frameHeight = 867;
-    this.frameWidth = 776;
   }
 
   draw(ctx) {
     let sourcePos = this.pickFrame();
     let sprite = this.pickSprite();
-    console.log(
-      this.pickSprite(),
-      "sprite",
-      this.pickFrame(),
-      "frame",
-      this.spriteFrameCounter,
-      "counter"
-    );
+
     ctx.fillStyle = this.color;
     ctx.beginPath();
     ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI, true);
@@ -42,12 +35,12 @@ class Wasp extends MovingObject {
       sprite,
       sourcePos[0],
       sourcePos[1],
-      this.frameWidth,
-      this.frameHeight,
+      Wasp.FRAME_WIDTH,
+      Wasp.FRAME_HEIGHT,
       this.pos[0] - this.radius,
       this.pos[1] - this.radius,
-      this.radius * 2,
-      this.radius * 2
+      this.radius * 2 + 10,
+      this.radius * 2 + 10
     );
   }
 
@@ -85,12 +78,14 @@ class Wasp extends MovingObject {
     let frameW = 0;
     let rowAnimationLoop = stepsPerFrame * spriteGridDimension;
     let fullAnimationLoop = stepsPerFrame * spriteGridDimension ** 2;
+
     let row = Math.floor(this.spriteFrameCounter / rowAnimationLoop);
-    frameH = row * this.frameHeight;
+    frameH = row * Wasp.FRAME_HEIGHT;
+
     let column = Math.floor(
       (this.spriteFrameCounter % rowAnimationLoop) / stepsPerFrame
     );
-    frameW = column * this.frameWidth;
+    frameW = column * Wasp.FRAME_WIDTH;
 
     this.spriteFrameCounter = (this.spriteFrameCounter + 1) % fullAnimationLoop;
     return [frameW, frameH];

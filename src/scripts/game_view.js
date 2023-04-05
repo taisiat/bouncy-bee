@@ -2,6 +2,8 @@ import Game from "./game.js";
 
 const CONSTANTS = {
   LINE_SPACING: 100,
+  CANVAS_DIM_X: 1200,
+  CANVAS_DIM_Y: 600,
   LOSE_MSG: [
     "Bee-tter luck next time!",
     "Looks like you got stung with a loss!",
@@ -35,7 +37,6 @@ class GameView {
     this.wasp2 = document.getElementById("wasp-left-sting");
     this.flower = document.getElementById("flower-med");
     this.beehive = document.getElementById("beehive");
-
     this.highScore = 0;
     this.bindKeyHandlers();
   }
@@ -167,22 +168,22 @@ class GameView {
   }
 
   drawWinPage() {
-    let message = this.message("win");
-    this.ctx.clearRect(0, 0, 1200, 600);
+    this.ctx.clearRect(0, 0, CONSTANTS.CANVAS_DIM_X, CONSTANTS.CANVAS_DIM_Y);
     const pattern = this.ctx.createPattern(this.announcementG, "repeat");
     this.ctx.fillStyle = pattern;
-    this.ctx.fillRect(0, 0, 1200, 600);
+    this.ctx.fillRect(0, 0, CONSTANTS.CANVAS_DIM_X, CONSTANTS.CANVAS_DIM_Y);
     const messagePos = [40, 220];
     this.ctx.font = "35pt Delicious Handrawn";
     this.ctx.fillStyle = "black";
+
+    let message = this.message("win");
+    let winMessage =
+      this.game.score > 0 ? message : "You avoided wasps, but got 0 points :(";
     let beeLandMsg = this.game.bee.beehiveLand
       ? "You landed on the beehive - score!"
       : "";
 
-    let winMessage =
-      this.game.score > 0 ? message : "You avoided wasps, but got 0 points :(";
     this.ctx.fillText(winMessage, messagePos[0], messagePos[1]);
-
     this.ctx.fillText(
       `Score: ${this.game.score}! ${beeLandMsg}`,
       messagePos[0],
@@ -198,24 +199,26 @@ class GameView {
       messagePos[0],
       messagePos[1] + 2 * CONSTANTS.LINE_SPACING
     );
+
     this.ctx.drawImage(this.game.bee.beeFrameL0, 700, 150);
   }
 
   drawLosePage() {
-    let message = this.message("lose");
-    this.ctx.clearRect(0, 0, 1200, 600);
+    this.ctx.clearRect(0, 0, CONSTANTS.CANVAS_DIM_X, CONSTANTS.CANVAS_DIM_Y);
     const pattern = this.ctx.createPattern(this.announcementR, "repeat");
     this.ctx.fillStyle = pattern;
-    this.ctx.fillRect(0, 0, 1200, 600);
+    this.ctx.fillRect(0, 0, CONSTANTS.CANVAS_DIM_X, CONSTANTS.CANVAS_DIM_Y);
     const messagePos = [40, 250];
     this.ctx.font = "30pt Delicious Handrawn";
     this.ctx.fillStyle = "yellow";
     this.ctx.fillText("The wasps caught you!", messagePos[0], messagePos[1]);
+    let message = this.message("lose");
     this.ctx.fillText(
       `${message}`,
       messagePos[0],
       messagePos[1] + CONSTANTS.LINE_SPACING
     );
+
     let waspSize = 500;
     this.ctx.drawImage(
       this.wasp1,
@@ -237,10 +240,10 @@ class GameView {
   }
 
   drawInstructions() {
-    this.ctx.clearRect(0, 0, 1200, 600);
+    this.ctx.clearRect(0, 0, CONSTANTS.CANVAS_DIM_X, CONSTANTS.CANVAS_DIM_Y);
     const pattern = this.ctx.createPattern(this.announcementW, "repeat");
     this.ctx.fillStyle = pattern || "yellow";
-    this.ctx.fillRect(0, 0, 1200, 600);
+    this.ctx.fillRect(0, 0, CONSTANTS.CANVAS_DIM_X, CONSTANTS.CANVAS_DIM_Y);
     const messagePos = [40, 100];
     this.ctx.font = "30pt Delicious Handrawn";
     this.ctx.fillStyle = "black";
@@ -289,7 +292,6 @@ class GameView {
       directionWarningPos[1]
     );
 
-    // this.ctx.drawImage(this.wasp, 1050, 240, 100, 100);
     let waspSize1 = 100;
     this.ctx.drawImage(
       this.wasp1,
@@ -302,6 +304,7 @@ class GameView {
       (waspSize1 / 867) * 776,
       waspSize1
     );
+
     let waspSize2 = 120;
     this.ctx.drawImage(
       this.wasp2,
@@ -314,17 +317,16 @@ class GameView {
       (waspSize2 / 867) * 776,
       waspSize2
     );
+
     this.ctx.drawImage(this.beehive, 550, 260, 120, 120);
-
     this.ctx.drawImage(this.flower, 700, 250, 200, 200);
-
     this.ctx.drawImage(this.game.bee.beeFrameL0, 900, 300, 150, 150);
   }
 
   drawWaitPage() {
-    this.ctx.clearRect(0, 0, 1200, 600);
+    this.ctx.clearRect(0, 0, CONSTANTS.CANVAS_DIM_X, CONSTANTS.CANVAS_DIM_Y);
     this.ctx.fillStyle = "yellow";
-    this.ctx.fillRect(0, 0, 1200, 600);
+    this.ctx.fillRect(0, 0, CONSTANTS.CANVAS_DIM_X, CONSTANTS.CANVAS_DIM_Y);
   }
 
   startGame() {

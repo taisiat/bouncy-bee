@@ -6,8 +6,9 @@ const CONSTANTS = {
   DECELFACTOR: 0.005,
   ACCEL: 1.03,
   START_SCALE: 1,
-  MIN_BEE_LAUNCH_SPEED: 0.25,
+  MIN_BEE_LAUNCH_SPEED: 0.5,
   RETURN_TO_HIVE_VEL: 2,
+  MAX_VEL: 20,
 };
 
 class Bee extends MovingObject {
@@ -23,10 +24,9 @@ class Bee extends MovingObject {
     this.slider_increase = true;
     this.speed = 0;
     this.color = Bee.COLOR;
-    this.radius = Bee.RADIUS;
     this.vel = Bee.VEL;
     this.isBouncy = Bee.BOUNCY;
-    this.background = document.getElementById("bee");
+    this.radius = Bee.RADIUS;
     this.landed = false;
     this.launched = false;
     this.caught = false;
@@ -48,8 +48,33 @@ class Bee extends MovingObject {
     this.beeFrameD1 = document.getElementById("bee-down-1");
     this.beeFrameD2 = document.getElementById("bee-down-2");
     this.beeFrameD3 = document.getElementById("bee-down-3");
+    this.beeLeftFrames = [
+      this.beeFrameL0,
+      this.beeFrameL1,
+      this.beeFrameL2,
+      this.beeFrameL3,
+    ];
+    this.beeRightFrames = [
+      this.beeFrameR0,
+      this.beeFrameR1,
+      this.beeFrameR2,
+      this.beeFrameR3,
+    ];
+    this.beeUpFrames = [
+      this.beeFrameU0,
+      this.beeFrameU1,
+      this.beeFrameU2,
+      this.beeFrameU3,
+    ];
+    this.beeDownFrames = [
+      this.beeFrameD0,
+      this.beeFrameD1,
+      this.beeFrameD2,
+      this.beeFrameD3,
+    ];
 
     this.animatedBeeTimer = 0;
+    this.framesPerAnimation = 3;
   }
 
   landOnBeehive() {
@@ -68,8 +93,24 @@ class Bee extends MovingObject {
   }
 
   accelerate() {
-    this.vel[0] *= CONSTANTS.ACCEL;
-    this.vel[1] *= CONSTANTS.ACCEL;
+    let largerVel =
+      Math.abs(this.vel[0]) >= Math.abs(this.vel[1])
+        ? this.vel[0]
+        : this.vel[1];
+
+    if (Math.abs(largerVel) * CONSTANTS.ACCEL > CONSTANTS.MAX_VEL) {
+      let scaleFactor = CONSTANTS.MAX_VEL / Math.abs(largerVel);
+      if (largerVel === this.vel[0]) {
+        this.vel[0] = this.vel[0] > 0 ? CONSTANTS.MAX_VEL : -CONSTANTS.MAX_VEL;
+        this.vel[1] *= scaleFactor;
+      } else {
+        this.vel[1] = this.vel[1] > 0 ? CONSTANTS.MAX_VEL : -CONSTANTS.MAX_VEL;
+        this.vel[0] *= scaleFactor;
+      }
+    } else {
+      this.vel[0] *= CONSTANTS.ACCEL;
+      this.vel[1] *= CONSTANTS.ACCEL;
+    }
     this.game.speedStrips.forEach((speedStrip) => {
       speedStrip.press();
     });
@@ -116,6 +157,7 @@ class Bee extends MovingObject {
       this.pos[1] + Bee.START_VEL[1] * 15,
     ];
     let arrowPoints = Util.calculateTriangleCoord(this.pos, pointerDirection);
+
     ctx.beginPath();
     ctx.moveTo(pointerDirection[0], pointerDirection[1]);
     ctx.lineTo(arrowPoints[0][0], arrowPoints[0][1]);
@@ -145,7 +187,15 @@ class Bee extends MovingObject {
   drawScale(ctx) {
     let slider = 100 * this.slide_factor;
     ctx.fillStyle = "gold";
-    ctx.rect(20, 380, Math.floor(slider) * 1.2, 10);
+    let sliderLocation = [20, 380];
+    let sliderSizeScale = 1.2;
+    let sliderH = 10;
+    ctx.rect(
+      sliderLocation[0],
+      sliderLocation[1],
+      Math.floor(slider) * sliderSizeScale,
+      sliderH
+    );
     ctx.fill();
   }
 
@@ -169,88 +219,40 @@ class Bee extends MovingObject {
   }
 
   drawAnimatedBee(ctx) {
-    let framesPerAnimation = 3;
-    let beeFrame;
+    let offset = 5;
+    ctx.drawImage(
+      this.pickFrame(),
+      this.pos[0] - Bee.RADIUS,
+      this.pos[1] - Bee.RADIUS - offset,
+      Bee.RADIUS * 2,
+      Bee.RADIUS * 2
+    );
+    this.animatedBeeTimer =
+      (this.animatedBeeTimer + 1) %
+      (this.beeRightFrames.length * this.framesPerAnimation);
+  }
+
+  pickFrame() {
+    let animationSequence = this.beeRightFrames;
+    let beeFrameIdx = Math.floor(
+      this.animatedBeeTimer / this.framesPerAnimation
+    );
     let velocityPreLaunch = this.launched ? this.vel : Bee.START_VEL;
+
     if (Math.abs(velocityPreLaunch[0]) >= Math.abs(velocityPreLaunch[1])) {
       if (velocityPreLaunch[0] >= 0) {
-        if (this.animatedBeeTimer <= framesPerAnimation) {
-          beeFrame = this.beeFrameR0;
-        } else if (
-          this.animatedBeeTimer > framesPerAnimation &&
-          this.animatedBeeTimer <= 2 * framesPerAnimation
-        ) {
-          beeFrame = this.beeFrameR1;
-        } else if (
-          this.animatedBeeTimer > 2 * framesPerAnimation &&
-          this.animatedBeeTimer <= 3 * framesPerAnimation
-        ) {
-          beeFrame = this.beeFrameR2;
-        } else if (this.animatedBeeTimer > 3 * framesPerAnimation) {
-          beeFrame = this.beeFrameR3;
-        }
+        animationSequence = this.beeRightFrames;
       } else {
-        if (this.animatedBeeTimer <= framesPerAnimation) {
-          beeFrame = this.beeFrameL0;
-        } else if (
-          this.animatedBeeTimer > framesPerAnimation &&
-          this.animatedBeeTimer <= 2 * framesPerAnimation
-        ) {
-          beeFrame = this.beeFrameL1;
-        } else if (
-          this.animatedBeeTimer > 2 * framesPerAnimation &&
-          this.animatedBeeTimer <= 3 * framesPerAnimation
-        ) {
-          beeFrame = this.beeFrameL2;
-        } else if (this.animatedBeeTimer > 3 * framesPerAnimation) {
-          beeFrame = this.beeFrameL3;
-        }
+        animationSequence = this.beeLeftFrames;
       }
     } else {
       if (velocityPreLaunch[1] <= 0) {
-        if (this.animatedBeeTimer <= framesPerAnimation) {
-          beeFrame = this.beeFrameU0;
-        } else if (
-          this.animatedBeeTimer > framesPerAnimation &&
-          this.animatedBeeTimer <= 2 * framesPerAnimation
-        ) {
-          beeFrame = this.beeFrameU1;
-        } else if (
-          this.animatedBeeTimer > 2 * framesPerAnimation &&
-          this.animatedBeeTimer <= 3 * framesPerAnimation
-        ) {
-          beeFrame = this.beeFrameU2;
-        } else if (this.animatedBeeTimer > 3 * framesPerAnimation) {
-          beeFrame = this.beeFrameU3;
-        }
+        animationSequence = this.beeUpFrames;
       } else {
-        if (this.animatedBeeTimer <= framesPerAnimation) {
-          beeFrame = this.beeFrameD0;
-        } else if (
-          this.animatedBeeTimer > framesPerAnimation &&
-          this.animatedBeeTimer <= 2 * framesPerAnimation
-        ) {
-          beeFrame = this.beeFrameD1;
-        } else if (
-          this.animatedBeeTimer > 2 * framesPerAnimation &&
-          this.animatedBeeTimer <= 3 * framesPerAnimation
-        ) {
-          beeFrame = this.beeFrameD2;
-        } else if (this.animatedBeeTimer > 3 * framesPerAnimation) {
-          beeFrame = this.beeFrameD3;
-        }
+        animationSequence = this.beeDownFrames;
       }
     }
-
-    ctx.drawImage(
-      beeFrame,
-      this.pos[0] - this.radius,
-      this.pos[1] - this.radius - 5,
-      this.radius * 2,
-      this.radius * 2
-    );
-    this.animatedBeeTimer =
-      (this.animatedBeeTimer + 1) % (4 * framesPerAnimation);
+    return animationSequence[beeFrameIdx];
   }
 }
 

@@ -1,3 +1,5 @@
+import * as Util from "./util.js";
+
 const CONSTANTS = {
   RAND_COLORS: [
     "#FF6633",
@@ -63,7 +65,6 @@ class Pollen {
       Math.random() * CONSTANTS.RAND_COLORS.length
     );
     this.color = CONSTANTS.RAND_COLORS[randomColorIdx];
-    this.radius = Pollen.RADIUS;
     this.game = options.game;
     this.pollenTimer = 0;
     this.pollenPosition = this.pollenPos();
@@ -73,30 +74,30 @@ class Pollen {
     if (this.pollenTimer > Pollen.PERSISTENCE) {
       this.game.remove(this);
     }
+
     ctx.fillStyle = this.color;
     ctx.beginPath();
     for (let i = 0; i < 6; i++) {
       ctx.lineTo(
         this.pollenPosition[0] +
-          this.radius * Math.cos(((2 * Math.PI) / 6) * i),
-        this.pollenPosition[1] + this.radius * Math.sin(((2 * Math.PI) / 6) * i)
+          Pollen.RADIUS * Math.cos(((2 * Math.PI) / 6) * i),
+        this.pollenPosition[1] +
+          Pollen.RADIUS * Math.sin(((2 * Math.PI) / 6) * i)
       );
     }
     ctx.closePath();
     ctx.fill();
+
     this.pollenTimer += 1;
   }
 
   pollenPos() {
-    let pollenPos = [];
-
-    let posRadius = CONSTANTS.POLLEN_DIST * Math.sqrt(Math.random());
-    let theta = Math.random() * 2 * Math.PI;
-    pollenPos.push(
-      this.game.bee.pos[0] + posRadius * Math.cos(theta),
-      this.game.bee.pos[1] + posRadius * Math.sin(theta)
+    let posCorrection = 0;
+    return Util.randomPosAroundCenterpoint(
+      this.game.bee.pos,
+      CONSTANTS.POLLEN_DIST,
+      posCorrection
     );
-    return pollenPos;
   }
 }
 

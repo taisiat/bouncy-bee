@@ -49,3 +49,16 @@ export function bounce(coord, max, radius) {
     return coord;
   }
 }
+
+export function pointDistance(point1, point2) {
+  return Math.sqrt((point1[0] - point2[0]) ** 2 + (point1[1] - point2[1]) ** 2);
+}
+
+export function randomPosAroundCenterpoint(centerpoint, distance, correction) {
+  let posRadius = distance * Math.sqrt(Math.random());
+  let theta = Math.random() * 2 * Math.PI;
+  return [
+    centerpoint[0] + posRadius * Math.cos(theta) + correction,
+    centerpoint[1] + posRadius * Math.sin(theta) + correction,
+  ];
+}
