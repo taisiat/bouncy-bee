@@ -30,6 +30,7 @@ class Bee extends MovingObject {
     this.landed = false;
     this.launched = false;
     this.caught = false;
+    this.beehiveLand = false;
     this.pollinating = false;
     this.beeFrameL0 = document.getElementById("bee-left-0");
     this.beeFrameL1 = document.getElementById("bee-left-1");
@@ -49,6 +50,14 @@ class Bee extends MovingObject {
     this.beeFrameD3 = document.getElementById("bee-down-3");
 
     this.animatedBeeTimer = 0;
+  }
+
+  landOnBeehive() {
+    this.beehiveLand = true;
+  }
+
+  notLandOnBeehive() {
+    this.beehiveLand = false;
   }
 
   notPollinate() {
@@ -88,7 +97,6 @@ class Bee extends MovingObject {
         CONSTANTS.RETURN_TO_HIVE_VEL &&
       this.launched
     ) {
-      // this.game.beehive.sparkle();
       this.game.beehiveSparkles.push(this.game.addBeehiveSparkles());
     }
   }

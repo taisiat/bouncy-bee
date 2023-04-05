@@ -89,6 +89,7 @@ class GameView {
     this.lastTime = 0;
     this.game = new Game();
     this.play(this.lastTime);
+    console.log(this.game.bee.beehiveLand, "beehiveland");
   }
 
   play(time) {
@@ -144,7 +145,6 @@ class GameView {
   }
 
   drawWinPage() {
-    console.log("win");
     let message = this.message("win");
     this.ctx.clearRect(0, 0, 1200, 600);
     const pattern = this.ctx.createPattern(this.announcementG, "repeat");
@@ -153,13 +153,18 @@ class GameView {
     const messagePos = [40, 220];
     this.ctx.font = "35pt Delicious Handrawn";
     this.ctx.fillStyle = "black";
+    console.log(this.game.bee.beehiveLand, "beehiveland at draw");
+    console.log(this.game.bee.caught, "caught");
+    let beeLandMsg = this.game.bee.beehiveLand
+      ? "You landed on the beehive - score!"
+      : "";
 
     let winMessage =
       this.game.score > 0 ? message : "You avoided wasps, but got 0 points :(";
     this.ctx.fillText(winMessage, messagePos[0], messagePos[1]);
 
     this.ctx.fillText(
-      `Score: ${this.game.score}`,
+      `Score: ${this.game.score}! ${beeLandMsg}`,
       messagePos[0],
       messagePos[1] + CONSTANTS.LINE_SPACING
     );
@@ -177,7 +182,6 @@ class GameView {
   }
 
   drawLosePage() {
-    console.log("lose");
     let message = this.message("lose");
     this.ctx.clearRect(0, 0, 1200, 600);
     const pattern = this.ctx.createPattern(this.announcementR, "repeat");

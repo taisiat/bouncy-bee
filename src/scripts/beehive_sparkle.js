@@ -39,15 +39,6 @@ class BeehiveSparkle {
 
   sparklePos() {
     let sparklePos = [];
-    // [0, 1].forEach((coord) => {
-    //   coord = Math.floor(
-    //     Math.random() * CONSTANTS.SPARKLE_DIST +
-    //       this.game.beehive.pos[coord] -
-    //       100
-
-    //   );
-    //   sparklePos.push(coord);
-    // });
     let posRadius = CONSTANTS.SPARKLE_DIST * Math.sqrt(Math.random());
     let theta = Math.random() * 2 * Math.PI;
     sparklePos.push(

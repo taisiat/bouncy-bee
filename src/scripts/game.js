@@ -117,7 +117,8 @@ class Game {
           this.bee.accelerate();
           object.press();
         }
-        if (object instanceof Beehive) {
+        if (object instanceof Beehive && this.bee.landed) {
+          this.bee.landOnBeehive();
         }
       }
     }
@@ -134,11 +135,10 @@ class Game {
     return this.bee.landed || this.bee.caught;
   }
 
-  setBeeTrajectory() {}
-
   addWasps() {
     return new Wasp({ pos: this.randomPosition("wasp"), game: this });
   }
+
   addFlowers() {
     return new Flower({ pos: this.randomPosition(), game: this });
   }
