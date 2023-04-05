@@ -1,5 +1,3 @@
-import * as Util from "./util.js";
-
 const NORMAL_FRAME_TIME_DELTA = 1000 / 60;
 
 class MovingObject {
@@ -14,13 +12,12 @@ class MovingObject {
   }
 
   move(timeDelta) {
-    // const velocityScale = timeDelta / NORMAL_FRAME_TIME_DELTA,
-    //   offsetX = this.vel[0] * velocityScale,
-    //   offsetY = this.vel[1] * velocityScale;
+    const velocityScale = timeDelta / NORMAL_FRAME_TIME_DELTA,
+      offsetX = this.vel[0] * velocityScale,
+      offsetY = this.vel[1] * velocityScale;
 
-    // let newPos = [this.pos[0] + offsetX, this.pos[1] + offsetY];
-    // let newPos = this.pos;
-    let newPos = [this.pos[0] + this.vel[0], this.pos[1] + this.vel[1]];
+    let newPos = [this.pos[0] + offsetX, this.pos[1] + offsetY];
+    // let newPos = [this.pos[0] + this.vel[0], this.pos[1] + this.vel[1]];
     if (this.isBouncy) {
       let bouncedPos = this.game.bounce(newPos, this.radius);
       if (bouncedPos[0] !== newPos[0]) {
@@ -40,12 +37,9 @@ class MovingObject {
   }
 
   draw(ctx) {
-    // const pattern = ctx.createPattern(this.background, "repeat");
-    // ctx.fillStyle = pattern || this.color;
     ctx.fillStyle = this.color;
     ctx.beginPath();
     ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI, true);
-    // ctx.fill();
     ctx.drawImage(
       this.background,
       this.pos[0] - this.radius,
@@ -53,11 +47,6 @@ class MovingObject {
       this.radius * 2,
       this.radius * 2
     );
-    // if (this instanceof Flower && this.dance) {
-    //   ctx.lineWidth = 5;
-    //   ctx.strokeStyle = "black";
-    //   ctx.stroke();
-    // }
   }
 
   isCollidedWith(otherObject) {

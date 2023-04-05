@@ -153,8 +153,9 @@ class Bee extends MovingObject {
   drawAnimatedBee(ctx) {
     let framesPerAnimation = 3;
     let beeFrame;
-    if (Math.abs(this.vel[0]) >= Math.abs(this.vel[1])) {
-      if (this.vel[0] >= 0) {
+    let velocityPreLaunch = this.launched ? this.vel : Bee.START_VEL;
+    if (Math.abs(velocityPreLaunch[0]) >= Math.abs(velocityPreLaunch[1])) {
+      if (velocityPreLaunch[0] >= 0) {
         if (this.animatedBeeTimer <= framesPerAnimation) {
           beeFrame = this.beeFrameR0;
         } else if (
@@ -188,7 +189,7 @@ class Bee extends MovingObject {
         }
       }
     } else {
-      if (this.vel[1] <= 0) {
+      if (velocityPreLaunch[1] <= 0) {
         if (this.animatedBeeTimer <= framesPerAnimation) {
           beeFrame = this.beeFrameU0;
         } else if (

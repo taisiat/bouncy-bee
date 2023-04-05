@@ -50,15 +50,6 @@ class GameView {
     });
   }
 
-  iKeyHandler() {
-    if (this.running) {
-      this.pause();
-      this.drawInstructions();
-    } else {
-      this.play();
-    }
-  }
-
   spaceKeyHandler() {
     if (this.game && !this.game.bee.launched) {
       this.game.bee.launch();
@@ -83,6 +74,15 @@ class GameView {
     }
   }
 
+  iKeyHandler() {
+    if (this.running) {
+      this.pause();
+      this.drawInstructions();
+    } else {
+      this.play(this.lastTime);
+    }
+  }
+
   restart() {
     this.running = false;
     this.score = 0;
@@ -98,30 +98,61 @@ class GameView {
 
   pause() {
     this.running = false;
-    this.animate();
+    this.animate(this.lastTime);
   }
 
   animate(time) {
-    const timeDelta = time - this.lastTime;
-    console.log(time, "time", this.lastTime, "lastime");
-    this.game.step(timeDelta);
-    this.game.draw(this.ctx);
-    this.drawScore();
-    this.lastTime = time;
-    if (!this.running) {
-      this.drawInstructions();
-    } else if (!this.game.gameOver()) {
-      requestAnimationFrame(this.animate.bind(this));
-    } else {
-      if (this.game.bee.caught) {
-        this.tallyPoints();
-        this.drawLosePage();
-      } else {
-        this.tallyPoints();
-        this.drawWinPage();
+    if (this.running) {
+      //if running
+      if (!this.lastTime) {
+        this.lastTime = time;
       }
+      const timeDelta = time - this.lastTime;
+      console.log(time, "time", this.lastTime, "lastime");
+      console.log(this.game.bee.pos, "bee pos");
+      this.game.step(timeDelta);
+      this.game.draw(this.ctx);
+      this.drawScore();
+      if (!this.game.gameOver()) {
+        //if game continues
+        requestAnimationFrame(this.animate.bind(this));
+      } else {
+        // if lose game
+        if (this.game.bee.caught) {
+          this.tallyPoints();
+          this.drawLosePage();
+        } else {
+          //if won game
+          this.tallyPoints();
+          this.drawWinPage();
+        }
+      }
+    } else {
+      //if paused
+      this.drawInstructions();
     }
+    this.lastTime = time;
   }
+  // const timeDelta = time - this.lastTime;
+  // console.log(time, "time", this.lastTime, "lastime");
+  // this.game.step(timeDelta);
+  // this.game.draw(this.ctx);
+  // this.drawScore();
+  // this.lastTime = time;
+  // if (!this.running) {
+  //   this.drawInstructions();
+  // } else if (!this.game.gameOver()) {
+  //   requestAnimationFrame(this.animate.bind(this));
+  // } else {
+  //   if (this.game.bee.caught) {
+  //     this.tallyPoints();
+  //     this.drawLosePage();
+  //   } else {
+  //     this.tallyPoints();
+  //     this.drawWinPage();
+  //   }
+  // }
+  // }
 
   tallyPoints() {
     this.game.addPoints();
