@@ -1,7 +1,8 @@
 import * as Util from "./util.js";
 
 const CONSTANTS = {
-  RAND_COLORS: [
+  RAND_COLORS_YELLOW: ["#ffff4b", "#ffff01", "#ffffb9", "#ffffff"],
+  RAND_COLORS_ALL: [
     "#FF6633",
     "#FFB399",
     "#FF33FF",
@@ -53,28 +54,31 @@ const CONSTANTS = {
     "#99E6E6",
     "#6666FF",
   ],
-  POLLEN_DIST: 50,
 };
 
-class Pollen {
-  static RADIUS = 10;
-  static PERSISTENCE = 10;
+class Flare {
+  static RADIUS = 7;
+  static PERSISTENCE = 30;
+  static DIST = 100;
 
   constructor(options = {}) {
-    let randomColorIdx = Math.floor(
-      Math.random() * CONSTANTS.RAND_COLORS.length
-    );
-    this.color = CONSTANTS.RAND_COLORS[randomColorIdx];
+    let colors = CONSTANTS.RAND_COLORS_ALL;
+    let randomColorIdx = Math.floor(Math.random() * CONSTANTS.colors.length);
+    this.color = colors[randomColorIdx];
     this.game = options.game;
-    this.pollenTimer = 0;
-    this.pollenPosition = this.pollenPos();
+    this.timer = 0;
+    this.pos = this.generatePos();
+    this.centerpoint = this.game.bee.pos;
+    this.radius = Flare.RADIUS;
+    this.persistence = Flare.PERSISTENCE;
+    this.distribution = Flare.DIST;
   }
 
-  drawPollen(ctx) {
-    if (this.pollenTimer > Pollen.PERSISTENCE) {
+  draw(ctx) {
+    if (this.timer > this.radius) {
       this.game.remove(this);
     }
-    let points = Util.generateHexagonPoints(this.pollenPosition, Pollen.RADIUS);
+    let points = Util.generateHexagonPoints(this.pos, this.centerpoint);
 
     ctx.fillStyle = this.color;
     ctx.beginPath();
@@ -84,17 +88,17 @@ class Pollen {
     ctx.closePath();
     ctx.fill();
 
-    this.pollenTimer += 1;
+    this.timer += 1;
   }
 
-  pollenPos() {
+  generatePos() {
     let posCorrection = 0;
     return Util.randomPosAroundCenterpoint(
-      this.game.bee.pos,
-      CONSTANTS.POLLEN_DIST,
+      this.centerpoint,
+      this.distribution,
       posCorrection
     );
   }
 }
 
-export default Pollen;
+export default Flare;

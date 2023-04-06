@@ -62,3 +62,13 @@ export function randomPosAroundCenterpoint(centerpoint, distance, correction) {
     centerpoint[1] + posRadius * Math.sin(theta) + correction,
   ];
 }
+
+export function generateHexagonPoints(centerpoint, radius) {
+  let points = [];
+  for (let i = 0; i < 6; i++) {
+    let xPos = centerpoint[0] + radius * Math.cos(((2 * Math.PI) / 6) * i);
+    let yPos = centerpoint[1] + radius * Math.sin(((2 * Math.PI) / 6) * i);
+    points.push([xPos, yPos]);
+  }
+  return points;
+}
