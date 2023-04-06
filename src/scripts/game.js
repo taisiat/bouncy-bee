@@ -20,7 +20,7 @@ class Game {
   static DIM_Y = 600;
 
   static NUM_WASPS = 1;
-  static NUM_FLOWERS = 10;
+  static NUM_FLOWERS = 15;
   static NUM_SPEEDSTRIPS = 1;
 
   constructor(options) {
