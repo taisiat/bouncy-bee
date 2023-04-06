@@ -17,7 +17,7 @@ In BouncyBee, users are able to:
 - Set initial bee direction and speed, akin to cannon shooter
 - Nudge the bee's flight trajectory as it bounces and accelerates/decelerates around the game area, akin to asteroids and pool and shuffleboard
 - Start, pause, and reset the game, while maintaining the browser session's high score
-- Experience delightful visual feedback based on the bee's position and speed
+- Experience delightful visual feedback based on the bee's position, speed, and trajectory
 
 ### Technologies, Libraries, APIs
 
@@ -31,14 +31,19 @@ This project is implemented with the following technologies:
 ### Implementation Highlights
 
 WIP
+![Pollen sparkles](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+
+pollen sparkles - pollen class where each pollen is an instance with a randomized color and position
+position is radial around bee position
+calls to Util jsli
 
 ### Future Features
 
 Upcoming improvements include:
 
+- Add a health bar to the bee to make wasp collisions non-fatal
+- Add additional levels with different assortments of enemies and point-giving objects
 - Add additional areas of altered physics, such as worm holes
-- Add additional levels
-- Add a health bar to the bee
 
 ### Asset Attribution
 
