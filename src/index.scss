@@ -88,11 +88,13 @@ footer {
   width: 780px;
   border-radius: 50px;
   text-align: right;
+  z-index: 0;
 }
 
 #welcome-screen {
   position: fixed;
   top: 105px;
+  z-index: 10;
 }
 
 #announcement-white {
@@ -116,6 +118,16 @@ footer {
 #welcome-text H2 {
   font-size: 30px;
   padding-left: 50px;
+}
+
+.bullet {
+  margin-left: 50px;
+}
+
+#call-to-click {
+  color: yellow;
+  font-size: 50px;
+  -webkit-text-stroke: 1px black;
 }
 
 kbd {
