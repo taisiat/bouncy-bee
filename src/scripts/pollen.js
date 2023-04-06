@@ -68,17 +68,20 @@ class Pollen {
     this.game = options.game;
     this.pollenTimer = 0;
     this.pollenPosition = this.pollenPos();
+    this.points = Util.generateHexagonPoints(
+      this.pollenPosition,
+      Pollen.RADIUS
+    );
   }
 
   drawPollen(ctx) {
     if (this.pollenTimer > Pollen.PERSISTENCE) {
       this.game.remove(this);
     }
-    let points = Util.generateHexagonPoints(this.pollenPosition, Pollen.RADIUS);
 
     ctx.fillStyle = this.color;
     ctx.beginPath();
-    points.forEach((pos) => {
+    this.points.forEach((pos) => {
       ctx.lineTo(pos[0], pos[1]);
     });
     ctx.closePath();

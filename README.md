@@ -4,18 +4,19 @@ _Javascript game akin to cannon shooter, shuffleboard, pool, and Asteroids_
 
 ### Background
 
-Play it here: <a href="https://taisiat.github.io/bouncy-bee/">https://taisiat.github.io/bouncy-bee/</a>
-
 BouncyBee is a single-page game where cannon shooter meets pool and shuffleboard and Asteroids. The player launches a bee from a static spot, and the bee then bounces around the gameboard before decelerating to a stop. While the bee flies, the player has a chance to nudge its trajectory to collect points and avoid enemies.
 
 The player earns points when the bee flies across (pollinates!) flowers, and gets extra points if the bee lands back at the beehive. The player loses if the bee runs into wasps, which move across the gameboard.
+
+Play it here: <a href="https://taisiat.github.io/bouncy-bee/">https://taisiat.github.io/bouncy-bee/</a>
 
 ### Functionality & MVPs
 
 In BouncyBee, users are able to:
 
 - Set initial bee direction and speed, akin to cannon shooter
-- Nudge the bee's flight trajectory as it bounces and accelerates/decelerates around the game area, akin to asteroids and pool and shuffleboard
+- Nudge the bee's flight trajectory as it bounces and accelerates/decelerates around the game area, akin to asteroids and pool
+- 'Power up' bee's speed and experience deceleration, akin to shuffleboard
 - Start, pause, and reset the game, while maintaining the browser session's high score
 - Experience delightful visual feedback based on the bee's position, speed, and direction
 
@@ -23,10 +24,11 @@ In BouncyBee, users are able to:
 
 This project is implemented with the following technologies:
 
-- The `Canvas API` to render the game board
+- The `Canvas API` to render the game board, with `requestAnimationFrame` and time delta correction behind the scenes to correct for play speed across devices
 - `Webpack` and `Babel` to bundle and transpile the source `JavaScript` code
 - `npm` to manage project dependencies
 - `SCSS` and `HTML` to generate the webpage around the game play area and the welcome screen
+- `Keymaster` to bind keys to methods
 
 ### Implementation Highlights
 
@@ -40,7 +42,7 @@ Pollen sparkles are extra delightful because their color and position is randomi
 
 Pollen sparkles are implemented as a `Pollen` class, with each sparkle being an instance. Bee <> flower collision detection in the `Game` class activates new pollen sparkle creation.
 
-When each pollen sparkle is created, its position is set with a call to `Pollen.pollenPos()`, which leverages a math helper method in a dedicated `Util.js` file:
+When each pollen sparkle is created, its position is set with a call to `Pollen.pollenPos()`, which leverages a math helper method in a math utilities file:
 
 <h5 a><strong><code>pollen.js</code></strong></h5>
 
@@ -55,7 +57,7 @@ When each pollen sparkle is created, its position is set with a call to `Pollen.
   }
 ```
 
-The math helper function generates a random position radially around the given centerpoint using Math.cos() and Math.sin(), rather than 'rectangally' using Math.random() on the centerpoint directly. This enables pollen sparkles to appear in a pleasant circular area around the bee.
+The math helper function generates a random position radially around the given centerpoint using Math.cos() and Math.sin(), rather than 'squarely' using Math.random() on the centerpoint directly. This enables pollen sparkles to appear in a pleasant circular area around the bee.
 
 <h5 a><strong><code>util.js</code></strong></h5>
 
@@ -70,9 +72,11 @@ export function randomPosAroundCenterpoint(centerpoint, distance, correction) {
 }
 ```
 
-The `Pollen` class sets pollen sparkle color by picking a random HEX code from an array.
+The `Pollen` class sets pollen sparkle color by picking a random HEX code from an array during construction.
 
-The `Pollen` class then draws pollen in 3 steps. 1: check that the pollen sparkle is 'younger' than a certain number of frames, else delete the pollen sparkle instance. 2: Call a math helper function to generate the 6 points of a hexagon (this is a bee themed game!) around the randomized position discussed above. 3: Draw the hexagon as a `Canvas API` path shape.
+A math helper, `Util.generateHexagonPoints(this.pollenPosition,Pollen.RADIUS)`, is called during construction to generate the hexagon point coordinates that shape the pollen sparkle (this is a bee themed game after all!).
+
+The `Pollen` class then draws pollen in 3 steps. 1: check that the pollen sparkle is 'younger' than a certain number of frames, else delete the pollen sparkle instance. 2: Draw the hexagon as a `Canvas API` path shape using the pre-determined coordinates and color.
 
 <h5 a><strong><code>pollen.js</code></strong></h5>
 
@@ -81,11 +85,10 @@ drawPollen(ctx) {
     if (this.pollenTimer > Pollen.PERSISTENCE) {
       this.game.remove(this);
     }
-    let points = Util.generateHexagonPoints(this.pollenPosition, Pollen.RADIUS);
 
     ctx.fillStyle = this.color;
     ctx.beginPath();
-    points.forEach((pos) => {
+    this.points.forEach((pos) => {
       ctx.lineTo(pos[0], pos[1]);
     });
     ctx.closePath();
@@ -97,7 +100,7 @@ drawPollen(ctx) {
 
 #### Cannon Shoot Mechanic
 
-The game begins with the bee at the beehive, and the player must set a direction and launch speed - like a cannon shooter:
+The game begins with the bee at the beehive, and the player must set a direction and launch speed - like a cannon shooter. Direction adjusts based on keyboard inputs, and speed slides on its own and is 'locked in' based on player's timing of launch:
 
 ![Cannon shoot stage](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTJlZDgzMzI2NDI5M2Q0NjNhYjFkNzU3NjU2NzJmMmMzN2M0MzEyNCZjdD1n/3nDtoaJTZLZpb1yEHR/giphy.gif)
 
@@ -115,7 +118,7 @@ To set direction, the `GameView` class listens to inputs from ASDW and arrow key
   }
 ```
 
-If the bee is not yet launched, then `Bee.setTrajectory(direction)` is activated, and nudges `Bee.START_VEL`, the presumed start velocity. This velocity is a placeholder whose value overrides bee's `vel` once the bee is set in motion. Bee's `vel` is what dictates actual bee position during gameplay.
+If the bee is not yet launched, then `Bee.setTrajectory(direction)` is activated, and nudges `Bee.START_VEL`, which is the presumed start velocity. This velocity is a placeholder whose value overrides bee's `vel` once the bee is set in motion. Bee's `vel` is what dictates actual bee position during gameplay.
 
 <h5 a><strong><code>bee.js</code></strong></h5>
 
@@ -133,7 +136,7 @@ If the bee is not yet launched, then `Bee.setTrajectory(direction)` is activated
   }
 ```
 
-To draw the arrow representing the selected direction, `Bee.drawTrajectory(ctx)` extrapolates the arrow tip from the current Bee position and the nudged `Bee.START_VEL`, and calls the math helper `Util.calculateTriangleCoord(this.pos, pointerDirection)` to calculate where the 2 other triangle points are. This helper evaluates the angle between the bee position and the arrow tip and determines the other 2 points that are a given angle and pointer length away:
+To draw the arrow representing the selected direction, `Bee.drawTrajectory(ctx)` extrapolates the arrow tip from the current Bee position and the nudged `Bee.START_VEL` value, and calls the math helper `Util.calculateTriangleCoord(this.pos, pointerDirection)` to calculate where the 2 other triangle points are. This helper evaluates the angle between the bee position and the arrow tip and determines the other 2 points that are a given angle and pointer length away. This ensures the arrow moves in a circle and always points outward!
 
 <h5 a><strong><code>util.js</code></strong></h5>
 
@@ -166,7 +169,7 @@ export function calculateTriangleCoord(originPos, pointerTipPos) {
 }
 ```
 
-Meanwhile the speed setter, `Bee.slideScale()`, is a slider that increments up and down with each game step and resets the Bee's `speed` value. It is then drawn as a rectangle of variable width by `Bee.drawScale(ctx)`.
+Meanwhile the speed setter, `Bee.slideScale()`, increments `slideStep` up or down with each game step and updates the Bee's `speed` value by that factor. The slider is then drawn as a rectangle of variable width by `Bee.drawScale(ctx)`, based on the current `speed `.
 
 When the player activates launch with the space bar, the current game step's Bee `speed` value is locked in, along with the current `Bee.START_VEL`, and the Bee `vel` is updated to the resultant velocity value. Bee flies!
 
@@ -187,7 +190,7 @@ Upcoming improvements include:
 
 - Add a health bar to the bee to make wasp collisions non-fatal
 - Add additional levels with different assortments of enemies and point-giving objects
-- Add additional areas of altered physics, such as worm holes
+- Add additional areas of altered physics, such as wormholes
 
 ### Asset Attribution
 

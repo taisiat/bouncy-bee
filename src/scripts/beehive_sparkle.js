@@ -17,20 +17,20 @@ class BeehiveSparkle {
     this.game = options.game;
     this.sparkleTimer = 0;
     this.sparklePosition = this.sparklePos();
+    this.points = Util.generateHexagonPoints(
+      this.sparklePosition,
+      BeehiveSparkle.RADIUS
+    );
   }
 
   drawSparkle(ctx) {
     if (this.sparkleTimer > BeehiveSparkle.PERSISTENCE) {
       this.game.remove(this);
     }
-    let points = Util.generateHexagonPoints(
-      this.sparklePosition,
-      BeehiveSparkle.RADIUS
-    );
 
     ctx.fillStyle = this.color;
     ctx.beginPath();
-    points.forEach((pos) => {
+    this.points.forEach((pos) => {
       ctx.lineTo(pos[0], pos[1]);
     });
     ctx.closePath();
