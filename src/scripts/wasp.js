@@ -5,7 +5,7 @@ class Wasp extends MovingObject {
   static RADIUS = 30;
   static BOUNCY = true;
   static SPEED = 0.4;
-  static BeeStingDistance = 150;
+  static BEE_STING_DISTANCE = 150;
   static FRAME_HEIGHT = 867;
   static FRAME_WIDTH = 776;
 
@@ -45,7 +45,7 @@ class Wasp extends MovingObject {
   }
 
   pickSprite() {
-    if (this.distanceToBee() <= Wasp.BeeStingDistance) {
+    if (this.distanceToBee() <= Wasp.BEE_STING_DISTANCE) {
       if (this.beeToRight()) {
         return this.waspStingRight;
       } else {
@@ -61,9 +61,8 @@ class Wasp extends MovingObject {
   }
 
   distanceToBee() {
-    let beeX = this.game.bee.pos[0];
-    let beeY = this.game.bee.pos[1];
-    return Math.sqrt((this.pos[0] - beeX) ** 2 + (this.pos[1] - beeY) ** 2);
+    let distance = Util.pointDistance(this.game.bee.pos, this.pos);
+    return distance;
   }
 
   beeToRight() {
@@ -72,7 +71,7 @@ class Wasp extends MovingObject {
   }
 
   pickFrame() {
-    let stepsPerFrame = 4;
+    let stepsPerFrame = 3;
     let spriteGridDimension = 4;
     let frameH = 0;
     let frameW = 0;

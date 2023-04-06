@@ -2,8 +2,6 @@ import Game from "./game.js";
 
 const CONSTANTS = {
   LINE_SPACING: 100,
-  CANVAS_DIM_X: 1200,
-  CANVAS_DIM_Y: 600,
   LOSE_MSG: [
     "Bee-tter luck next time!",
     "Looks like you got stung with a loss!",
@@ -28,6 +26,9 @@ const CONSTANTS = {
 };
 
 class GameView {
+  static CANVAS_DIM_X = 1200;
+  static CANVAS_DIM_Y = 600;
+
   constructor(ctx) {
     this.ctx = ctx;
     this.announcementR = document.getElementById("announcement-red");
@@ -111,7 +112,10 @@ class GameView {
     this.running = false;
     this.score = 0;
     this.lastTime = 0;
-    this.game = new Game();
+    this.game = new Game({
+      xDim: GameView.CANVAS_DIM_X,
+      yDim: GameView.CANVAS_DIM_Y,
+    });
     this.play(this.lastTime);
   }
 
@@ -168,10 +172,10 @@ class GameView {
   }
 
   drawWinPage() {
-    this.ctx.clearRect(0, 0, CONSTANTS.CANVAS_DIM_X, CONSTANTS.CANVAS_DIM_Y);
+    this.ctx.clearRect(0, 0, GameView.CANVAS_DIM_X, GameView.CANVAS_DIM_Y);
     const pattern = this.ctx.createPattern(this.announcementG, "repeat");
     this.ctx.fillStyle = pattern;
-    this.ctx.fillRect(0, 0, CONSTANTS.CANVAS_DIM_X, CONSTANTS.CANVAS_DIM_Y);
+    this.ctx.fillRect(0, 0, GameView.CANVAS_DIM_X, GameView.CANVAS_DIM_Y);
     const messagePos = [40, 220];
     this.ctx.font = "35pt Delicious Handrawn";
     this.ctx.fillStyle = "black";
@@ -204,10 +208,10 @@ class GameView {
   }
 
   drawLosePage() {
-    this.ctx.clearRect(0, 0, CONSTANTS.CANVAS_DIM_X, CONSTANTS.CANVAS_DIM_Y);
+    this.ctx.clearRect(0, 0, GameView.CANVAS_DIM_X, GameView.CANVAS_DIM_Y);
     const pattern = this.ctx.createPattern(this.announcementR, "repeat");
     this.ctx.fillStyle = pattern;
-    this.ctx.fillRect(0, 0, CONSTANTS.CANVAS_DIM_X, CONSTANTS.CANVAS_DIM_Y);
+    this.ctx.fillRect(0, 0, GameView.CANVAS_DIM_X, GameView.CANVAS_DIM_Y);
     const messagePos = [40, 250];
     this.ctx.font = "30pt Delicious Handrawn";
     this.ctx.fillStyle = "yellow";
@@ -240,10 +244,10 @@ class GameView {
   }
 
   drawInstructions() {
-    this.ctx.clearRect(0, 0, CONSTANTS.CANVAS_DIM_X, CONSTANTS.CANVAS_DIM_Y);
+    this.ctx.clearRect(0, 0, GameView.CANVAS_DIM_X, GameView.CANVAS_DIM_Y);
     const pattern = this.ctx.createPattern(this.announcementW, "repeat");
     this.ctx.fillStyle = pattern || "yellow";
-    this.ctx.fillRect(0, 0, CONSTANTS.CANVAS_DIM_X, CONSTANTS.CANVAS_DIM_Y);
+    this.ctx.fillRect(0, 0, GameView.CANVAS_DIM_X, GameView.CANVAS_DIM_Y);
     const messagePos = [40, 100];
     this.ctx.font = "30pt Delicious Handrawn";
     this.ctx.fillStyle = "black";
@@ -324,9 +328,9 @@ class GameView {
   }
 
   drawWaitPage() {
-    this.ctx.clearRect(0, 0, CONSTANTS.CANVAS_DIM_X, CONSTANTS.CANVAS_DIM_Y);
+    this.ctx.clearRect(0, 0, GameView.CANVAS_DIM_X, GameView.CANVAS_DIM_Y);
     this.ctx.fillStyle = "yellow";
-    this.ctx.fillRect(0, 0, CONSTANTS.CANVAS_DIM_X, CONSTANTS.CANVAS_DIM_Y);
+    this.ctx.fillRect(0, 0, GameView.CANVAS_DIM_X, GameView.CANVAS_DIM_Y);
   }
 
   startGame() {

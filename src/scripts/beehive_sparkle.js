@@ -1,5 +1,4 @@
 import * as Util from "./util.js";
-import Flare from "./flare";
 
 const CONSTANTS = {
   RAND_COLORS: ["#ffff4b", "#ffff01", "#ffffb9", "#ffffff"],

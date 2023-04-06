@@ -24,7 +24,9 @@ class Game {
   static NUM_FLOWERS = 10;
   static NUM_SPEEDSTRIPS = 1;
 
-  constructor() {
+  constructor(options) {
+    this.xDim = options.xDim;
+    this.yDim = options.yDim;
     this.score = 0;
     this.wasps = [];
     this.flowers = [];
@@ -46,10 +48,10 @@ class Game {
   }
 
   draw(ctx) {
-    ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
+    ctx.clearRect(0, 0, this.xDim, this.yDim);
     const pattern = ctx.createPattern(this.background, "repeat");
     ctx.fillStyle = pattern;
-    ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
+    ctx.fillRect(0, 0, this.xDim, this.yDim);
     this.flowers.forEach((flower) => flower.draw(ctx));
     this.beehive.draw(ctx);
     this.beehiveSparkles.forEach((sparkle) => sparkle.drawSparkle(ctx));
@@ -70,13 +72,13 @@ class Game {
   }
 
   wrap(pos) {
-    return [Util.wrap(pos[0], Game.DIM_X), Util.wrap(pos[1], Game.DIM_Y)];
+    return [Util.wrap(pos[0], this.xDim), Util.wrap(pos[1], this.yDim)];
   }
 
   bounce(pos, radius) {
     return [
-      Util.bounce(pos[0], Game.DIM_X, radius),
-      Util.bounce(pos[1], Game.DIM_Y, radius),
+      Util.bounce(pos[0], this.xDim, radius),
+      Util.bounce(pos[1], this.yDim, radius),
     ];
   }
 
@@ -153,7 +155,7 @@ class Game {
 
   addBeehive() {
     return new Beehive({
-      pos: [80, Game.DIM_Y * 0.5],
+      pos: [80, this.yDim * 0.5],
       game: this,
     });
   }
@@ -163,7 +165,7 @@ class Game {
   }
 
   addBee() {
-    return new Bee({ pos: [80, Game.DIM_Y * 0.5], game: this });
+    return new Bee({ pos: [80, this.yDim * 0.5], game: this });
   }
   randomPosition(waspFlag) {
     let waspAdj = 0;
@@ -172,18 +174,18 @@ class Game {
     }
     let randomPos = [
       Math.floor(
-        Math.random() * ((1 - CONSTANTS.EMPTY_REGION - waspAdj) * Game.DIM_X) +
-          (CONSTANTS.EMPTY_REGION + waspAdj) * Game.DIM_X
+        Math.random() * ((1 - CONSTANTS.EMPTY_REGION - waspAdj) * this.xDim) +
+          (CONSTANTS.EMPTY_REGION + waspAdj) * this.xDim
       ),
-      Math.floor(Math.random() * Game.DIM_Y),
+      Math.floor(Math.random() * this.yDim),
     ];
     randomPos.forEach((coord, i) => {
       if (coord < CONSTANTS.MIN_EDGE_DISTANCE) {
         randomPos[i] += CONSTANTS.MIN_EDGE_DISTANCE;
       }
       if (
-        (i === 0 && coord > Game.DIM_X - CONSTANTS.MIN_EDGE_DISTANCE) ||
-        (i === 1 && coord > Game.DIM_Y - CONSTANTS.MIN_EDGE_DISTANCE)
+        (i === 0 && coord > this.xDim - CONSTANTS.MIN_EDGE_DISTANCE) ||
+        (i === 1 && coord > this.yDim - CONSTANTS.MIN_EDGE_DISTANCE)
       ) {
         {
           randomPos[i] -= CONSTANTS.MIN_EDGE_DISTANCE;
