@@ -7,6 +7,10 @@ export function scale(vec, m) {
   return [vec[0] * m, vec[1] * m];
 }
 
+export function pointDistance(point1, point2) {
+  return Math.sqrt((point1[0] - point2[0]) ** 2 + (point1[1] - point2[1]) ** 2);
+}
+
 export function calculateTriangleCoord(originPos, pointerTipPos) {
   const xDistance = Math.abs(originPos[0] - pointerTipPos[0]);
   const yDistance = Math.abs(originPos[1] - pointerTipPos[1]);
@@ -48,10 +52,6 @@ export function bounce(coord, max, radius) {
   } else {
     return coord;
   }
-}
-
-export function pointDistance(point1, point2) {
-  return Math.sqrt((point1[0] - point2[0]) ** 2 + (point1[1] - point2[1]) ** 2);
 }
 
 export function randomPosAroundCenterpoint(centerpoint, distance, correction) {
