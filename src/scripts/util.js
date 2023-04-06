@@ -56,10 +56,10 @@ export function pointDistance(point1, point2) {
 
 export function randomPosAroundCenterpoint(centerpoint, distance, correction) {
   let posRadius = distance * Math.sqrt(Math.random());
-  let theta = Math.random() * 2 * Math.PI;
+  let angleInRad = Math.random() * 2 * Math.PI;
   return [
-    centerpoint[0] + posRadius * Math.cos(theta) + correction,
-    centerpoint[1] + posRadius * Math.sin(theta) + correction,
+    centerpoint[0] + posRadius * Math.cos(angleInRad) + correction,
+    centerpoint[1] + posRadius * Math.sin(angleInRad) + correction,
   ];
 }
 

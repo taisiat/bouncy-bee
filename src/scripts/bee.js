@@ -3,11 +3,11 @@ import * as Util from "./util.js";
 
 const CONSTANTS = {
   NUDGE: 0.1,
-  DECELFACTOR: 0.005,
+  DECELFACTOR: 0.007,
   ACCEL: 1.03,
   START_SCALE: 1,
-  MIN_BEE_LAUNCH_SPEED: 0.5,
-  RETURN_TO_HIVE_VEL: 2,
+  MIN_BEE_LAUNCH_SPEED: 0.75,
+  RETURN_TO_HIVE_VEL: 4,
   MAX_VEL: 20,
 };
 
@@ -152,9 +152,10 @@ class Bee extends MovingObject {
   }
 
   drawTrajectory(ctx) {
+    let pointerDist = 15;
     let pointerDirection = [
-      this.pos[0] + Bee.START_VEL[0] * 15,
-      this.pos[1] + Bee.START_VEL[1] * 15,
+      this.pos[0] + Bee.START_VEL[0] * pointerDist,
+      this.pos[1] + Bee.START_VEL[1] * pointerDist,
     ];
     let arrowPoints = Util.calculateTriangleCoord(this.pos, pointerDirection);
 
@@ -168,6 +169,7 @@ class Bee extends MovingObject {
   }
 
   slideScale() {
+    let slideStep = 0.01;
     if (this.slide_factor > 1) {
       this.slider_increase = false;
     }
@@ -175,9 +177,9 @@ class Bee extends MovingObject {
       this.slider_increase = true;
     }
     if (this.slider_increase) {
-      this.slide_factor += 0.01;
+      this.slide_factor += slideStep;
     } else {
-      this.slide_factor -= 0.01;
+      this.slide_factor -= slideStep;
     }
     this.speed =
       CONSTANTS.START_SCALE * this.slide_factor +

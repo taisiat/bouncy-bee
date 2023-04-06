@@ -5,7 +5,6 @@ import Beehive from "./beehive.js";
 import SpeedStrip from "./speed_strip";
 import Pollen from "./pollen.js";
 import BeehiveSparkle from "./beehive_sparkle.js";
-
 import * as Util from "./util.js";
 
 const CONSTANTS = {
@@ -66,6 +65,7 @@ class Game {
     this.bee.drawAnimatedBee(ctx);
     this.pollens.forEach((pollen) => pollen.drawPollen(ctx));
   }
+
   moveObjects(timeDelta) {
     this.wasps.forEach((wasp) => wasp.move(timeDelta));
     this.bee.move(timeDelta);
@@ -167,6 +167,7 @@ class Game {
   addBee() {
     return new Bee({ pos: [80, this.yDim * 0.5], game: this });
   }
+
   randomPosition(waspFlag) {
     let waspAdj = 0;
     if (waspFlag) {
