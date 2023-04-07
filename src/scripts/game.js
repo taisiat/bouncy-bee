@@ -145,7 +145,6 @@ class Game {
   addFlowers() {
     // return new Flower({ pos: this.randomPosition(), game: this });
     let positions = this.flowerPosGenerator();
-    console.log(positions, "positions");
     positions.forEach((pos) => {
       let newFlower = new Flower({ pos: pos, game: this });
       this.flowers.push(newFlower);
@@ -205,11 +204,12 @@ class Game {
 
   flowerPosGenerator() {
     let positions = [];
+    let minDistance = 80;
     while (positions.length < Game.NUM_FLOWERS) {
       let newPos = this.randomPosition();
       let spreadOut = true;
       for (let i = 0; i < positions.length; i++) {
-        if (Util.pointDistance(newPos, positions[i]) < 80) {
+        if (Util.pointDistance(newPos, positions[i]) < minDistance) {
           spreadOut = false;
         }
       }
