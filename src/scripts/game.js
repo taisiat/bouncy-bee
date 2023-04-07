@@ -56,6 +56,10 @@ class Game {
     const pattern = ctx.createPattern(this.background, "repeat");
     ctx.fillStyle = pattern;
     ctx.fillRect(0, 0, this.xDim, this.yDim);
+    if (!this.bee.launched) {
+      this.bee.drawTrajectory(ctx);
+      this.bee.drawScale(ctx);
+    }
     this.flowers.forEach((flower) => flower.draw(ctx));
     this.beehive.draw(ctx);
     this.beehiveSparkles.forEach((sparkle) => sparkle.drawSparkle(ctx));
@@ -63,10 +67,7 @@ class Game {
       speedStrip.draw(ctx);
     });
     this.wasps.forEach((wasp) => wasp.draw(ctx));
-    if (!this.bee.launched) {
-      this.bee.drawTrajectory(ctx);
-      this.bee.drawScale(ctx);
-    }
+    this.drawHealth(ctx);
     this.bee.drawAnimatedBee(ctx);
     this.pollens.forEach((pollen) => pollen.drawPollen(ctx));
   }
@@ -249,6 +250,28 @@ class Game {
     if (this.health > 100) this.health = 100;
     console.log(this.health);
     return this.health;
+  }
+
+  drawHealth(ctx) {
+    let score = Math.ceil(this.health);
+    const scoreTitlePos = [1050, 60];
+    ctx.font = "40pt Delicious Handrawn";
+    ctx.fillStyle = score < 33 ? "red" : score < 66 ? "gold" : "green";
+    let heart = `<3`;
+    // ctx.fillStyle = "yellow";
+    ctx.fillText(`${heart} ${score}%`, scoreTitlePos[0], scoreTitlePos[1]);
+
+    // ctx.fillStyle = slider < 33 ? "red" : slider < 66 ? "gold" : "green";
+    // let sliderLocation = [1050, 30];
+    // let sliderSizeScale = 1.2;
+    // let sliderH = 20;
+    // ctx.rect(
+    //   sliderLocation[0],
+    //   sliderLocation[1],
+    //   slider * sliderSizeScale,
+    //   sliderH
+    // );
+    // ctx.fill();
   }
 }
 

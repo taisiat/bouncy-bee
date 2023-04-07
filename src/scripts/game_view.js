@@ -138,7 +138,7 @@ class GameView {
       this.game.step(timeDelta);
       this.game.draw(this.ctx);
       this.drawScore();
-      this.drawHealth();
+      // this.drawHealth();
     } else {
       this.drawInstructions();
     }
@@ -172,25 +172,25 @@ class GameView {
     this.ctx.fillText(`Score: ${this.game.score}`, scorePos[0], scorePos[1]);
   }
 
-  drawHealth() {
-    const scoreTitlePos = [1050, 30];
-    this.ctx.font = "40pt Delicious Handrawn";
-    this.ctx.fillStyle = "yellow";
-    this.ctx.fillText(`&#x2665;`, scoreTitlePos[0], scoreTitlePos[1]);
-    let slider = Math.ceil(this.game.health);
+  // drawHealth() {
+  //   const scoreTitlePos = [1050, 30];
+  //   this.ctx.font = "40pt Delicious Handrawn";
+  //   this.ctx.fillStyle = "yellow";
+  //   this.ctx.fillText(&#x2665;, scoreTitlePos[0], scoreTitlePos[1]);
+  //   let slider = Math.ceil(this.game.health);
 
-    this.ctx.fillStyle = slider < 33 ? "red" : slider < 66 ? "gold" : "green";
-    let sliderLocation = [1050, 30];
-    let sliderSizeScale = 1.2;
-    let sliderH = 20;
-    this.ctx.rect(
-      sliderLocation[0],
-      sliderLocation[1],
-      slider * sliderSizeScale,
-      sliderH
-    );
-    this.ctx.fill();
-  }
+  //   this.ctx.fillStyle = slider < 33 ? "red" : slider < 66 ? "gold" : "green";
+  //   let sliderLocation = [1050, 30];
+  //   let sliderSizeScale = 1.2;
+  //   let sliderH = 20;
+  //   this.ctx.rect(
+  //     sliderLocation[0],
+  //     sliderLocation[1],
+  //     slider * sliderSizeScale,
+  //     sliderH
+  //   );
+  //   this.ctx.fill();
+  // }
 
   drawWinPage() {
     this.ctx.clearRect(0, 0, GameView.CANVAS_DIM_X, GameView.CANVAS_DIM_Y);
