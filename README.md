@@ -6,7 +6,7 @@ _Javascript game akin to cannon shooter, pool, Asteroids, and shuffleboard_
 
 BouncyBee is a single-page game where cannon shooter meets pool and shuffleboard and Asteroids. The player launches a bee from a static spot, and the bee then bounces around the gameboard before decelerating to a stop. While the bee flies, the player has a chance to nudge its trajectory to collect points and avoid enemies.
 
-The player earns points when the bee flies across (pollinates!) flowers, and gets extra points if the bee lands back at the beehive. The player loses if the bee runs into wasps, which move across the gameboard.
+The player earns points when the bee flies across (pollinates!) flowers, and gets extra points if the bee lands back at the beehive. The player loses if the bee depletes its health fully, which happens when it runs into the wasps that move across the gameboard.
 
 Play it here! <a href="https://taisiat.github.io/bouncy-bee/">https://taisiat.github.io/bouncy-bee/</a>
 
@@ -194,14 +194,13 @@ Take a look at the source files for implementation of other notable features:
 - Bee and wasp sprite sheet parsing, both with traditional one-image sprite sheets and multi-file sprite frames. See `Bee` and `Wasp` classes.
 - Bounce mechanics. See `util.js`.
 - requestAnimationFrame with time deltas for consistent game speed. See `GameView` and `MovingObject` game classes.
-- Gameboard setup with randomized yet fenced positions for wasps, flowers, and speed strips. See `Game` class.
+- Gameboard setup with randomized yet fenced positions for wasps, flowers, and speed strips. Note that flowers spawn at positions that never overlap other flowers. See `Game` class.
 - Customized win/lose screens with changing messages based on game outcomes. See `GameView` class.
 
 ### Future Features
 
 Upcoming improvements include:
 
-- Add a health bar to the bee to make wasp collisions non-fatal
 - Add additional levels with different assortments of enemies and point-giving objects
 - Add additional areas of altered physics, such as wormholes
 

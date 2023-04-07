@@ -38,9 +38,6 @@ class Game {
     while (this.wasps.length < Game.NUM_WASPS) {
       this.wasps.push(this.addWasps());
     }
-    // while (this.flowers.length < Game.NUM_FLOWERS) {
-    //   this.flowers.push(this.addFlowers());
-    // }
     this.addFlowers();
     while (this.speedStrips.length < Game.NUM_SPEEDSTRIPS) {
       this.speedStrips.push(this.addSpeedStrips());
@@ -56,10 +53,6 @@ class Game {
     const pattern = ctx.createPattern(this.background, "repeat");
     ctx.fillStyle = pattern;
     ctx.fillRect(0, 0, this.xDim, this.yDim);
-    if (!this.bee.launched) {
-      this.bee.drawTrajectory(ctx);
-      this.bee.drawScale(ctx);
-    }
     this.flowers.forEach((flower) => flower.draw(ctx));
     this.beehive.draw(ctx);
     this.beehiveSparkles.forEach((sparkle) => sparkle.drawSparkle(ctx));
@@ -70,6 +63,10 @@ class Game {
     this.drawHealth(ctx);
     this.bee.drawAnimatedBee(ctx);
     this.pollens.forEach((pollen) => pollen.drawPollen(ctx));
+    if (!this.bee.launched) {
+      this.bee.drawTrajectory(ctx);
+      this.bee.drawScale(ctx);
+    }
   }
 
   moveObjects(timeDelta) {
@@ -114,7 +111,6 @@ class Game {
 
       if (object.isCollidedWith(this.bee)) {
         if (object instanceof Wasp) {
-          // this.bee.capture(); // only do this if health bar is over
           this.updateHealth(this.waspAttackPoints);
         }
         if (object instanceof Flower) {
@@ -157,7 +153,6 @@ class Game {
   }
 
   addFlowers() {
-    // return new Flower({ pos: this.randomPosition(), game: this });
     let positions = this.flowerPosGenerator();
     positions.forEach((pos) => {
       let newFlower = new Flower({ pos: pos, game: this });
@@ -248,30 +243,19 @@ class Game {
     this.health += points;
     if (this.health <= 0) this.bee.capture();
     if (this.health > 100) this.health = 100;
-    console.log(this.health);
     return this.health;
   }
 
   drawHealth(ctx) {
     let score = Math.ceil(this.health);
-    const scoreTitlePos = [1050, 60];
-    ctx.font = "40pt Delicious Handrawn";
-    ctx.fillStyle = score < 33 ? "red" : score < 66 ? "gold" : "green";
-    let heart = `<3`;
-    // ctx.fillStyle = "yellow";
-    ctx.fillText(`${heart} ${score}%`, scoreTitlePos[0], scoreTitlePos[1]);
+    const scoreTitlePos = [10, 100];
+    ctx.font = "35pt Delicious Handrawn";
+    ctx.fillStyle = score < 33 ? "red" : score < 66 ? "yellow" : "green";
+    ctx.fillText(`♥ ${score}%`, scoreTitlePos[0], scoreTitlePos[1]);
 
-    // ctx.fillStyle = slider < 33 ? "red" : slider < 66 ? "gold" : "green";
-    // let sliderLocation = [1050, 30];
-    // let sliderSizeScale = 1.2;
-    // let sliderH = 20;
-    // ctx.rect(
-    //   sliderLocation[0],
-    //   sliderLocation[1],
-    //   slider * sliderSizeScale,
-    //   sliderH
-    // );
-    // ctx.fill();
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 1;
+    ctx.strokeText(`♥ ${score}%`, scoreTitlePos[0], scoreTitlePos[1]);
   }
 }
 
