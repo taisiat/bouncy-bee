@@ -19,7 +19,7 @@ class Game {
   static DIM_X = 1200;
   static DIM_Y = 600;
 
-  static NUM_WASPS = 1;
+  static NUM_WASPS = 2;
   static NUM_FLOWERS = 15;
   static NUM_SPEEDSTRIPS = 1;
 
@@ -47,7 +47,7 @@ class Game {
     }
     this.health = 100;
     this.waspAttackPoints = -3;
-    this.flowerHealthPoints = 0.1;
+    this.flowerHealthPoints = 0.05;
     this.beehiveHealthPoints = 0.1;
   }
 
@@ -245,6 +245,7 @@ class Game {
 
   updateHealth(points) {
     this.health += points;
+    if (this.health <= 0) this.bee.capture();
     if (this.health > 100) this.health = 100;
     console.log(this.health);
     return this.health;
