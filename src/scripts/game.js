@@ -45,6 +45,10 @@ class Game {
     while (this.speedStrips.length < Game.NUM_SPEEDSTRIPS) {
       this.speedStrips.push(this.addSpeedStrips());
     }
+    this.health = 100;
+    this.waspAttackPoints = -3;
+    this.flowerHealthPoints = 0.1;
+    this.beehiveHealthPoints = 0.1;
   }
 
   draw(ctx) {
@@ -109,10 +113,12 @@ class Game {
 
       if (object.isCollidedWith(this.bee)) {
         if (object instanceof Wasp) {
-          this.bee.capture();
+          // this.bee.capture(); // only do this if health bar is over
+          this.updateHealth(this.waspAttackPoints);
         }
         if (object instanceof Flower) {
           this.addPoints();
+          this.updateHealth(this.flowerHealthPoints);
           this.bee.pollinate();
           this.pollens.push(this.addPollens());
         }
@@ -122,6 +128,13 @@ class Game {
         }
         if (object instanceof Beehive && this.bee.landed) {
           this.bee.landOnBeehive();
+        }
+        if (
+          object instanceof Beehive &&
+          !this.bee.landed &&
+          this.bee.launched
+        ) {
+          this.addPoints(this.beehiveHealthPoints);
         }
       }
     }
@@ -228,6 +241,13 @@ class Game {
     if (object instanceof BeehiveSparkle) {
       this.beehiveSparkles.splice(this.beehiveSparkles.indexOf(object), 1);
     }
+  }
+
+  updateHealth(points) {
+    this.health += points;
+    if (this.health > 100) this.health = 100;
+    console.log(this.health);
+    return this.health;
   }
 }
 
