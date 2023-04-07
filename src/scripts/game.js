@@ -38,9 +38,10 @@ class Game {
     while (this.wasps.length < Game.NUM_WASPS) {
       this.wasps.push(this.addWasps());
     }
-    while (this.flowers.length < Game.NUM_FLOWERS) {
-      this.flowers.push(this.addFlowers());
-    }
+    // while (this.flowers.length < Game.NUM_FLOWERS) {
+    //   this.flowers.push(this.addFlowers());
+    // }
+    this.addFlowers();
     while (this.speedStrips.length < Game.NUM_SPEEDSTRIPS) {
       this.speedStrips.push(this.addSpeedStrips());
     }
@@ -142,7 +143,13 @@ class Game {
   }
 
   addFlowers() {
-    return new Flower({ pos: this.randomPosition(), game: this });
+    // return new Flower({ pos: this.randomPosition(), game: this });
+    let positions = this.flowerPosGenerator();
+    console.log(positions, "positions");
+    positions.forEach((pos) => {
+      let newFlower = new Flower({ pos: pos, game: this });
+      this.flowers.push(newFlower);
+    });
   }
 
   addPollens() {
@@ -194,6 +201,21 @@ class Game {
       }
     });
     return randomPos;
+  }
+
+  flowerPosGenerator() {
+    let positions = [];
+    while (positions.length < Game.NUM_FLOWERS) {
+      let newPos = this.randomPosition();
+      let spreadOut = true;
+      for (let i = 0; i < positions.length; i++) {
+        if (Util.pointDistance(newPos, positions[i]) < 80) {
+          spreadOut = false;
+        }
+      }
+      if (spreadOut) positions.push(newPos);
+    }
+    return positions;
   }
 
   remove(object) {
