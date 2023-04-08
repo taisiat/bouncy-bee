@@ -38,6 +38,8 @@ class GameView {
     this.wasp2 = document.getElementById("wasp-left-sting");
     this.flower = document.getElementById("flower-med");
     this.beehive = document.getElementById("beehive");
+    this.launchMechanic = document.getElementById("launch-mechanic");
+    this.flyMechanic = document.getElementById("fly-mechanic");
     this.highScore = 0;
     this.bindKeyHandlers();
   }
@@ -212,13 +214,13 @@ class GameView {
     const pattern = this.ctx.createPattern(this.announcementR, "repeat");
     this.ctx.fillStyle = pattern;
     this.ctx.fillRect(0, 0, GameView.CANVAS_DIM_X, GameView.CANVAS_DIM_Y);
-    const messagePos = [40, 250];
+    const messagePos = [40, 80];
     this.ctx.font = "30pt Delicious Handrawn";
     this.ctx.fillStyle = "yellow";
     this.ctx.fillText("The wasps caught you!", messagePos[0], messagePos[1]);
     let message = this.message("lose");
     this.ctx.fillText(
-      `${message}`,
+      message,
       messagePos[0],
       messagePos[1] + CONSTANTS.LINE_SPACING
     );
@@ -235,6 +237,13 @@ class GameView {
       (waspSize / 867) * 776,
       waspSize
     );
+
+    this.ctx.fillText(
+      "Remember to navigate the bee as it flies!",
+      messagePos[0],
+      messagePos[1] + 2 * CONSTANTS.LINE_SPACING
+    );
+    this.ctx.drawImage(this.flyMechanic, messagePos[0], 325, 320, 240);
   }
 
   message(type) {
@@ -249,7 +258,7 @@ class GameView {
     this.ctx.fillStyle = pattern || "yellow";
     this.ctx.fillRect(0, 0, GameView.CANVAS_DIM_X, GameView.CANVAS_DIM_Y);
     const messagePos = [40, 100];
-    this.ctx.font = "30pt Delicious Handrawn";
+    this.ctx.font = "25pt Delicious Handrawn";
     this.ctx.fillStyle = "black";
     this.ctx.fillText(
       "Help Bouncy Bee collect the most nectar!",
@@ -296,34 +305,8 @@ class GameView {
       directionWarningPos[1]
     );
 
-    let waspSize1 = 100;
-    this.ctx.drawImage(
-      this.wasp1,
-      0,
-      0,
-      776,
-      867,
-      1100,
-      10,
-      (waspSize1 / 867) * 776,
-      waspSize1
-    );
-
-    let waspSize2 = 120;
-    this.ctx.drawImage(
-      this.wasp2,
-      776 * 3,
-      867 * 2,
-      776,
-      867,
-      1040,
-      50,
-      (waspSize2 / 867) * 776,
-      waspSize2
-    );
-
-    this.ctx.drawImage(this.flower, 900, 250, 200, 200);
-    this.ctx.drawImage(this.game.bee.beeFrameL0, 1000, 400, 150, 150);
+    this.ctx.drawImage(this.launchMechanic, 880, 0, 320, 320);
+    this.ctx.drawImage(this.flyMechanic, 880, 325, 320, 240);
   }
 
   drawWaitPage() {

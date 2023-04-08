@@ -150,6 +150,23 @@ kbd {
   position: relative;
   top: -250px;
   left: 600px;
+  z-index: 10;
+}
+
+#launch-mechanic {
+  position: relative;
+  top: -632px;
+  left: 245px;
+  height: 200px;
+  border-radius: 5px;
+}
+
+#fly-mechanic {
+  position: relative;
+  top: -632px;
+  left: 250px;
+  height: 200px;
+  border-radius: 5px;
 }
 
 .hidden {
