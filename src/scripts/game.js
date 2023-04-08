@@ -250,7 +250,16 @@ class Game {
     let score = Math.ceil(this.health);
     const scoreTitlePos = [10, 100];
     ctx.font = "35pt Delicious Handrawn";
-    ctx.fillStyle = score < 33 ? "red" : score < 66 ? "yellow" : "green";
+    ctx.fillStyle =
+      score < 20
+        ? "DarkRed"
+        : score < 40
+        ? "orange"
+        : score < 60
+        ? "Gold"
+        : score < 80
+        ? "LawnGreen"
+        : "DarkGreen";
     ctx.fillText(`♥ ${score}%`, scoreTitlePos[0], scoreTitlePos[1]);
 
     ctx.strokeStyle = "black";

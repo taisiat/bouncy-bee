@@ -138,7 +138,6 @@ class GameView {
       this.game.step(timeDelta);
       this.game.draw(this.ctx);
       this.drawScore();
-      // this.drawHealth();
     } else {
       this.drawInstructions();
     }
@@ -258,22 +257,22 @@ class GameView {
       messagePos[1]
     );
     this.ctx.fillText(
-      "Direct Bouncy Bee like a cannon, and then course correct as it flies. Try to:",
+      "Launch Bouncy Bee like a cannon AND nudge it as it flies. Try to:",
       messagePos[0] + 60,
       messagePos[1] + 100
     );
     this.ctx.fillText(
-      "Visit the most flowers",
+      "1. Visit the most flowers - they give you points and health",
       messagePos[0] + CONSTANTS.LINE_SPACING,
       messagePos[1] + CONSTANTS.LINE_SPACING * 2
     );
     this.ctx.fillText(
-      "Avoid the wasps!!!",
+      "2. Avoid the wasps!!!",
       messagePos[0] + CONSTANTS.LINE_SPACING,
       messagePos[1] + CONSTANTS.LINE_SPACING * 3
     );
     this.ctx.fillText(
-      "Land (come to a stop) on the beehive for extra points",
+      "3. Land (slide to a stop) on the beehive for extra points",
       messagePos[0] + CONSTANTS.LINE_SPACING,
       messagePos[1] + CONSTANTS.LINE_SPACING * 4
     );
@@ -323,9 +322,8 @@ class GameView {
       waspSize2
     );
 
-    this.ctx.drawImage(this.beehive, 550, 260, 120, 120);
-    this.ctx.drawImage(this.flower, 700, 250, 200, 200);
-    this.ctx.drawImage(this.game.bee.beeFrameL0, 900, 300, 150, 150);
+    this.ctx.drawImage(this.flower, 900, 250, 200, 200);
+    this.ctx.drawImage(this.game.bee.beeFrameL0, 1000, 400, 150, 150);
   }
 
   drawWaitPage() {
