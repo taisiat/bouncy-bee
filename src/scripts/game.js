@@ -19,7 +19,7 @@ class Game {
   static DIM_X = 1200;
   static DIM_Y = 600;
 
-  static NUM_WASPS = 1;
+  static NUM_WASPS = 2;
   static NUM_FLOWERS = 15;
   static NUM_SPEEDSTRIPS = 1;
 
@@ -38,12 +38,14 @@ class Game {
     while (this.wasps.length < Game.NUM_WASPS) {
       this.wasps.push(this.addWasps());
     }
-    while (this.flowers.length < Game.NUM_FLOWERS) {
-      this.flowers.push(this.addFlowers());
-    }
+    this.addFlowers();
     while (this.speedStrips.length < Game.NUM_SPEEDSTRIPS) {
       this.speedStrips.push(this.addSpeedStrips());
     }
+    this.health = 100;
+    this.waspAttackPoints = -3;
+    this.flowerHealthPoints = 0.05;
+    this.beehiveHealthPoints = 0.1;
   }
 
   draw(ctx) {
@@ -58,12 +60,13 @@ class Game {
       speedStrip.draw(ctx);
     });
     this.wasps.forEach((wasp) => wasp.draw(ctx));
+    this.drawHealth(ctx);
+    this.bee.drawAnimatedBee(ctx);
+    this.pollens.forEach((pollen) => pollen.drawPollen(ctx));
     if (!this.bee.launched) {
       this.bee.drawTrajectory(ctx);
       this.bee.drawScale(ctx);
     }
-    this.bee.drawAnimatedBee(ctx);
-    this.pollens.forEach((pollen) => pollen.drawPollen(ctx));
   }
 
   moveObjects(timeDelta) {
@@ -108,10 +111,11 @@ class Game {
 
       if (object.isCollidedWith(this.bee)) {
         if (object instanceof Wasp) {
-          this.bee.capture();
+          this.updateHealth(this.waspAttackPoints);
         }
         if (object instanceof Flower) {
           this.addPoints();
+          this.updateHealth(this.flowerHealthPoints);
           this.bee.pollinate();
           this.pollens.push(this.addPollens());
         }
@@ -121,6 +125,13 @@ class Game {
         }
         if (object instanceof Beehive && this.bee.landed) {
           this.bee.landOnBeehive();
+        }
+        if (
+          object instanceof Beehive &&
+          !this.bee.landed &&
+          this.bee.launched
+        ) {
+          this.addPoints(this.beehiveHealthPoints);
         }
       }
     }
@@ -142,7 +153,11 @@ class Game {
   }
 
   addFlowers() {
-    return new Flower({ pos: this.randomPosition(), game: this });
+    let positions = this.flowerPosGenerator();
+    positions.forEach((pos) => {
+      let newFlower = new Flower({ pos: pos, game: this });
+      this.flowers.push(newFlower);
+    });
   }
 
   addPollens() {
@@ -196,6 +211,22 @@ class Game {
     return randomPos;
   }
 
+  flowerPosGenerator() {
+    let positions = [];
+    let minDistance = 80;
+    while (positions.length < Game.NUM_FLOWERS) {
+      let newPos = this.randomPosition();
+      let spreadOut = true;
+      for (let i = 0; i < positions.length; i++) {
+        if (Util.pointDistance(newPos, positions[i]) < minDistance) {
+          spreadOut = false;
+        }
+      }
+      if (spreadOut) positions.push(newPos);
+    }
+    return positions;
+  }
+
   remove(object) {
     if (object instanceof Wasp) {
       this.wasps.splice(this.wasps.indexOf(object), 1);
@@ -206,6 +237,34 @@ class Game {
     if (object instanceof BeehiveSparkle) {
       this.beehiveSparkles.splice(this.beehiveSparkles.indexOf(object), 1);
     }
+  }
+
+  updateHealth(points) {
+    this.health += points;
+    if (this.health <= 0) this.bee.capture();
+    if (this.health > 100) this.health = 100;
+    return this.health;
+  }
+
+  drawHealth(ctx) {
+    let score = Math.ceil(this.health);
+    const scoreTitlePos = [10, 100];
+    ctx.font = "35pt Delicious Handrawn";
+    ctx.fillStyle =
+      score < 20
+        ? "DarkRed"
+        : score < 40
+        ? "orange"
+        : score < 60
+        ? "Gold"
+        : score < 80
+        ? "LawnGreen"
+        : "DarkGreen";
+    ctx.fillText(`♥ ${score}%`, scoreTitlePos[0], scoreTitlePos[1]);
+
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 1;
+    ctx.strokeText(`♥ ${score}%`, scoreTitlePos[0], scoreTitlePos[1]);
   }
 }
 
