@@ -27,6 +27,7 @@ class Game {
     this.xDim = options.xDim;
     this.yDim = options.yDim;
     this.score = 0;
+    this.nonOverlapPos = this.nonOverlapPosGenerator();
     this.wasps = [];
     this.flowers = [];
     this.speedStrips = [];
@@ -39,9 +40,7 @@ class Game {
       this.wasps.push(this.addWasps());
     }
     this.addFlowers();
-    while (this.speedStrips.length < Game.NUM_SPEEDSTRIPS) {
-      this.speedStrips.push(this.addSpeedStrips());
-    }
+    this.addSpeedStrips();
     this.health = 100;
     this.waspAttackPoints = -3;
     this.flowerHealthPoints = 0.05;
@@ -72,6 +71,7 @@ class Game {
   moveObjects(timeDelta) {
     this.wasps.forEach((wasp) => wasp.move(timeDelta));
     this.bee.move(timeDelta);
+    console.log(this.nonOverlapPos, "non overlap pos");
   }
 
   wrap(pos) {
@@ -153,7 +153,7 @@ class Game {
   }
 
   addFlowers() {
-    let positions = this.flowerPosGenerator();
+    let positions = this.nonOverlapPos.slice(Game.NUM_SPEEDSTRIPS);
     positions.forEach((pos) => {
       let newFlower = new Flower({ pos: pos, game: this });
       this.flowers.push(newFlower);
@@ -176,7 +176,11 @@ class Game {
   }
 
   addSpeedStrips() {
-    return new SpeedStrip({ pos: this.randomPosition(), game: this });
+    let positions = this.nonOverlapPos.slice(0, Game.NUM_SPEEDSTRIPS);
+    positions.forEach((pos) => {
+      let newSpeedStrip = new SpeedStrip({ pos: pos, game: this });
+      this.speedStrips.push(newSpeedStrip);
+    });
   }
 
   addBee() {
@@ -211,10 +215,10 @@ class Game {
     return randomPos;
   }
 
-  flowerPosGenerator() {
+  nonOverlapPosGenerator() {
     let positions = [];
-    let minDistance = 80;
-    while (positions.length < Game.NUM_FLOWERS) {
+    let minDistance = Game.NUM_FLOWERS + Game.NUM_SPEEDSTRIPS < 25 ? 80 : 0;
+    while (positions.length < Game.NUM_FLOWERS + Game.NUM_SPEEDSTRIPS) {
       let newPos = this.randomPosition();
       let spreadOut = true;
       for (let i = 0; i < positions.length; i++) {
