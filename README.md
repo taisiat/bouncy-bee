@@ -191,10 +191,10 @@ Each time the game steps forward, the `Game` class checks if the bee is launched
 Take a look at the source files for implementation of other notable features:
 
 - Bee acceleration and deceleration mechanics, including how bee speed triggers beehive sparkles and how top speed is capped. See `Bee` class.
-- Bee and wasp sprite sheet parsing, both with traditional one-image sprite sheets and multi-file sprite frames. See `Bee` and `Wasp` classes.
-- Bounce mechanics. See `util.js`.
 - requestAnimationFrame with time deltas for consistent game speed. See `GameView` and `MovingObject` game classes.
-- Gameboard setup with randomized yet fenced positions for wasps, flowers, and speed strips. Note that flowers spawn at positions that never overlap other flowers. See `Game` class.
+- Gameboard setup with randomized yet fenced positions for wasps, flowers, and speed strips. Note that flowers and speed strips spawn at positions that never overlap each other. See `Game` class.
+- Bounce mechanics. See `util.js`.
+- Bee and wasp sprite sheet parsing, both with traditional one-image sprite sheets and multi-file sprite frames. See `Bee` and `Wasp` classes.
 - Customized win/lose screens with changing messages based on game outcomes. See `GameView` class.
 
 ### Future Features
@@ -208,9 +208,7 @@ Upcoming improvements include:
 
 - Keymaster by <a href="https://github.com/madrobby/keymaster">madrobby</a>
 - Witty content by <a href="https://chat.openai.com/chat">ChatGPT</a>
-
 - Color array by <a href="https://gist.github.com/mucar/3898821">mucar</a>
-
 - Character sprites by Robert Brooks and Olga Romero Lopez
 - Images:
 

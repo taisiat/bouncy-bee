@@ -71,7 +71,6 @@ class Game {
   moveObjects(timeDelta) {
     this.wasps.forEach((wasp) => wasp.move(timeDelta));
     this.bee.move(timeDelta);
-    console.log(this.nonOverlapPos, "non overlap pos");
   }
 
   wrap(pos) {
@@ -218,6 +217,11 @@ class Game {
   nonOverlapPosGenerator() {
     let positions = [];
     let minDistance = Game.NUM_FLOWERS + Game.NUM_SPEEDSTRIPS < 25 ? 80 : 0;
+    if (minDistance === 0) {
+      console.log(
+        "Number of flowers and/or speed strips exceeds safe limits for game screen size. Non-crowding is no longer enforced."
+      );
+    }
     while (positions.length < Game.NUM_FLOWERS + Game.NUM_SPEEDSTRIPS) {
       let newPos = this.randomPosition();
       let spreadOut = true;
