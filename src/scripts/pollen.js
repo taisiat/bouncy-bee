@@ -58,7 +58,7 @@ const CONSTANTS = {
 
 class Pollen {
   static RADIUS = 10;
-  static PERSISTENCE = 10;
+  static PERSISTENCE = 15;
 
   constructor(options = {}) {
     let randomColorIdx = Math.floor(

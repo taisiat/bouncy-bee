@@ -19,7 +19,7 @@ class Game {
   static DIM_X = 1200;
   static DIM_Y = 600;
 
-  static NUM_WASPS = 2;
+  static NUM_WASPS = 3;
   static NUM_FLOWERS = 15;
   static NUM_SPEEDSTRIPS = 1;
 
@@ -42,7 +42,7 @@ class Game {
     this.addFlowers();
     this.addSpeedStrips();
     this.health = 100;
-    this.waspAttackPoints = -3;
+    this.waspAttackPoints = -1;
     this.flowerHealthPoints = 0.05;
     this.beehiveHealthPoints = 0.1;
   }

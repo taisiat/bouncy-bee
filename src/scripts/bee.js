@@ -2,13 +2,13 @@ import MovingObject from "./moving_object";
 import * as Util from "./util.js";
 
 const CONSTANTS = {
-  NUDGE: 0.1,
+  NUDGE: 0.25,
   DECELFACTOR: 0.007,
   ACCEL: 1.03,
   START_SCALE: 1,
   MIN_BEE_LAUNCH_SPEED: 0.75,
   RETURN_TO_HIVE_VEL: 4,
-  MAX_VEL: 20,
+  MAX_VEL: 15,
 };
 
 class Bee extends MovingObject {

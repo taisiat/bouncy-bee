@@ -239,7 +239,7 @@ class GameView {
     );
 
     this.ctx.fillText(
-      "Remember to navigate the bee as it flies!",
+      "PRESS and HOLD the keys to control the bee!",
       messagePos[0],
       messagePos[1] + 2 * CONSTANTS.LINE_SPACING
     );

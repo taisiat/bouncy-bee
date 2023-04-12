@@ -10,7 +10,7 @@ The player earns points when the bee flies across (pollinates!) flowers, and get
 
 Play it here! <a href="https://taisiat.github.io/bouncy-bee/">https://taisiat.github.io/bouncy-bee/</a>
 
-See my <a href="https://github.com/taisiat">github</a> and <a href="https://www.linkedin.com/in/taisiakaraseva/">LinkedIn</a>
+See my <a href="https://github.com/taisiat">github</a> and <a href="https://www.linkedin.com/in/taisiakaraseva/">Linkedin</a>
 
 ### Functionality & MVPs
 
