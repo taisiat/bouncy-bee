@@ -49,38 +49,30 @@ class GameView {
       this.iKeyHandler();
     });
     key("w", () => {
-      // this.leftKeyHandler();
       this.wKeyHandler();
     });
     key("s", () => {
-      // this.rightKeyHandler();
       this.sKeyHandler();
     });
     key("space", () => {
       this.spaceKeyHandler();
     });
     key("a", () => {
-      // this.leftKeyHandler();
       this.aKeyHandler();
     });
     key("d", () => {
-      // this.rightKeyHandler();
       this.dKeyHandler();
     });
     key("up", () => {
-      // this.leftKeyHandler();
       this.wKeyHandler();
     });
     key("down", () => {
-      // this.rightKeyHandler();
       this.sKeyHandler();
     });
     key("right", () => {
-      // this.rightKeyHandler();
       this.dKeyHandler();
     });
     key("left", () => {
-      // this.leftKeyHandler();
       this.aKeyHandler();
     });
   }
@@ -92,14 +84,6 @@ class GameView {
       this.restart();
     }
   }
-
-  // leftKeyHandler() {
-  //   if (this.game.bee.launched) {
-  //     this.game.bee.nudge("left");
-  //   } else if (!this.game.bee.launched) {
-  //     this.game.bee.setTrajectory("up");
-  //   }
-  // }
 
   aKeyHandler() {
     let nudgeDirection = {
@@ -131,14 +115,6 @@ class GameView {
       this.game.bee.setTrajectory("up");
     }
   }
-
-  // rightKeyHandler() {
-  //   if (this.game.bee.launched) {
-  //     this.game.bee.nudge("right");
-  //   } else if (!this.game.bee.launched) {
-  //     this.game.bee.setTrajectory("down");
-  //   }
-  // }
 
   sKeyHandler() {
     let nudgeDirection = {
