@@ -49,31 +49,31 @@ class GameView {
       this.iKeyHandler();
     });
     key("w", () => {
-      this.leftKeyHandler();
+      this.wKeyHandler();
     });
     key("s", () => {
-      this.rightKeyHandler();
+      this.sKeyHandler();
     });
     key("space", () => {
       this.spaceKeyHandler();
     });
     key("a", () => {
-      this.leftKeyHandler();
+      this.aKeyHandler();
     });
     key("d", () => {
-      this.rightKeyHandler();
+      this.dKeyHandler();
     });
     key("up", () => {
-      this.leftKeyHandler();
+      this.wKeyHandler();
     });
     key("down", () => {
-      this.rightKeyHandler();
+      this.sKeyHandler();
     });
     key("right", () => {
-      this.rightKeyHandler();
+      this.dKeyHandler();
     });
     key("left", () => {
-      this.leftKeyHandler();
+      this.aKeyHandler();
     });
   }
 
@@ -85,17 +85,64 @@ class GameView {
     }
   }
 
-  leftKeyHandler() {
+  aKeyHandler() {
+    let nudgeDirection = {
+      up: "left",
+      down: "right",
+      left: "",
+      right: "",
+    };
+    let beeDirection = this.game.bee.beeDirection();
     if (this.game.bee.launched) {
-      this.game.bee.nudge("left");
+      this.game.bee.nudge(nudgeDirection[beeDirection]);
     } else if (!this.game.bee.launched) {
       this.game.bee.setTrajectory("up");
     }
   }
 
-  rightKeyHandler() {
+  wKeyHandler() {
+    let nudgeDirection = {
+      up: "",
+      down: "",
+      left: "right",
+      right: "left",
+    };
+    let beeDirection = this.game.bee.beeDirection();
+
     if (this.game.bee.launched) {
-      this.game.bee.nudge("right");
+      this.game.bee.nudge(nudgeDirection[beeDirection]);
+    } else if (!this.game.bee.launched) {
+      this.game.bee.setTrajectory("up");
+    }
+  }
+
+  sKeyHandler() {
+    let nudgeDirection = {
+      up: "",
+      down: "",
+      left: "left",
+      right: "right",
+    };
+    let beeDirection = this.game.bee.beeDirection();
+
+    if (this.game.bee.launched) {
+      this.game.bee.nudge(nudgeDirection[beeDirection]);
+    } else if (!this.game.bee.launched) {
+      this.game.bee.setTrajectory("down");
+    }
+  }
+
+  dKeyHandler() {
+    let nudgeDirection = {
+      up: "right",
+      down: "left",
+      left: "",
+      right: "",
+    };
+    let beeDirection = this.game.bee.beeDirection();
+
+    if (this.game.bee.launched) {
+      this.game.bee.nudge(nudgeDirection[beeDirection]);
     } else if (!this.game.bee.launched) {
       this.game.bee.setTrajectory("down");
     }
@@ -286,27 +333,8 @@ class GameView {
       messagePos[1] + CONSTANTS.LINE_SPACING * 4
     );
 
-    let directionWarningPos = [30, 590];
-    let directionWarningText =
-      "Remember, you are nudging Bouncy Bee's trajectory left and right from ITS perspective - careful when it's flying left or down ;)";
-
-    this.ctx.font = "20pt Delicious Handrawn";
-    this.ctx.fillStyle = "yellow";
-    this.ctx.fillText(
-      directionWarningText,
-      directionWarningPos[0],
-      directionWarningPos[1]
-    );
-    this.ctx.strokeStyle = "black";
-    this.ctx.lineWidth = 1;
-    this.ctx.strokeText(
-      directionWarningText,
-      directionWarningPos[0],
-      directionWarningPos[1]
-    );
-
-    this.ctx.drawImage(this.launchMechanic, 880, 0, 320, 320);
-    this.ctx.drawImage(this.flyMechanic, 880, 325, 320, 240);
+    this.ctx.drawImage(this.launchMechanic, 860, 0, 340, 340);
+    this.ctx.drawImage(this.flyMechanic, 860, 350, 340, 250);
   }
 
   drawWaitPage() {

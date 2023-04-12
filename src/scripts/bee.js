@@ -2,7 +2,7 @@ import MovingObject from "./moving_object";
 import * as Util from "./util.js";
 
 const CONSTANTS = {
-  NUDGE: 0.25,
+  NUDGE: 0.2,
   DECELFACTOR: 0.007,
   ACCEL: 1.03,
   START_SCALE: 1,
@@ -143,7 +143,12 @@ class Bee extends MovingObject {
   }
 
   setTrajectory(direction) {
-    const nudgeFactor = direction === "up" ? CONSTANTS.NUDGE : -CONSTANTS.NUDGE;
+    const nudgeFactor =
+      direction === "up"
+        ? CONSTANTS.NUDGE
+        : direction === "down"
+        ? -CONSTANTS.NUDGE
+        : 0;
     const cosA = Math.cos(nudgeFactor);
     const sinA = Math.sin(nudgeFactor);
     const newX = Bee.START_VEL[0] * cosA + Bee.START_VEL[1] * sinA;
@@ -208,7 +213,11 @@ class Bee extends MovingObject {
 
   nudge(direction) {
     const nudgeFactor =
-      direction === "left" ? CONSTANTS.NUDGE : -CONSTANTS.NUDGE;
+      direction === "left"
+        ? CONSTANTS.NUDGE
+        : direction === "right"
+        ? -CONSTANTS.NUDGE
+        : 0;
     const cosA = Math.cos(nudgeFactor);
     const sinA = Math.sin(nudgeFactor);
     const newX = this.vel[0] * cosA + this.vel[1] * sinA;
@@ -241,20 +250,34 @@ class Bee extends MovingObject {
     );
     let velocityPreLaunch = this.launched ? this.vel : Bee.START_VEL;
 
+    let beeDirection = this.beeDirection();
+    let mapping = {
+      right: this.beeRightFrames,
+      left: this.beeLeftFrames,
+      up: this.beeUpFrames,
+      down: this.beeDownFrames,
+    };
+    animationSequence = mapping[beeDirection];
+
+    return animationSequence[beeFrameIdx];
+  }
+
+  beeDirection() {
+    let velocityPreLaunch = this.launched ? this.vel : Bee.START_VEL;
+
     if (Math.abs(velocityPreLaunch[0]) >= Math.abs(velocityPreLaunch[1])) {
       if (velocityPreLaunch[0] >= 0) {
-        animationSequence = this.beeRightFrames;
+        return "right";
       } else {
-        animationSequence = this.beeLeftFrames;
+        return "left";
       }
     } else {
       if (velocityPreLaunch[1] <= 0) {
-        animationSequence = this.beeUpFrames;
+        return "up";
       } else {
-        animationSequence = this.beeDownFrames;
+        return "down";
       }
     }
-    return animationSequence[beeFrameIdx];
   }
 }
 
