@@ -357,27 +357,8 @@ class GameView {
       messagePos[1] + CONSTANTS.LINE_SPACING * 4
     );
 
-    let directionWarningPos = [30, 590];
-    let directionWarningText =
-      "Remember, you are nudging Bouncy Bee's trajectory left and right from ITS perspective - careful when it's flying left or down ;)";
-
-    this.ctx.font = "20pt Delicious Handrawn";
-    this.ctx.fillStyle = "yellow";
-    this.ctx.fillText(
-      directionWarningText,
-      directionWarningPos[0],
-      directionWarningPos[1]
-    );
-    this.ctx.strokeStyle = "black";
-    this.ctx.lineWidth = 1;
-    this.ctx.strokeText(
-      directionWarningText,
-      directionWarningPos[0],
-      directionWarningPos[1]
-    );
-
-    this.ctx.drawImage(this.launchMechanic, 880, 0, 320, 320);
-    this.ctx.drawImage(this.flyMechanic, 880, 325, 320, 240);
+    this.ctx.drawImage(this.launchMechanic, 860, 0, 340, 340);
+    this.ctx.drawImage(this.flyMechanic, 860, 350, 340, 250);
   }
 
   drawWaitPage() {
