@@ -106,14 +106,22 @@ The game begins with the bee at the beehive, and the player must set a direction
 
 ![Cannon shoot stage](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTJlZDgzMzI2NDI5M2Q0NjNhYjFkNzU3NjU2NzJmMmMzN2M0MzEyNCZjdD1n/3nDtoaJTZLZpb1yEHR/giphy.gif)
 
-To set direction, the `GameView` class listens to inputs from ASDW and arrow keys. It also checks if the bee is launched, and fires off different methods conditionally:
+To set direction, the `GameView` class listens to inputs from ASDW and arrow keys. It also checks if the bee is launched and which direction it is traveling in, and fires off different methods conditionally:
 
-<h5 a><strong><code>game_view.js, left/up handler example</code></strong></h5>
+<h5 a><strong><code>game_view.js, W handler example</code></strong></h5>
 
 ```JavaScript
-  leftKeyHandler() {
+  wKeyHandler() {
+    let nudgeDirection = {
+      up: "",
+      down: "",
+      left: "right",
+      right: "left",
+    };
+    let beeDirection = this.game.bee.beeDirection();
+
     if (this.game.bee.launched) {
-      this.game.bee.nudge("left");
+      this.game.bee.nudge(nudgeDirection[beeDirection]);
     } else if (!this.game.bee.launched) {
       this.game.bee.setTrajectory("up");
     }
@@ -126,14 +134,16 @@ If the bee is not yet launched, then `Bee.setTrajectory(direction)` is activated
 
 ```JavaScript
   setTrajectory(direction) {
-    const nudgeFactor = direction === "up" ?  CONSTANTS.NUDGE : -CONSTANTS.NUDGE;
-
+    const nudgeFactor =
+      direction === "up"
+        ? CONSTANTS.NUDGE
+        : direction === "down"
+        ? -CONSTANTS.NUDGE
+        : 0;
     const cosA = Math.cos(nudgeFactor);
     const sinA = Math.sin(nudgeFactor);
-
     const newX = Bee.START_VEL[0] * cosA + Bee.START_VEL[1] * sinA;
     const newY = -Bee.START_VEL[0] * sinA + Bee.START_VEL[1] * cosA;
-
     Bee.START_VEL = [newX, newY];
   }
 ```

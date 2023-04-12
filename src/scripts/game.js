@@ -42,7 +42,7 @@ class Game {
     this.addFlowers();
     this.addSpeedStrips();
     this.health = 100;
-    this.waspAttackPoints = -1;
+    this.waspAttackPoints = -1.5;
     this.flowerHealthPoints = 0.05;
     this.beehiveHealthPoints = 0.1;
   }

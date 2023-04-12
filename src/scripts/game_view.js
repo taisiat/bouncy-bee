@@ -49,31 +49,39 @@ class GameView {
       this.iKeyHandler();
     });
     key("w", () => {
-      this.leftKeyHandler();
+      // this.leftKeyHandler();
+      this.wKeyHandler();
     });
     key("s", () => {
-      this.rightKeyHandler();
+      // this.rightKeyHandler();
+      this.sKeyHandler();
     });
     key("space", () => {
       this.spaceKeyHandler();
     });
     key("a", () => {
-      this.leftKeyHandler();
+      // this.leftKeyHandler();
+      this.aKeyHandler();
     });
     key("d", () => {
-      this.rightKeyHandler();
+      // this.rightKeyHandler();
+      this.dKeyHandler();
     });
     key("up", () => {
-      this.leftKeyHandler();
+      // this.leftKeyHandler();
+      this.wKeyHandler();
     });
     key("down", () => {
-      this.rightKeyHandler();
+      // this.rightKeyHandler();
+      this.sKeyHandler();
     });
     key("right", () => {
-      this.rightKeyHandler();
+      // this.rightKeyHandler();
+      this.dKeyHandler();
     });
     key("left", () => {
-      this.leftKeyHandler();
+      // this.leftKeyHandler();
+      this.aKeyHandler();
     });
   }
 
@@ -85,17 +93,80 @@ class GameView {
     }
   }
 
-  leftKeyHandler() {
+  // leftKeyHandler() {
+  //   if (this.game.bee.launched) {
+  //     this.game.bee.nudge("left");
+  //   } else if (!this.game.bee.launched) {
+  //     this.game.bee.setTrajectory("up");
+  //   }
+  // }
+
+  aKeyHandler() {
+    let nudgeDirection = {
+      up: "left",
+      down: "right",
+      left: "",
+      right: "",
+    };
+    let beeDirection = this.game.bee.beeDirection();
     if (this.game.bee.launched) {
-      this.game.bee.nudge("left");
+      this.game.bee.nudge(nudgeDirection[beeDirection]);
     } else if (!this.game.bee.launched) {
       this.game.bee.setTrajectory("up");
     }
   }
 
-  rightKeyHandler() {
+  wKeyHandler() {
+    let nudgeDirection = {
+      up: "",
+      down: "",
+      left: "right",
+      right: "left",
+    };
+    let beeDirection = this.game.bee.beeDirection();
+
     if (this.game.bee.launched) {
-      this.game.bee.nudge("right");
+      this.game.bee.nudge(nudgeDirection[beeDirection]);
+    } else if (!this.game.bee.launched) {
+      this.game.bee.setTrajectory("up");
+    }
+  }
+
+  // rightKeyHandler() {
+  //   if (this.game.bee.launched) {
+  //     this.game.bee.nudge("right");
+  //   } else if (!this.game.bee.launched) {
+  //     this.game.bee.setTrajectory("down");
+  //   }
+  // }
+
+  sKeyHandler() {
+    let nudgeDirection = {
+      up: "",
+      down: "",
+      left: "left",
+      right: "right",
+    };
+    let beeDirection = this.game.bee.beeDirection();
+
+    if (this.game.bee.launched) {
+      this.game.bee.nudge(nudgeDirection[beeDirection]);
+    } else if (!this.game.bee.launched) {
+      this.game.bee.setTrajectory("down");
+    }
+  }
+
+  dKeyHandler() {
+    let nudgeDirection = {
+      up: "right",
+      down: "left",
+      left: "",
+      right: "",
+    };
+    let beeDirection = this.game.bee.beeDirection();
+
+    if (this.game.bee.launched) {
+      this.game.bee.nudge(nudgeDirection[beeDirection]);
     } else if (!this.game.bee.launched) {
       this.game.bee.setTrajectory("down");
     }
