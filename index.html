@@ -101,6 +101,12 @@
     <img src="assets/hornet_itch/spritesheets/wasp_right_flying_fly_776px_by_867px_per_frame.png" id="wasp-right-flying" class="hidden">
     <img src="assets/hornet_itch/spritesheets/wasp_left_flying_sting_776px_by_867px_per_frame.png" id="wasp-left-sting" class="hidden">
     <img src="assets/hornet_itch/spritesheets/wasp_right_flying_sting_776px_by_867px_per_frame.png" id="wasp-right-sting" class="hidden">
-
+    <script>
+      document.addEventListener("keydown", function(event) {
+        if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight","Space"].indexOf(event.code) > -1) {
+            event.preventDefault();
+        }
+      }, false);
+    </script>
   </body>
 </html>
