@@ -27,7 +27,7 @@ class Game {
     this.xDim = options.xDim;
     this.yDim = options.yDim;
     this.score = 0;
-    this.nonOverlapPos = this.nonOverlapPosGenerator();
+    this.nonOverlapPos = this.generateNonOverlapPos();
     this.wasps = [];
     this.flowers = [];
     this.speedStrips = [];
@@ -214,7 +214,7 @@ class Game {
     return randomPos;
   }
 
-  nonOverlapPosGenerator() {
+  generateNonOverlapPos() {
     let positions = [];
     let minDistance = Game.NUM_FLOWERS + Game.NUM_SPEEDSTRIPS < 25 ? 80 : 0;
     if (minDistance === 0) {
