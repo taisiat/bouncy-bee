@@ -215,16 +215,16 @@ class Game {
   }
 
   generateNonOverlapPos() {
-    let positions = [];
-    let minDistance = Game.NUM_FLOWERS + Game.NUM_SPEEDSTRIPS < 25 ? 80 : 0;
+    const positions = [];
+    const minDistance = Game.NUM_FLOWERS + Game.NUM_SPEEDSTRIPS < 25 ? 80 : 0;
     if (minDistance === 0) {
       console.log(
         "Number of flowers and/or speed strips exceeds safe limits for game screen size. Non-crowding is no longer enforced."
       );
     }
     while (positions.length < Game.NUM_FLOWERS + Game.NUM_SPEEDSTRIPS) {
-      let newPos = this.randomPosition();
-      let spreadOut = true;
+      const newPos = this.randomPosition();
+      const spreadOut = true;
       for (let i = 0; i < positions.length; i++) {
         if (Util.pointDistance(newPos, positions[i]) < minDistance) {
           spreadOut = false;
@@ -251,7 +251,7 @@ class Game {
     this.health += points;
     if (this.health <= 0) this.bee.capture();
     if (this.health > 100) this.health = 100;
-    return this.health;
+    // return this.health;
   }
 
   drawHealth(ctx) {
