@@ -75,6 +75,13 @@ class Bee extends MovingObject {
 
     this.animatedBeeTimer = 0;
     this.framesPerAnimation = 3;
+
+    this.directions = {
+      UP: "up",
+      DOWN: "down",
+      LEFT: "left",
+      RIGHT: "right",
+    };
   }
 
   landOnBeehive() {
@@ -143,12 +150,19 @@ class Bee extends MovingObject {
   }
 
   setTrajectory(direction) {
-    const nudgeFactor =
-      direction === "up"
-        ? CONSTANTS.NUDGE
-        : direction === "down"
-        ? -CONSTANTS.NUDGE
-        : 0;
+    // const nudgeFactor =
+    //   direction === "up"
+    //     ? CONSTANTS.NUDGE
+    //     : direction === "down"
+    //     ? -CONSTANTS.NUDGE
+    //     : 0;
+
+    const nudgeFactor = 0;
+    if (direction === this.directions.UP) {
+      nudgeFactor = CONSTANTS.NUDGE;
+    } else if (direction === this.directions.DOWN) {
+      nudgeFactor = -CONSTANTS.NUDGE;
+    }
     const cosA = Math.cos(nudgeFactor);
     const sinA = Math.sin(nudgeFactor);
     const newX = Bee.START_VEL[0] * cosA + Bee.START_VEL[1] * sinA;
@@ -212,12 +226,19 @@ class Bee extends MovingObject {
   }
 
   nudge(direction) {
-    const nudgeFactor =
-      direction === "left"
-        ? CONSTANTS.NUDGE
-        : direction === "right"
-        ? -CONSTANTS.NUDGE
-        : 0;
+    // const nudgeFactor =
+    //   // direction === "left"
+    //   direction === this.directions.LEFT
+    //     ? CONSTANTS.NUDGE
+    //     : direction === "right"
+    //     ? -CONSTANTS.NUDGE
+    //     : 0;
+    const nudgeFactor = 0;
+    if (direction === this.directions.LEFT) {
+      nudgeFactor = CONSTANTS.NUDGE;
+    } else if (direction === this.directions.RIGHT) {
+      nudgeFactor = -CONSTANTS.NUDGE;
+    }
     const cosA = Math.cos(nudgeFactor);
     const sinA = Math.sin(nudgeFactor);
     const newX = this.vel[0] * cosA + this.vel[1] * sinA;
@@ -267,15 +288,19 @@ class Bee extends MovingObject {
 
     if (Math.abs(velocityPreLaunch[0]) >= Math.abs(velocityPreLaunch[1])) {
       if (velocityPreLaunch[0] >= 0) {
-        return "right";
+        // return "right";
+        return this.directions.RIGHT;
       } else {
-        return "left";
+        // return "left";
+        return this.directions.LEFT;
       }
     } else {
       if (velocityPreLaunch[1] <= 0) {
-        return "up";
+        // return "up";
+        return this.directions.UP;
       } else {
-        return "down";
+        // return "down";
+        return this.directions.DOWN;
       }
     }
   }

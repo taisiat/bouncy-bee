@@ -258,16 +258,39 @@ class Game {
     let score = Math.ceil(this.health);
     const scoreTitlePos = [10, 100];
     ctx.font = "35pt Delicious Handrawn";
-    ctx.fillStyle =
-      score < 20
-        ? "DarkRed"
-        : score < 40
-        ? "orange"
-        : score < 60
-        ? "Gold"
-        : score < 80
-        ? "LawnGreen"
-        : "DarkGreen";
+    // ctx.fillStyle =
+    //   score < 20
+    //     ? "DarkRed"
+    //     : score < 40
+    //     ? "orange"
+    //     : score < 60
+    //     ? "Gold"
+    //     : score < 80
+    //     ? "LawnGreen"
+    //     : "DarkGreen";
+
+    let color;
+
+    switch (true) {
+      case score < 20:
+        color = "DarkRed";
+        break;
+      case score < 40:
+        color = "orange";
+        break;
+      case score < 60:
+        color = "Gold";
+        break;
+      case score < 80:
+        color = "LawnGreen";
+        break;
+      default:
+        color = "DarkGreen";
+        break;
+    }
+
+    ctx.fillStyle = color;
+
     ctx.fillText(`♥ ${score}%`, scoreTitlePos[0], scoreTitlePos[1]);
 
     ctx.strokeStyle = "black";

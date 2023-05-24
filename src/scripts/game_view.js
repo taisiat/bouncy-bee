@@ -42,6 +42,16 @@ class GameView {
     this.flyMechanic = document.getElementById("fly-mechanic");
     this.highScore = 0;
     this.bindKeyHandlers();
+    this.directions = {
+      UP: "up",
+      DOWN: "down",
+      LEFT: "left",
+      RIGHT: "right",
+    };
+    this.messageType = {
+      WIN: "win",
+      LOSE: "lose",
+    };
   }
 
   bindKeyHandlers() {
@@ -87,64 +97,64 @@ class GameView {
 
   aKeyHandler() {
     let nudgeDirection = {
-      up: "left",
-      down: "right",
-      left: "",
-      right: "",
+      UP: "left",
+      DOWN: "right",
+      LEFT: "",
+      RIGHT: "",
     };
     let beeDirection = this.game.bee.beeDirection();
     if (this.game.bee.launched) {
       this.game.bee.nudge(nudgeDirection[beeDirection]);
     } else if (!this.game.bee.launched) {
-      this.game.bee.setTrajectory("up");
+      this.game.bee.setTrajectory(this.directions.UP);
     }
   }
 
   wKeyHandler() {
     let nudgeDirection = {
-      up: "",
-      down: "",
-      left: "right",
-      right: "left",
+      UP: "",
+      DOWN: "",
+      LEFT: "right",
+      RIGHT: "left",
     };
     let beeDirection = this.game.bee.beeDirection();
 
     if (this.game.bee.launched) {
       this.game.bee.nudge(nudgeDirection[beeDirection]);
     } else if (!this.game.bee.launched) {
-      this.game.bee.setTrajectory("up");
+      this.game.bee.setTrajectory(this.directions.UP);
     }
   }
 
   sKeyHandler() {
     let nudgeDirection = {
-      up: "",
-      down: "",
-      left: "left",
-      right: "right",
+      UP: "",
+      DOWN: "",
+      LEFT: "left",
+      RIGHT: "right",
     };
     let beeDirection = this.game.bee.beeDirection();
 
     if (this.game.bee.launched) {
       this.game.bee.nudge(nudgeDirection[beeDirection]);
     } else if (!this.game.bee.launched) {
-      this.game.bee.setTrajectory("down");
+      this.game.bee.setTrajectory(this.directions.DOWN);
     }
   }
 
   dKeyHandler() {
     let nudgeDirection = {
-      up: "right",
-      down: "left",
-      left: "",
-      right: "",
+      UP: "right",
+      DOWN: "left",
+      LEFT: "",
+      RIGHT: "",
     };
     let beeDirection = this.game.bee.beeDirection();
 
     if (this.game.bee.launched) {
       this.game.bee.nudge(nudgeDirection[beeDirection]);
     } else if (!this.game.bee.launched) {
-      this.game.bee.setTrajectory("down");
+      this.game.bee.setTrajectory(this.directions.DOWN);
     }
   }
 
@@ -229,7 +239,7 @@ class GameView {
     this.ctx.font = "35pt Delicious Handrawn";
     this.ctx.fillStyle = "black";
 
-    let message = this.message("win");
+    let message = this.message(this.messageType.WIN);
     let winMessage =
       this.game.score > 0 ? message : "You avoided wasps, but got 0 points :(";
     let beeLandMsg = this.game.bee.beehiveLand
@@ -265,7 +275,7 @@ class GameView {
     this.ctx.font = "30pt Delicious Handrawn";
     this.ctx.fillStyle = "yellow";
     this.ctx.fillText("The wasps caught you!", messagePos[0], messagePos[1]);
-    let message = this.message("lose");
+    let message = this.message(this.messageType.LOSE);
     this.ctx.fillText(
       message,
       messagePos[0],
@@ -294,7 +304,8 @@ class GameView {
   }
 
   message(type) {
-    let messages = type === "win" ? CONSTANTS.WIN_MSG : CONSTANTS.LOSE_MSG;
+    let messages =
+      type === this.messageType.WIN ? CONSTANTS.WIN_MSG : CONSTANTS.LOSE_MSG;
     let idx = Math.floor(Math.random() * messages.length);
     return messages[idx];
   }
