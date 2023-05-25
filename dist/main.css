@@ -202,7 +202,7 @@ a {
 
 canvas {
   position: absolute;
-  top: 104px;
+  top: 106px;
   border: 1px solid rgb(255, 255, 255);
   border-radius: 10px;
 }
@@ -245,8 +245,9 @@ footer {
 
 #welcome-screen {
   position: absolute;
-  top: 104px;
+  top: 106px;
   z-index: 10;
+  border: 1px solid white;
 }
 
 #announcement-white {
