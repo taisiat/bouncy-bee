@@ -272,6 +272,7 @@ footer {
   position: absolute;
   top: 106px;
   z-index: 10;
+  height: 602px;
 }
 
 #announcement-white {
