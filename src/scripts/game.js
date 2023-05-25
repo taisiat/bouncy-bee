@@ -228,6 +228,7 @@ class Game {
       for (let i = 0; i < positions.length; i++) {
         if (Util.pointDistance(newPos, positions[i]) < minDistance) {
           spreadOut = false;
+          break;
         }
       }
       if (spreadOut) positions.push(newPos);
