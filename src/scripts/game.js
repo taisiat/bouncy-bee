@@ -27,7 +27,7 @@ class Game {
     this.xDim = options.xDim;
     this.yDim = options.yDim;
     this.score = 0;
-    this.nonOverlapPos = this.nonOverlapPosGenerator();
+    this.nonOverlapPos = this.generateNonOverlapPos();
     this.wasps = [];
     this.flowers = [];
     this.speedStrips = [];
@@ -45,6 +45,7 @@ class Game {
     this.waspAttackPoints = -1.5;
     this.flowerHealthPoints = 0.05;
     this.beehiveHealthPoints = 0.1;
+    this.waspFlag = true;
   }
 
   draw(ctx) {
@@ -148,7 +149,7 @@ class Game {
   }
 
   addWasps() {
-    return new Wasp({ pos: this.randomPosition("wasp"), game: this });
+    return new Wasp({ pos: this.randomPosition(this.waspFlag), game: this });
   }
 
   addFlowers() {
@@ -214,20 +215,21 @@ class Game {
     return randomPos;
   }
 
-  nonOverlapPosGenerator() {
-    let positions = [];
-    let minDistance = Game.NUM_FLOWERS + Game.NUM_SPEEDSTRIPS < 25 ? 80 : 0;
+  generateNonOverlapPos() {
+    const positions = [];
+    const minDistance = Game.NUM_FLOWERS + Game.NUM_SPEEDSTRIPS < 25 ? 80 : 0;
     if (minDistance === 0) {
       console.log(
         "Number of flowers and/or speed strips exceeds safe limits for game screen size. Non-crowding is no longer enforced."
       );
     }
     while (positions.length < Game.NUM_FLOWERS + Game.NUM_SPEEDSTRIPS) {
-      let newPos = this.randomPosition();
-      let spreadOut = true;
+      const newPos = this.randomPosition();
+      const spreadOut = true;
       for (let i = 0; i < positions.length; i++) {
         if (Util.pointDistance(newPos, positions[i]) < minDistance) {
           spreadOut = false;
+          break;
         }
       }
       if (spreadOut) positions.push(newPos);
@@ -249,27 +251,39 @@ class Game {
 
   updateHealth(points) {
     this.health += points;
-    if (this.health <= 0) this.bee.capture();
-    if (this.health > 100) this.health = 100;
-    return this.health;
+    if (this.health <= 0) {
+      this.bee.capture();
+    } else if (this.health > 100) {
+      this.health = 100;
+    }
   }
 
   drawHealth(ctx) {
     let score = Math.ceil(this.health);
     const scoreTitlePos = [10, 100];
     ctx.font = "35pt Delicious Handrawn";
-    ctx.fillStyle =
-      score < 20
-        ? "DarkRed"
-        : score < 40
-        ? "orange"
-        : score < 60
-        ? "Gold"
-        : score < 80
-        ? "LawnGreen"
-        : "DarkGreen";
-    ctx.fillText(`♥ ${score}%`, scoreTitlePos[0], scoreTitlePos[1]);
 
+    let color;
+    switch (true) {
+      case score < 20:
+        color = "DarkRed";
+        break;
+      case score < 40:
+        color = "orange";
+        break;
+      case score < 60:
+        color = "Gold";
+        break;
+      case score < 80:
+        color = "LawnGreen";
+        break;
+      default:
+        color = "DarkGreen";
+        break;
+    }
+    ctx.fillStyle = color;
+
+    ctx.fillText(`♥ ${score}%`, scoreTitlePos[0], scoreTitlePos[1]);
     ctx.strokeStyle = "black";
     ctx.lineWidth = 1;
     ctx.strokeText(`♥ ${score}%`, scoreTitlePos[0], scoreTitlePos[1]);
