@@ -171,7 +171,8 @@ header #title {
   display: flex;
   justify-content: center;
   width: 300px;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   font-size: 18px;
   margin-top: 5px;
   margin-bottom: 2px;
@@ -183,14 +184,25 @@ header #title {
   font-size: 30px;
 }
 
+.fa {
+  transition: all 0.2s ease-in-out;
+}
+
+.fa:hover {
+  color: #067a72ec;
+  transform: translateY(2px);
+  transform: scale(1.2);
+  transition: all 0.2s ease-in-out;
+}
+
 a {
   text-decoration: none;
   color: black;
 }
 
 canvas {
-  position: fixed;
-  top: 105px;
+  position: absolute;
+  top: 104px;
   border: 1px solid rgb(255, 255, 255);
   border-radius: 10px;
 }
@@ -232,8 +244,8 @@ footer {
 }
 
 #welcome-screen {
-  position: fixed;
-  top: 105px;
+  position: absolute;
+  top: 104px;
   z-index: 10;
 }
 
@@ -272,7 +284,8 @@ footer {
 }
 
 kbd {
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   border: 1px solid black;
   border-radius: 8px;
   padding-left: 5px;

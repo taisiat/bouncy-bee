@@ -1,5 +1,4 @@
 @import "./styles/reset.scss";
-@import "./styles/game.scss";
 
 body {
   font-family: Delicious Handrawn, serif;
@@ -21,6 +20,7 @@ header {
     text-align: center;
   }
 }
+
 #title-div {
   display: flex;
   justify-content: center;
@@ -45,13 +45,18 @@ header {
   border-top: 1px solid black;
 }
 
-.icon {
-  font-size: 30px;
+#icon-li:hover,
+#icon-gh:hover {
+  color: rgb(6, 167, 159);
+  transform: scale(1.2);
+  transition: 0.3s;
+  cursor: pointer;
 }
 
 a {
   text-decoration: none;
   color: black;
+  font-size: 30px;
 }
 
 canvas {
