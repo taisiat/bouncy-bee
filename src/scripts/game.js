@@ -249,8 +249,11 @@ class Game {
 
   updateHealth(points) {
     this.health += points;
-    if (this.health <= 0) this.bee.capture();
-    if (this.health > 100) this.health = 100;
+    if (this.health <= 0) {
+      this.bee.capture();
+    } else if (this.health > 100) {
+      this.health = 100;
+    }
     // return this.health;
   }
 
