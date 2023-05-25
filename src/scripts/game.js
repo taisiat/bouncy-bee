@@ -45,6 +45,7 @@ class Game {
     this.waspAttackPoints = -1.5;
     this.flowerHealthPoints = 0.05;
     this.beehiveHealthPoints = 0.1;
+    this.waspFlag = true;
   }
 
   draw(ctx) {
@@ -148,7 +149,7 @@ class Game {
   }
 
   addWasps() {
-    return new Wasp({ pos: this.randomPosition("wasp"), game: this });
+    return new Wasp({ pos: this.randomPosition(this.waspFlag), game: this });
   }
 
   addFlowers() {
@@ -255,26 +256,14 @@ class Game {
     } else if (this.health > 100) {
       this.health = 100;
     }
-    // return this.health;
   }
 
   drawHealth(ctx) {
     let score = Math.ceil(this.health);
     const scoreTitlePos = [10, 100];
     ctx.font = "35pt Delicious Handrawn";
-    // ctx.fillStyle =
-    //   score < 20
-    //     ? "DarkRed"
-    //     : score < 40
-    //     ? "orange"
-    //     : score < 60
-    //     ? "Gold"
-    //     : score < 80
-    //     ? "LawnGreen"
-    //     : "DarkGreen";
 
     let color;
-
     switch (true) {
       case score < 20:
         color = "DarkRed";
@@ -292,11 +281,9 @@ class Game {
         color = "DarkGreen";
         break;
     }
-
     ctx.fillStyle = color;
 
     ctx.fillText(`♥ ${score}%`, scoreTitlePos[0], scoreTitlePos[1]);
-
     ctx.strokeStyle = "black";
     ctx.lineWidth = 1;
     ctx.strokeText(`♥ ${score}%`, scoreTitlePos[0], scoreTitlePos[1]);

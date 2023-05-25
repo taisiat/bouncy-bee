@@ -29,7 +29,7 @@ This project is implemented with the following technologies:
 - The `Canvas API` to render the game board, with `requestAnimationFrame` and time delta correction behind the scenes to correct for play speed across devices
 - `Webpack` and `Babel` to bundle and transpile the source `JavaScript` code
 - `npm` to manage project dependencies
-- `SCSS` and `HTML` to generate the webpage around the game play area and the welcome screen
+- `CSS` and `HTML` to generate the webpage around the game play area and the welcome screen
 - `Keymaster` to bind keys to methods
 
 ### Implementation Highlights
@@ -113,17 +113,17 @@ To set direction, the `GameView` class listens to inputs from ASDW and arrow key
 ```JavaScript
   wKeyHandler() {
     let nudgeDirection = {
-      up: "",
-      down: "",
-      left: "right",
-      right: "left",
+      UP: "",
+      DOWN: "",
+      LEFT: "right",
+      RIGHT: "left",
     };
     let beeDirection = this.game.bee.beeDirection();
 
     if (this.game.bee.launched) {
       this.game.bee.nudge(nudgeDirection[beeDirection]);
     } else if (!this.game.bee.launched) {
-      this.game.bee.setTrajectory("up");
+      this.game.bee.setTrajectory(this.directions.UP);
     }
   }
 ```
@@ -134,18 +134,19 @@ If the bee is not yet launched, then `Bee.setTrajectory(direction)` is activated
 
 ```JavaScript
   setTrajectory(direction) {
-    const nudgeFactor =
-      direction === "up"
-        ? CONSTANTS.NUDGE
-        : direction === "down"
-        ? -CONSTANTS.NUDGE
-        : 0;
+    const nudgeFactor = 0;
+    if (direction === this.directions.UP) {
+      nudgeFactor = CONSTANTS.NUDGE;
+    } else if (direction === this.directions.DOWN) {
+      nudgeFactor = -CONSTANTS.NUDGE;
+    }
     const cosA = Math.cos(nudgeFactor);
     const sinA = Math.sin(nudgeFactor);
     const newX = Bee.START_VEL[0] * cosA + Bee.START_VEL[1] * sinA;
     const newY = -Bee.START_VEL[0] * sinA + Bee.START_VEL[1] * cosA;
     Bee.START_VEL = [newX, newY];
   }
+
 ```
 
 To draw the arrow representing the selected direction, `Bee.drawTrajectory(ctx)` extrapolates the arrow tip from the current Bee position and the nudged `Bee.START_VEL` value, and calls the math helper `Util.calculateTriangleCoord(this.pos, pointerDirection)` to calculate where the 2 other triangle points are. This helper does this using the angle between the bee position and the arrow tip. This ensures the arrow moves in a circle and always points outward!

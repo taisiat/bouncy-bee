@@ -150,13 +150,6 @@ class Bee extends MovingObject {
   }
 
   setTrajectory(direction) {
-    // const nudgeFactor =
-    //   direction === "up"
-    //     ? CONSTANTS.NUDGE
-    //     : direction === "down"
-    //     ? -CONSTANTS.NUDGE
-    //     : 0;
-
     const nudgeFactor = 0;
     if (direction === this.directions.UP) {
       nudgeFactor = CONSTANTS.NUDGE;
@@ -226,13 +219,6 @@ class Bee extends MovingObject {
   }
 
   nudge(direction) {
-    // const nudgeFactor =
-    //   // direction === "left"
-    //   direction === this.directions.LEFT
-    //     ? CONSTANTS.NUDGE
-    //     : direction === "right"
-    //     ? -CONSTANTS.NUDGE
-    //     : 0;
     const nudgeFactor = 0;
     if (direction === this.directions.LEFT) {
       nudgeFactor = CONSTANTS.NUDGE;
@@ -269,8 +255,6 @@ class Bee extends MovingObject {
     let beeFrameIdx = Math.floor(
       this.animatedBeeTimer / this.framesPerAnimation
     );
-    let velocityPreLaunch = this.launched ? this.vel : Bee.START_VEL;
-
     let beeDirection = this.beeDirection();
     let mapping = {
       right: this.beeRightFrames,
@@ -288,18 +272,14 @@ class Bee extends MovingObject {
 
     if (Math.abs(velocityPreLaunch[0]) >= Math.abs(velocityPreLaunch[1])) {
       if (velocityPreLaunch[0] >= 0) {
-        // return "right";
         return this.directions.RIGHT;
       } else {
-        // return "left";
         return this.directions.LEFT;
       }
     } else {
       if (velocityPreLaunch[1] <= 0) {
-        // return "up";
         return this.directions.UP;
       } else {
-        // return "down";
         return this.directions.DOWN;
       }
     }
