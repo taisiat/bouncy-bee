@@ -12,7 +12,7 @@ const CONSTANTS = {
   FLOWERPOINT: 1,
   EMPTY_REGION: 0.15,
   MIN_EDGE_DISTANCE: 40,
-  WASP_LOCATION_ADJ: 0.25,
+  WASP_LOCATION_ADJ: 0.35,
 };
 
 class Game {
@@ -45,7 +45,6 @@ class Game {
     this.waspAttackPoints = -1.5;
     this.flowerHealthPoints = 0.05;
     this.beehiveHealthPoints = 0.1;
-    this.waspFlag = true;
   }
 
   draw(ctx) {
@@ -149,7 +148,7 @@ class Game {
   }
 
   addWasps() {
-    return new Wasp({ pos: this.randomPosition(this.waspFlag), game: this });
+    return new Wasp({ pos: this.randomPosition(true), game: this });
   }
 
   addFlowers() {
@@ -189,7 +188,7 @@ class Game {
 
   randomPosition(waspFlag) {
     let waspAdj = 0;
-    if (waspFlag) {
+    if (waspFlag === true) {
       waspAdj = CONSTANTS.WASP_LOCATION_ADJ;
     }
     let randomPos = [
@@ -225,7 +224,7 @@ class Game {
     }
     while (positions.length < Game.NUM_FLOWERS + Game.NUM_SPEEDSTRIPS) {
       const newPos = this.randomPosition();
-      const spreadOut = true;
+      let spreadOut = true;
       for (let i = 0; i < positions.length; i++) {
         if (Util.pointDistance(newPos, positions[i]) < minDistance) {
           spreadOut = false;

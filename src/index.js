@@ -80,7 +80,12 @@ const ctx = canvas.getContext("2d");
 document.addEventListener("DOMContentLoaded", (event) => {
   const gv = new GameView(ctx);
   gv.drawWaitPage();
-  document.addEventListener("click", (event) => {
-    gv.startGame();
+  // document.addEventListener("click", (event) => {
+  //   gv.startGame();
+  // });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "b" || event.key === "B") {
+      gv.startGame();
+    }
   });
 });

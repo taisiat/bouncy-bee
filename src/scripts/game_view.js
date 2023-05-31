@@ -90,17 +90,15 @@ class GameView {
   spaceKeyHandler() {
     if (this.game && !this.game.bee.launched) {
       this.game.bee.launch();
-    } else {
-      this.restart();
     }
   }
 
   aKeyHandler() {
     let nudgeDirection = {
-      UP: "left",
-      DOWN: "right",
-      LEFT: "",
-      RIGHT: "",
+      up: "left",
+      down: "right",
+      left: "",
+      right: "",
     };
     let beeDirection = this.game.bee.beeDirection();
     if (this.game.bee.launched) {
@@ -112,10 +110,10 @@ class GameView {
 
   wKeyHandler() {
     let nudgeDirection = {
-      UP: "",
-      DOWN: "",
-      LEFT: "right",
-      RIGHT: "left",
+      up: "",
+      down: "",
+      left: "right",
+      right: "left",
     };
     let beeDirection = this.game.bee.beeDirection();
 
@@ -128,10 +126,10 @@ class GameView {
 
   sKeyHandler() {
     let nudgeDirection = {
-      UP: "",
-      DOWN: "",
-      LEFT: "left",
-      RIGHT: "right",
+      up: "",
+      down: "",
+      left: "left",
+      right: "right",
     };
     let beeDirection = this.game.bee.beeDirection();
 
@@ -144,10 +142,10 @@ class GameView {
 
   dKeyHandler() {
     let nudgeDirection = {
-      UP: "right",
-      DOWN: "left",
-      LEFT: "",
-      RIGHT: "",
+      up: "right",
+      down: "left",
+      left: "",
+      right: "",
     };
     let beeDirection = this.game.bee.beeDirection();
 
@@ -171,6 +169,9 @@ class GameView {
     this.running = false;
     this.score = 0;
     this.lastTime = 0;
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
+    }
     this.game = new Game({
       xDim: GameView.CANVAS_DIM_X,
       yDim: GameView.CANVAS_DIM_Y,
@@ -190,7 +191,7 @@ class GameView {
 
   animate(time) {
     if (this.running) {
-      if (!this.lastTime) {
+      if (this.lastTime === undefined) {
         this.lastTime = time;
       }
       const timeDelta = time - this.lastTime;
@@ -199,10 +200,13 @@ class GameView {
       this.drawScore();
     } else {
       this.drawInstructions();
+      if (this.animationFrameId) {
+        cancelAnimationFrame(this.animationFrameId);
+      }
     }
 
     if (!this.game.gameOver()) {
-      requestAnimationFrame(this.animate.bind(this));
+      this.animationFrameId = requestAnimationFrame(this.animate.bind(this));
     } else {
       if (this.game.bee.caught) {
         this.tallyPoints();
