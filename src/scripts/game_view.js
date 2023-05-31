@@ -85,14 +85,25 @@ class GameView {
     key("left", () => {
       this.aKeyHandler();
     });
+    key("b", () => {
+      this.bKeyHandler();
+    });
   }
 
   spaceKeyHandler() {
     if (this.game && !this.game.bee.launched) {
       this.game.bee.launch();
-    } else {
-      this.restart();
+      // } else {
+      //   this.restart();
     }
+  }
+
+  bKeyHandler() {
+    // if (this.game && !this.game.bee.launched) {
+    //   this.game.bee.launch();
+    // } else {
+    this.restart();
+    // }
   }
 
   aKeyHandler() {
