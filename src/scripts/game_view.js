@@ -203,15 +203,11 @@ class GameView {
   }
 
   animate(time) {
-    // console.log("animate");
-
     if (this.running) {
-      // if (!this.lastTime) {
       if (this.lastTime === undefined) {
         this.lastTime = time;
       }
       const timeDelta = time - this.lastTime;
-      // console.log(time, "time", this.lastTime, "lastTime", timeDelta, "delta");
       this.game.step(timeDelta);
       this.game.draw(this.ctx);
       this.drawScore();
@@ -224,7 +220,6 @@ class GameView {
     }
 
     if (!this.game.gameOver()) {
-      // requestAnimationFrame(this.animate.bind(this));
       this.animationFrameId = requestAnimationFrame(this.animate.bind(this));
     } else {
       if (this.game.bee.caught) {
