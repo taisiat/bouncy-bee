@@ -247,14 +247,17 @@ canvas {
 
 #game-controls {
   display: flex;
-  width: 430px;
-  justify-content: space-between;
-  padding-left: 20px;
-  flex-direction: column;
+  width: 700px;
+  flex-direction: row;
   text-align: left;
-  margin-right: 50px;
   line-height: 28px;
   border-left: 1px black solid;
+  margin-right: 0;
+}
+
+#game-controls-left,
+#game-controls-right {
+  padding-left: 20px;
 }
 
 #score {
@@ -275,7 +278,7 @@ footer {
   padding-top: 10px;
   position: absolute;
   top: 709px;
-  width: 780px;
+  width: 1000px;
   border-radius: 50px;
   text-align: right;
   z-index: 0;
