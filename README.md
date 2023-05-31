@@ -113,10 +113,10 @@ To set direction, the `GameView` class listens to inputs from ASDW and arrow key
 ```JavaScript
   wKeyHandler() {
     let nudgeDirection = {
-      UP: "",
-      DOWN: "",
-      LEFT: "right",
-      RIGHT: "left",
+      up: "",
+      down: "",
+      left: "right",
+      right: "left",
     };
     let beeDirection = this.game.bee.beeDirection();
 
@@ -134,7 +134,7 @@ If the bee is not yet launched, then `Bee.setTrajectory(direction)` is activated
 
 ```JavaScript
   setTrajectory(direction) {
-    const nudgeFactor = 0;
+    let nudgeFactor = 0;
     if (direction === this.directions.UP) {
       nudgeFactor = CONSTANTS.NUDGE;
     } else if (direction === this.directions.DOWN) {
@@ -146,7 +146,6 @@ If the bee is not yet launched, then `Bee.setTrajectory(direction)` is activated
     const newY = -Bee.START_VEL[0] * sinA + Bee.START_VEL[1] * cosA;
     Bee.START_VEL = [newX, newY];
   }
-
 ```
 
 To draw the arrow representing the selected direction, `Bee.drawTrajectory(ctx)` extrapolates the arrow tip from the current Bee position and the nudged `Bee.START_VEL` value, and calls the math helper `Util.calculateTriangleCoord(this.pos, pointerDirection)` to calculate where the 2 other triangle points are. This helper does this using the angle between the bee position and the arrow tip. This ensures the arrow moves in a circle and always points outward!
