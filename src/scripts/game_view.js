@@ -168,9 +168,15 @@ class GameView {
   }
 
   restart() {
+    console.log("restart");
     this.running = false;
     this.score = 0;
     this.lastTime = 0;
+    //cancel prior games
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
+    }
+    //
     this.game = new Game({
       xDim: GameView.CANVAS_DIM_X,
       yDim: GameView.CANVAS_DIM_Y,
@@ -184,25 +190,33 @@ class GameView {
   }
 
   pause() {
+    console.log("pause");
+
     this.running = false;
     this.animate(this.lastTime);
   }
 
   animate(time) {
+    console.log("animate");
+
     if (this.running) {
-      if (!this.lastTime) {
+      // if (!this.lastTime) {
+      if (this.lastTime === undefined) {
         this.lastTime = time;
       }
       const timeDelta = time - this.lastTime;
+      console.log(time, "time", this.lastTime, "lastTime", timeDelta, "delta");
       this.game.step(timeDelta);
       this.game.draw(this.ctx);
       this.drawScore();
     } else {
+      console.log("instructions");
       this.drawInstructions();
     }
 
     if (!this.game.gameOver()) {
-      requestAnimationFrame(this.animate.bind(this));
+      // requestAnimationFrame(this.animate.bind(this));
+      this.animationFrameId = requestAnimationFrame(this.animate.bind(this));
     } else {
       if (this.game.bee.caught) {
         this.tallyPoints();

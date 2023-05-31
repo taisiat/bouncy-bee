@@ -49,6 +49,7 @@ class Game {
   }
 
   draw(ctx) {
+    console.log("draw");
     ctx.clearRect(0, 0, this.xDim, this.yDim);
     const pattern = ctx.createPattern(this.background, "repeat");
     ctx.fillStyle = pattern;
@@ -138,6 +139,7 @@ class Game {
   }
 
   addPoints() {
+    console.log("add points");
     if (this.bee.caught) this.score = 0;
     if (this.bee.landed && this.beehive.isCollidedWith(this.bee))
       this.score += CONSTANTS.BEEHIVEBONUS;
@@ -225,7 +227,7 @@ class Game {
     }
     while (positions.length < Game.NUM_FLOWERS + Game.NUM_SPEEDSTRIPS) {
       const newPos = this.randomPosition();
-      const spreadOut = true;
+      let spreadOut = true;
       for (let i = 0; i < positions.length; i++) {
         if (Util.pointDistance(newPos, positions[i]) < minDistance) {
           spreadOut = false;
