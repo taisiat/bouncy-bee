@@ -304,37 +304,13 @@ header #title {
 #title-bee {
   height: 50px;
   padding-left: 10px;
-  transition: all 1s ease-in-out;
-}
-
-#title-bee:hover {
-  animation: bounce 0.5s infinite;
-  transform-origin: center;
-  transition: all 0.2s ease-in-out;
-}
-
-@keyframes bounce {
-  0% {
-    transform: scale(1);
-  }
-  25% {
-    transform: translate3d(0, -3px, 0) scale(1.1);
-  }
-  50% {
-    transform: scale(1.2);
-  }
-  75% {
-    transform: translate3d(0, -3px, 0) scale(1.1);
-  }
-  100% {
-    transform: scale(1);
-  }
 }
 #tagline {
   display: flex;
   justify-content: center;
   width: 300px;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   font-size: 18px;
   margin-top: 5px;
   margin-bottom: 2px;
@@ -371,6 +347,7 @@ header #title {
 a {
   text-decoration: none;
   color: black;
+  font-size: 30px;
 }
 
 canvas {
@@ -420,13 +397,12 @@ footer {
   position: absolute;
   top: 107px;
   z-index: 10;
-  height: 602px;
 }
 
 #announcement-white {
   display: block;
   width: 1200px;
-  height: 602px;
+  height: 600px;
   object-fit: cover;
   border-radius: 10px;
 }
@@ -436,7 +412,6 @@ footer {
   top: -550px;
   line-height: 60px;
   padding-left: 50px;
-  height: 400px;
 }
 
 .welcome-title {
@@ -462,7 +437,8 @@ footer {
 }
 
 kbd {
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   border: 1px solid black;
   border-radius: 8px;
   padding-left: 5px;
