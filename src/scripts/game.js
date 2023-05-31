@@ -49,7 +49,6 @@ class Game {
   }
 
   draw(ctx) {
-    console.log("draw");
     ctx.clearRect(0, 0, this.xDim, this.yDim);
     const pattern = ctx.createPattern(this.background, "repeat");
     ctx.fillStyle = pattern;
@@ -139,7 +138,6 @@ class Game {
   }
 
   addPoints() {
-    console.log("add points");
     if (this.bee.caught) this.score = 0;
     if (this.bee.landed && this.beehive.isCollidedWith(this.bee))
       this.score += CONSTANTS.BEEHIVEBONUS;

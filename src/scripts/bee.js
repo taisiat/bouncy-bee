@@ -150,7 +150,7 @@ class Bee extends MovingObject {
   }
 
   setTrajectory(direction) {
-    const nudgeFactor = 0;
+    let nudgeFactor = 0;
     if (direction === this.directions.UP) {
       nudgeFactor = CONSTANTS.NUDGE;
     } else if (direction === this.directions.DOWN) {
@@ -219,7 +219,8 @@ class Bee extends MovingObject {
   }
 
   nudge(direction) {
-    const nudgeFactor = 0;
+    console.log("nudge");
+    let nudgeFactor = 0;
     if (direction === this.directions.LEFT) {
       nudgeFactor = CONSTANTS.NUDGE;
     } else if (direction === this.directions.RIGHT) {

@@ -97,10 +97,10 @@ class GameView {
 
   aKeyHandler() {
     let nudgeDirection = {
-      UP: "left",
-      DOWN: "right",
-      LEFT: "",
-      RIGHT: "",
+      up: "left",
+      down: "right",
+      left: "",
+      right: "",
     };
     let beeDirection = this.game.bee.beeDirection();
     if (this.game.bee.launched) {
@@ -112,10 +112,10 @@ class GameView {
 
   wKeyHandler() {
     let nudgeDirection = {
-      UP: "",
-      DOWN: "",
-      LEFT: "right",
-      RIGHT: "left",
+      up: "",
+      down: "",
+      left: "right",
+      right: "left",
     };
     let beeDirection = this.game.bee.beeDirection();
 
@@ -128,10 +128,10 @@ class GameView {
 
   sKeyHandler() {
     let nudgeDirection = {
-      UP: "",
-      DOWN: "",
-      LEFT: "left",
-      RIGHT: "right",
+      up: "",
+      down: "",
+      left: "left",
+      right: "right",
     };
     let beeDirection = this.game.bee.beeDirection();
 
@@ -144,15 +144,21 @@ class GameView {
 
   dKeyHandler() {
     let nudgeDirection = {
-      UP: "right",
-      DOWN: "left",
-      LEFT: "",
-      RIGHT: "",
+      up: "right",
+      down: "left",
+      left: "",
+      right: "",
     };
     let beeDirection = this.game.bee.beeDirection();
 
     if (this.game.bee.launched) {
       this.game.bee.nudge(nudgeDirection[beeDirection]);
+      console.log(
+        nudgeDirection[beeDirection],
+        "nudgedir",
+        beeDirection,
+        "beeDir"
+      );
     } else if (!this.game.bee.launched) {
       this.game.bee.setTrajectory(this.directions.DOWN);
     }
@@ -197,7 +203,7 @@ class GameView {
   }
 
   animate(time) {
-    console.log("animate");
+    // console.log("animate");
 
     if (this.running) {
       // if (!this.lastTime) {
@@ -205,13 +211,16 @@ class GameView {
         this.lastTime = time;
       }
       const timeDelta = time - this.lastTime;
-      console.log(time, "time", this.lastTime, "lastTime", timeDelta, "delta");
+      // console.log(time, "time", this.lastTime, "lastTime", timeDelta, "delta");
       this.game.step(timeDelta);
       this.game.draw(this.ctx);
       this.drawScore();
     } else {
       console.log("instructions");
       this.drawInstructions();
+      if (this.animationFrameId) {
+        cancelAnimationFrame(this.animationFrameId);
+      }
     }
 
     if (!this.game.gameOver()) {
