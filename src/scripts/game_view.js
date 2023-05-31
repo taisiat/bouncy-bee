@@ -85,25 +85,12 @@ class GameView {
     key("left", () => {
       this.aKeyHandler();
     });
-    key("b", () => {
-      this.bKeyHandler();
-    });
   }
 
   spaceKeyHandler() {
     if (this.game && !this.game.bee.launched) {
       this.game.bee.launch();
-      // } else {
-      //   this.restart();
     }
-  }
-
-  bKeyHandler() {
-    // if (this.game && !this.game.bee.launched) {
-    //   this.game.bee.launch();
-    // } else {
-    this.restart();
-    // }
   }
 
   aKeyHandler() {
@@ -164,12 +151,6 @@ class GameView {
 
     if (this.game.bee.launched) {
       this.game.bee.nudge(nudgeDirection[beeDirection]);
-      console.log(
-        nudgeDirection[beeDirection],
-        "nudgedir",
-        beeDirection,
-        "beeDir"
-      );
     } else if (!this.game.bee.launched) {
       this.game.bee.setTrajectory(this.directions.DOWN);
     }
@@ -185,15 +166,12 @@ class GameView {
   }
 
   restart() {
-    console.log("restart");
     this.running = false;
     this.score = 0;
     this.lastTime = 0;
-    //cancel prior games
     if (this.animationFrameId) {
       cancelAnimationFrame(this.animationFrameId);
     }
-    //
     this.game = new Game({
       xDim: GameView.CANVAS_DIM_X,
       yDim: GameView.CANVAS_DIM_Y,
@@ -207,8 +185,6 @@ class GameView {
   }
 
   pause() {
-    console.log("pause");
-
     this.running = false;
     this.animate(this.lastTime);
   }
@@ -223,7 +199,6 @@ class GameView {
       this.game.draw(this.ctx);
       this.drawScore();
     } else {
-      console.log("instructions");
       this.drawInstructions();
       if (this.animationFrameId) {
         cancelAnimationFrame(this.animationFrameId);

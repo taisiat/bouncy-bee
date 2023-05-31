@@ -12,7 +12,7 @@ const CONSTANTS = {
   FLOWERPOINT: 1,
   EMPTY_REGION: 0.15,
   MIN_EDGE_DISTANCE: 40,
-  WASP_LOCATION_ADJ: 0.25,
+  WASP_LOCATION_ADJ: 0.35,
 };
 
 class Game {
@@ -45,7 +45,6 @@ class Game {
     this.waspAttackPoints = -1.5;
     this.flowerHealthPoints = 0.05;
     this.beehiveHealthPoints = 0.1;
-    this.waspFlag = true;
   }
 
   draw(ctx) {
@@ -188,10 +187,8 @@ class Game {
   }
 
   randomPosition(waspFlag) {
-    console.log("randomPosition");
     let waspAdj = 0;
     if (waspFlag === true) {
-      console.log("waspAdj");
       waspAdj = CONSTANTS.WASP_LOCATION_ADJ;
     }
     let randomPos = [

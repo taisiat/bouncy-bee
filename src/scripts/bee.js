@@ -219,7 +219,6 @@ class Bee extends MovingObject {
   }
 
   nudge(direction) {
-    console.log("nudge");
     let nudgeFactor = 0;
     if (direction === this.directions.LEFT) {
       nudgeFactor = CONSTANTS.NUDGE;
