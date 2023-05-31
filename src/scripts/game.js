@@ -149,7 +149,7 @@ class Game {
   }
 
   addWasps() {
-    return new Wasp({ pos: this.randomPosition(this.waspFlag), game: this });
+    return new Wasp({ pos: this.randomPosition(true), game: this });
   }
 
   addFlowers() {
@@ -188,8 +188,10 @@ class Game {
   }
 
   randomPosition(waspFlag) {
+    console.log("randomPosition");
     let waspAdj = 0;
-    if (waspFlag) {
+    if (waspFlag === true) {
+      console.log("waspAdj");
       waspAdj = CONSTANTS.WASP_LOCATION_ADJ;
     }
     let randomPos = [
