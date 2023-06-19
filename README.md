@@ -9,6 +9,8 @@ BouncyBee is a single-page game where cannon shooter meets pool and shuffleboard
 The player earns points when the bee flies across (pollinates!) flowers, and gets extra points if the bee lands back at the beehive. The player loses if the bee depletes its health fully, which happens when it runs into the wasps that move across the gameboard.
 
 Play it here! <a href="https://taisiat.github.io/bouncy-bee/">https://taisiat.github.io/bouncy-bee/</a>
+<br>
+Or, watch the quick <a target="_blank" href="https://youtu.be/ppZjaORjJZk"> ▶️ video walkthrough.</a> 
 
 See my <a href="https://github.com/taisiat">github</a> and <a href="https://www.linkedin.com/in/taisiakaraseva/">Linkedin</a>
 
