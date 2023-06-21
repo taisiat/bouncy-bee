@@ -12,7 +12,11 @@ Play it here! <a href="https://taisiat.github.io/bouncy-bee/">https://taisiat.gi
 <br>
 Or, watch the quick <a target="_blank" href="https://youtu.be/ppZjaORjJZk"> ▶️ video walkthrough.</a> 
 
-See my <a href="https://github.com/taisiat">github</a> and <a href="https://www.linkedin.com/in/taisiakaraseva/">Linkedin</a>
+<a href="https://github.com/taisiat">Github</a>
+<br>
+<a href="https://www.linkedin.com/in/taisiakaraseva/">Linkedin</a>
+<br>
+<a href="https://www.taisiat.com/?utm_source=bouncybee&utm_medium=readme">Portfolio</a>
 
 ### Functionality & MVPs
 
