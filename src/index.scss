@@ -201,7 +201,7 @@ header #title {
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
   font-size: 18px;
-  margin-top: 5px;
+  margin-top: 8px;
   margin-bottom: 2px;
   padding-top: 8px;
   border-top: 1px solid black;
@@ -222,15 +222,26 @@ header #title {
 }
 
 #icon-gh,
-#icon-li {
-  font-size: 25px;
-  margin-top: -3px;
-  margin-left: 3px;
-  margin-right: 3px;
+#icon-li,
+#icon-po {
+  font-size: 20px;
+  margin-top: -5px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 #name {
   margin-right: 3px;
+  text-decoration: none;
+  color: black;
+  transition: all 0.2s ease-in-out;
+  font-size: 17px;
+}
+
+#name:hover {
+  transition: all 0.2s ease-in-out;
+  color: #067a72ec;
+  transform: scale3d(1.04, 1.04, 1.04);
 }
 
 a {
